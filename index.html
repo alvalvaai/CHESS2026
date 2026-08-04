@@ -1,1 +1,1959 @@
-README.md
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- 1. Favicon para la pestaña del navegador -->
+    <link rel="icon" type="image/jpeg" href="Logo.jpg">
+
+    <!-- 2. Icono oficial para la pantalla de inicio en iPhone / iPad -->
+    <link rel="apple-touch-icon" href="Logo.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="Logo.jpg">
+
+    <!-- 3. Nombre y comportamiento de App en el móvil -->
+    <meta name="apple-mobile-web-app-title" content="Torneo Ajedrez">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XIX Torneo de Ajedrez - Portal Oficial</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Paleta estilo Lichess Arena / Maderas Clara */
+        body { background-color: #eddcc4; color: #262322; }
+        .bg-lichess-card { background-color: #f7f3eb; border: 1px solid #dcd1be; }
+        .bg-lichess-dark-header { background-color: #363231; color: #edebe9; }
+        .bg-lichess-chesspions { background-color: #fff9e6; border-left: 5px solid #d4af37; }
+        .bg-lichess-chesscond { background-color: #f0f4f8; border-left: 5px solid #4a7c59; }
+        tr:hover { background-color: #f1eae0 !important; }
+       .tab-btn.active { background-color: #262322 !important; color: #ffffff !important; opacity: 1 !important; }
+        
+        /* Indicadores de posición */
+        .zone-upgrade { border-left: 4px solid #16a34a !important; } /* Sube */
+        .zone-playoff { border-left: 4px solid #ea580c !important; }  /* Promoción */
+        .zone-downgrade { border-left: 4px solid #dc2626 !important; } /* Baja */
+    </style>
+</head>
+<body class="font-sans min-h-screen antialiased">
+
+    <!-- CABECERA PRINCIPAL -->
+    <header class="bg-lichess-dark-header text-white shadow-md px-6 py-4 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 gap-4">
+        <div class="flex items-center gap-3">
+            <img src="Logo.jpg" alt="Logo Torneo" class="h-10 w-10 object-cover rounded-lg shadow-sm border border-stone-700">
+            <div>
+                <h1 class="text-2xl font-black tracking-tight text-[#eddcc4]">XX Torneo de Ajedrez</h1>
+                <p class="text-xs text-stone-400 font-bold uppercase tracking-widest">Portal de Competición Oficial</p>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 w-full max-w-3xl mx-auto bg-stone-900/40 p-1.5 rounded-2xl border border-stone-700/50">
+            <button id="tab-liga" onclick="switchTab('liga')" class="tab-btn active text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🏆 Competición</button>
+            
+            <button id="tab-resumen" onclick="switchTab('resumen')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">✍️ El Ojo del Alfil</button>
+            
+            <button id="tab-mundo" onclick="switchTab('mundo')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🌍 Mundo Chess</button>
+
+            <button id="tab-peones" onclick="switchTab('peones')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📇 Peones</button>
+
+            <button id="tab-reportar" onclick="switchTab('reportar')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📤 Resultados</button>
+
+            <button id="tab-palmares" onclick="switchTab('palmares')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">👑 Palmarés</button>
+            
+            <button id="tab-reglamento" onclick="switchTab('reglamento')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📜 Reglamento</button>
+        </div>
+    </header>
+
+    <!-- PESTAÑA REGLAMENTO -->
+    <div id="content-reglamento" class="hidden max-w-5xl mx-auto p-4 md:p-6 space-y-6">
+    <div class="bg-lichess-card p-6 md:p-8 rounded-2xl shadow-md border border-stone-300">
+        <h2 class="text-2xl font-black mb-6 border-b-2 border-stone-400 pb-2 text-stone-800 flex items-center gap-2">
+            <i data-lucide="book-open" class="text-amber-800"></i> XX Torneo - Reglamento Oficial
+        </h2>
+        
+        <div class="prose max-w-none text-stone-800 space-y-6 font-medium leading-relaxed">
+            <p class="text-base italic text-stone-600 font-semibold border-l-4 border-amber-600 pl-3 bg-stone-50 py-2 rounded-r">
+                ¡Bienvenidos al "XX Torneo"! En nombre de la organización, queremos agradecer a todos los participantes su disposición y sus ganas para esta XX edición. ♟️🔥
+            </p>
+
+            <div>
+                <p class="font-bold text-lg text-amber-900 flex items-center gap-1">📌 Formato de Jornada y Puntuación</p>
+                <ul class="list-disc pl-5 space-y-2 mt-2">
+                    <li>Cada enfrentamiento consta de un bloque de <b>4 partidas individuales</b> por jornada.</li>
+                    <li><b>Ritmos de juego:</b> 2 partidas a ritmo <b>10'+0</b> y 2 partidas a ritmo <b>3'+2"</b>.</li>
+                    <li><b>Sistema de puntuación:</b> Cada partida individual otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate).</li>
+                </ul>
+            </div>
+
+          <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
+                <p class="font-bold text-base text-stone-900 flex items-center gap-1">⚖️ Criterios de Desempate en la Clasificación</p>
+                <div class="mt-2 space-y-3 text-sm">
+                    <div>
+                        <span class="font-bold text-amber-800">Empate entre 2 jugadores:</span>
+                        <ol class="list-decimal pl-5 mt-1 space-y-1 text-stone-800">
+                            <li>Enfrentamiento particular directo entre ambos.</li>
+                            <li>En caso de haber quedado 2-2, se mirará quién ha ganado <b>más jornadas globales</b>.</li>
+                            <li>Si persiste el empate, se clasificará quien tenga <b>más partidas individuales ganadas</b>.</li>
+                        </ol>
+                    </div>
+                    <div>
+                        <span class="font-bold text-amber-800">Empate entre más de 2 jugadores (Triple empate o más):</span>
+                        <ol class="list-decimal pl-5 mt-1 space-y-1 text-stone-800">
+                            <li><b>Puntos en Mini-Liga particular:</b> Puntos sumados <u>exclusivamente</u> en los partidos jugados entre los implicados.</li>
+                            <li>En caso de persistir el empate, se mirará quien haya ganado <b>más jornadas globales</b> en el torneo.</li>
+                            <li>Si aún persiste el empate, se clasificará quien tenga <b>más partidas individuales ganadas</b> en el torneo.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="font-bold text-lg text-emerald-900 flex items-center gap-1">🔄 Estructura, Ascensos y Descensos</p>
+                <p class="mt-1">El torneo se compone de dos divisiones equilibradas de <b>14 jugadores en Primera</b> y <b>14 jugadores en Segunda</b>. Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
+                
+                <ul class="list-disc pl-5 space-y-3 mt-2">
+                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Primera División</span> Los <b>3 últimos clasificados</b> descienden de forma directa a Segunda.</li>
+                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Segunda División</span> Los <b>3 primeros clasificados</b> obtienen el ascenso directo a Primera.</li>
+                    <li><span class="inline-flex bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Promoción Híbrida</span> Del <b>7º al 11º de Primera</b> disputarán una promoción de duelo directo contra los clasificados del <b>4º al 8º de Segunda</b> (5 duelos en total).
+                        <ul class="list-circle pl-5 mt-1 text-stone-700">
+                            <li>El ganador de cada duelo obtendrá/mantendrá la plaza en Primera.</li>
+                            <li>El formato del match es idéntico al de la liga regular (4 partidas).</li>
+                            <li>En caso de empate en el duelo, se jugará un desempate reduciendo tiempos sin incremento hasta que alguien gane dos partidas seguidas: primero a <b>5’</b>, luego <b>3’</b> y finalmente <b>1’</b>.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="border-l-4 border-emerald-600 bg-emerald-50/50 p-4 rounded-r-xl">
+                <p class="font-bold text-lg text-emerald-950 flex items-center gap-1">🏆 Final Four (Título de Primera)</p>
+                <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-emerald-900">
+                    <li>Los <b>4 primeros clasificados de Primera</b> jugarán una Final Four (Semifinales y Final) de donde saldrá el Campeón absoluto.</li>
+                    <li>El formato de juego será igual que en la liga regular.</li>
+                    <li>En caso de empate en la ronda, avanzará o ganará el jugador que haya obtenido la <b>mejor posición en la liga regular</b>.</li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="font-bold text-lg text-indigo-950 flex items-center gap-1">💬 Normas de Convivencia y Comunicación</p>
+                <p class="mt-1 text-sm">Contamos con dos chats específicos en WhatsApp. Los administradores <span class="font-bold text-indigo-900">FranHerrera</span> y <span class="font-bold text-indigo-900">Gordeza</span> velarán estrictamente por el cumplimiento de estas normas: 🧐</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                    <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
+                        <span class="font-bold text-indigo-900 block mb-1">💬 Chat TERTULIA</span>
+                        <p class="text-xs text-stone-600">Exclusivo para debatir sobre las partidas, comentar jugadas o pactar enfrentamientos amistosos.</p>
+                    </div>
+                    <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-200">
+                        <span class="font-bold text-indigo-900 block mb-1">📢 Chat TOURNAMENT</span>
+                        <p class="text-xs text-stone-600"><span class="font-bold uppercase text-red-700">SÓLO</span> sirve para anunciar los horarios acordados y publicar los resultados definitivos.</p>
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl mt-4 text-xs space-y-2">
+                    <p><b>✍️ Formato para anunciar enfrentamientos:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">FranHerrera vs Alberzas a las 18'30</code></p>
+                    <p><b>✍️ Formato para anunciar resultados:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">J1 Gordeza 0 - 4 Guindiana 🍩</code></p>
+                </div>
+
+                <ul class="list-disc pl-5 space-y-2 mt-4">
+                    <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es <b>IRREVOCABLE de martes a lunes</b>. Los martes, nuestro corresponsal <span class="font-bold text-stone-950">Guindiana</span> actualizará los cuadros y clasificaciones oficiales de la app.</li>
+                    <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: RESUMEN DE LA JORNADA -->
+<div id="content-resumen" class="hidden space-y-4">
+    <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400 max-w-2xl mx-auto">
+        <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
+            🤖 Crónica de la Jornada
+        </h2>
+        <!-- Aquí dentro se inyectará el texto de Google Sheets -->
+        <div id="texto-resumen-ia" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
+            <p class="text-stone-500 italic text-center py-4">Cargando crónica de la semana...</p>
+        </div>
+    </div>
+</div>
+    <!-- TAB: MUNDO CHESS (NOTICIAS DE LA SEMANA) -->
+<div id="content-mundo-chess" class="hidden space-y-4">
+    <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400 max-w-2xl mx-auto">
+        <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
+            🌍 Noticias Mundiales de Ajedrez
+        </h2>
+        <!-- 🎯 Aquí dentro se inyectará el resumen de las noticias desde la Sheets -->
+        <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
+            <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
+        </div>
+    </div>
+</div>
+
+   <!-- TAB: PALMARÉS HISTÓRICO -->
+    <div id="content-palmares" class="hidden max-w-6xl mx-auto p-4 md:p-6 space-y-8">
+
+        <!-- CABECERA -->
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-black text-stone-900 flex items-center justify-center gap-2">
+                👑 Salón de la Fama del Torneo
+            </h2>
+            <p class="text-sm text-stone-600 font-medium">Todos los campeones, subcampeones y terceros clasificados a lo largo de la historia.</p>
+        </div>
+
+        <!-- RANKING HISTÓRICO (PALMARÉS POR JUGADOR) -->
+        <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-amber-100 via-amber-50 to-stone-100 border-b border-stone-300">
+                <h3 class="text-lg font-black text-amber-900 flex items-center gap-2">🏅 Ranking Histórico de Podios</h3>
+                <p class="text-xs text-stone-600 font-medium mt-0.5">Ordenado por número de títulos conseguidos.</p>
+            </div>
+            <div id="palmares-ranking-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 p-5">
+                <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando palmarés histórico...</p>
+            </div>
+        </section>
+
+        <!-- TABLA DE EDICIONES -->
+        <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+            <div class="p-5 bg-gradient-to-r from-stone-200 to-stone-100 border-b border-stone-300">
+                <h3 class="text-lg font-black text-stone-900 flex items-center gap-2">📜 Historial de Ediciones</h3>
+                <p class="text-xs text-stone-600 font-medium mt-0.5">Podio completo de cada una de las ediciones jugadas.</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm" id="table-palmares">
+                    <thead>
+                        <tr class="border-b border-stone-400 bg-stone-200/60 text-stone-700 font-bold">
+                            <th class="py-3 px-3 text-center w-20">Edición</th>
+                            <th class="py-3 px-4 bg-amber-100 text-amber-950 font-black">🥇 Campeón</th>
+                            <th class="py-3 px-4 bg-stone-200 text-stone-800 font-black">🥈 Segundo</th>
+                            <th class="py-3 px-4 bg-orange-100 text-orange-950 font-black">🥉 Tercero</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-stone-300" id="table-palmares-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    
+    <!-- TAB: PEONES (FICHAS DE LOS PARTICIPANTES) -->
+    <div id="content-peones" class="hidden max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+        <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-stone-300 pb-3 mb-4">
+                <h2 class="text-xl font-black text-stone-900 flex items-center gap-2">
+                    📇 Peones — Conoce a los Participantes
+                </h2>
+                <input id="peones-search" type="text" placeholder="🔍 Buscar por nombre o nick..." class="w-full sm:w-72 px-4 py-2 rounded-xl border border-stone-300 bg-white text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-amber-700">
+            </div>
+            <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
+
+            <a href="https://forms.gle/VBGnW7tXTkAdEEGU8" target="_blank" class="flex items-center justify-between gap-3 bg-amber-800 hover:bg-amber-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
+                <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
+                <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
+            </a>
+
+            <div id="peones-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando fichas de los participantes...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: REPORTAR RESULTADO -->
+    <div id="content-reportar" class="hidden max-w-2xl mx-auto p-4 md:p-6 space-y-6">
+        <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
+            <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
+                📤 Resultados
+            </h2>
+            <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
+                    <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700"></select>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
+                    <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700"></select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                        <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                    </div>
+                    <div>
+                        <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                        <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                    </div>
+                </div>
+                <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
+
+                <div>
+                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
+                    <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
+                    <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                    <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                </div>
+
+                <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                    Enviar Resultado
+                </button>
+
+                <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PESTAÑA PRINCIPAL: LIGA -->
+    <div id="content-liga" class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- SECCIÓN IZQUIERDA Y CENTRAL -->
+        <div class="lg:col-span-2 space-y-8">
+            
+            <!-- DESTACADOS: PARTIDOS DE LA JORNADA (DOBLE: CHESSPIONS Y CHESSCOND) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Chesspions MOTW -->
+                <div id="motw-chesspions" class="bg-gradient-to-br from-amber-700 to-amber-900 rounded-2xl p-4 shadow-lg text-white">
+                    <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">⭐ Destacado Chesspions League</span>
+                    <div id="motw-chesspions-details" class="mt-4 flex justify-around items-center text-center font-bold">
+                        <p class="text-xs opacity-75">Buscando el partido de la jornada...</p>
+                    </div>
+                </div>
+                <!-- Chesscond MOTW -->
+                <div id="motw-chesscond" class="bg-gradient-to-br from-emerald-700 to-emerald-950 rounded-2xl p-4 shadow-lg text-white">
+                    <span class="bg-emerald-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">⭐ Destacado Chesscond Division</span>
+                    <div id="motw-chesscond-details" class="mt-4 flex justify-around items-center text-center font-bold">
+                        <p class="text-xs opacity-75">Buscando el partido de la jornada...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALENDARIO INTERACTIVO -->
+            <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                    <div>
+                        <h2 class="text-xl font-black flex items-center gap-2 text-stone-800">
+                            <i data-lucide="calendar-days" class="w-5 h-5 text-amber-800"></i> Calendario de Enfrentamientos
+                        </h2>
+                        <p class="text-sm font-bold text-stone-600 mt-1" id="calendar-dates">Cargando fechas de juego...</p>
+                    </div>
+                    <div class="flex items-center gap-2 self-end sm:self-auto">
+                        <button id="prev-round" class="p-2 rounded-xl border border-stone-400 bg-white text-stone-800 hover:bg-stone-100"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                        <select id="round-select" class="bg-white border border-stone-400 rounded-xl px-3 py-2 text-sm font-bold text-stone-800 focus:outline-none shadow-xs"></select>
+                        <button id="next-round" class="p-2 rounded-xl border border-stone-400 bg-white text-stone-800 hover:bg-stone-100"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </section>
+
+            <!-- CLASIFICACIONES -->
+            <section class="space-y-8">
+                <!-- Chesspions League -->
+                <div class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                    <div class="p-5 bg-gradient-to-r from-amber-100 to-amber-50 border-b border-stone-300">
+                        <h2 class="text-lg font-black text-amber-900 flex items-center gap-2">🏆 Chesspions League (Primera División)</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm" id="table-chesspions">
+                            <thead>
+                                <tr class="border-b border-stone-400 bg-stone-200/60 text-stone-700 font-bold">
+                                    <th class="py-3 px-3 text-center w-12">#</th>
+                                    <th class="py-3 px-3 text-stone-900">Jugador</th>
+                                    <th class="py-3 px-4 text-center bg-amber-200 text-amber-950 font-black w-24">PUNTOS</th>
+                                    <th class="py-3 px-2 text-center text-indigo-800 border-l border-stone-300 w-10">EV</th>
+                                    <th class="py-3 px-2 text-center text-rose-700 w-10">ED</th>
+                                    <th class="py-3 px-2 text-center text-stone-600 w-10">EE</th>
+                                    <th class="py-3 px-2 text-center text-stone-800 border-l border-stone-300 w-10">J</th>
+                                    <th class="py-3 px-2 text-center text-emerald-700 w-10">G</th>
+                                    <th class="py-3 px-2 text-center text-red-600 w-10">P</th>
+                                    <th class="py-3 px-2 text-center text-amber-600 w-10">T</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-300"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Chesscond Division -->
+                <div class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                    <div class="p-5 bg-gradient-to-r from-emerald-100 to-emerald-50 border-b border-stone-300">
+                        <h2 class="text-lg font-black text-emerald-900 flex items-center gap-2">🥈 Chesscond Division (Segunda División)</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-sm" id="table-chesscond">
+                            <thead>
+                                <tr class="border-b border-stone-400 bg-stone-200/60 text-stone-700 font-bold">
+                                    <th class="py-3 px-3 text-center w-12">#</th>
+                                    <th class="py-3 px-3 text-stone-900">Jugador</th>
+                                    <th class="py-3 px-4 text-center bg-emerald-200 text-emerald-950 font-black w-24">PUNTOS</th>
+                                    <th class="py-3 px-2 text-center text-indigo-800 border-l border-stone-300 w-10">EV</th>
+                                    <th class="py-3 px-2 text-center text-rose-700 w-10">ED</th>
+                                    <th class="py-3 px-2 text-center text-stone-600 w-10">EE</th>
+                                    <th class="py-3 px-2 text-center text-stone-800 border-l border-stone-300 w-10">J</th>
+                                    <th class="py-3 px-2 text-center text-emerald-700 w-10">G</th>
+                                    <th class="py-3 px-2 text-center text-red-600 w-10">P</th>
+                                    <th class="py-3 px-2 text-center text-amber-600 w-10">T</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-300"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- LEYENDA DETALLADA Y REFERENCIAS DE ZONAS -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold text-stone-700">
+                <div class="p-4 bg-lichess-card rounded-xl border border-stone-300 space-y-2">
+                    <p class="text-stone-900 uppercase tracking-wider font-black text-[10px] flex items-center gap-1">
+                        <i data-lucide="award" class="w-3.5 h-3.5 text-amber-600"></i> LEYENDA DE DISTINCIONES Y DATOS:
+                    </p>
+                    <p><b>EV / ED / EE:</b> Enfrentamientos Victorias, Derrotas y Empatados.</p>
+                    <p><b>J / G / P / T:</b> Partidas individuales Jugadas, Ganadas, Perdidas y Tablas.</p>
+                    
+                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-stone-200 text-[11px] font-medium">
+                        <div class="flex items-center gap-1.5"><span>👑</span> <span class="font-bold text-stone-950">Victorias</span></div>
+                        <div class="flex items-center gap-1.5"><span>🤝</span> <span class="font-bold text-stone-950">Tablas</span></div>
+                        <div class="flex items-center gap-1.5"><span>🛡️</span> <span class="font-bold text-stone-950">Muro (Menos P)</span></div>
+                        <div class="flex items-center gap-1.5"><span>🍩</span> <span class="font-bold text-amber-900">Rey del Rosco (Más 4-0)</span></div>
+                        <div class="flex items-center gap-1.5"><span>🇯🇵</span> <span class="font-bold text-red-900">Samurái (Más 0-4)</span></div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-lichess-card rounded-xl border border-stone-300 space-y-2">
+                    <p class="text-stone-900 uppercase tracking-wider font-black text-[10px]">ESTRUCTURA DE LA TABLA Y COLORES:</p>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 bg-green-600 rounded-xs"></span> Zona de Final Four / Ascenso Directo</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 bg-orange-500 rounded-xs"></span> Zona de Promoción</div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 bg-red-600 rounded-xs"></span> Zona de Descenso Directo</div>
+                </div>
+            </div>
+            </section>
+
+            <!-- FASES FINALES -->
+            <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300">
+                <h2 class="text-xl font-black mb-6 flex items-center gap-2 text-stone-800">
+                    <i data-lucide="swords" class="w-5 h-5 text-red-700"></i> Fases Finales y Promociones
+                </h2>
+                <div id="playoffs-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </section>
+        </div>
+
+        <!-- SECCIÓN DERECHA: PUZLE LICHESS -->
+        <div class="space-y-6">
+            <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300 sticky top-24">
+                <h2 class="text-lg font-black mb-4 flex items-center gap-2 text-purple-800">
+                    <i data-lucide="puzzle" class="w-5 h-5"></i> El Reto Diario Lichess
+                </h2>
+                <div id="lichess-puzzle-container" class="space-y-4">
+                    <p class="text-xs font-bold text-stone-700 bg-stone-200/60 p-2 rounded-lg" id="puzzle-side">Cargando reto...</p>
+                    <div class="aspect-square w-full rounded-xl overflow-hidden border border-stone-300 bg-white">
+                        <iframe id="puzzle-frame" class="w-full h-full border-0" allowtransparency="true"></iframe>
+                    </div>
+                    <a id="puzzle-link" target="_blank" class="w-full block text-center bg-amber-800 hover:bg-amber-900 text-white rounded-xl py-3 font-bold text-sm transition shadow-md">
+                        Resolver en Lichess ♟️
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- VENTANA MODAL: FICHA INTERACTIVA DE JUGADOR -->
+    <div id="player-modal" class="hidden fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+        <div class="bg-lichess-card max-w-md w-full rounded-2xl shadow-2xl overflow-hidden p-6 relative border border-stone-400">
+            <button id="close-modal" class="absolute top-4 right-4 p-1 rounded-lg text-stone-500 hover:bg-stone-200"><i data-lucide="x" class="w-5 h-5"></i></button>
+            
+            <div class="flex items-center gap-4 mb-5 border-b border-stone-300 pb-4">
+                <div class="w-12 h-12 bg-stone-800 text-[#eddcc4] rounded-full flex items-center justify-center text-xl font-bold">♟️</div>
+                <div>
+                    <h3 class="text-xl font-black text-stone-900" id="modal-name">-</h3>
+                    <p class="text-xs text-amber-900 font-bold uppercase tracking-wider" id="modal-division">-</p>
+                    
+                    <!-- 📦 EL NUEVO CONTENEDOR DE ELOS PEGADO AQUÍ COMIENZA -->
+                    <div id="modal-elo-container" class="mt-2 flex gap-2 hidden">
+                        <div class="bg-sky-100 border border-sky-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-sky-950">⏱️ Blitz:</span>
+                            <span id="modal-elo-blitz" class="text-[11px] font-black text-sky-950">-</span>
+                        </div>
+                        <div class="bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-emerald-950">🐢 Ráp.:</span>
+                            <span id="modal-elo-rapidas" class="text-[11px] font-black text-emerald-950">-</span>
+                        </div>
+                    </div>
+                    <!-- EL NUEVO CONTENEDOR TERMINA -->
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <div class="bg-stone-200/70 p-3 rounded-xl border border-stone-300 text-center">
+                    <p class="text-[10px] text-stone-600 font-bold uppercase tracking-wider">Racha de Forma</p>
+                    <p class="text-sm font-black text-stone-900 mt-1" id="modal-streak">-</p>
+                </div>
+                <a id="modal-lichess-btn" target="_blank" class="bg-amber-800 hover:bg-amber-900 text-white rounded-xl flex flex-col items-center justify-center font-bold text-xs transition shadow-sm px-2">
+                    <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Sala de Espera</span> RETAR EN LICHESS 🚀
+                </a>
+
+                <!-- NUEVO BOTÓN DE WHATSAPP -->
+                <a id="modal-whatsapp-btn" target="_blank" class="mt-3 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl flex flex-col items-center justify-center p-3 text-center font-bold" style="display: none;">
+                    <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Conversación</span> ENVIAR WHATSAPP 💬
+                </a>
+            </div>
+
+            <!-- 🚦 SEMÁFORO DE FORMA: ÚLTIMOS 5 ENCUENTROS -->
+            <div class="mb-5">
+                <p class="text-[10px] text-stone-600 font-bold uppercase tracking-wider mb-2 text-center">🚦 Últimos 5 Encuentros</p>
+                <div id="modal-semaforo" class="flex items-center justify-center gap-2"></div>
+            </div>
+
+            <h4 class="text-xs font-bold uppercase text-stone-500 tracking-wider mb-2.5">Historial Reciente</h4>
+            <div id="modal-history" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
+        </div>
+    </div>
+
+    <script>
+        const SHEET_ID = '1_9bVTGafzGQZzxrkV2Yt-sD6QgwIZiCsbL-ZwnsK3Zk';
+
+        // 📤 URL de tu Apps Script publicado como "Aplicación Web" (ver instrucciones aparte).
+        // Sustituye el texto de abajo por la URL real que te dé Google al desplegarlo (termina en /exec).
+        const RESULTADOS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwLwrJYcOB4y-Wrm9Crq9Pnn_e_mLBl0C6AbFHWrKWuU1_H9frfeZQEL8T1GMHC8G9TJw/exec';
+
+        let currentRound = 9;
+        let allMatches = [];
+        let infoData = [];
+        let eloRankingData = []; // 🚀 NUEVA VARIABLE GLOBAL AÑADIDA
+        let datesMap = {};
+        let resumenIAData = "";
+        let chesspionsRows = [], chesscondRows = [];
+        let peonesData = []; // 📇 Fichas de participantes (respuestas del Google Form)
+        let peonesSearchListenerAttached = false;
+        let palmaresCargado = false; // 👑 Evita recargar la pestaña Palmarés cada vez que se abre
+
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+            await fetchPuzzle();
+            await loadSheetCore();
+        });
+
+          window.addEventListener('DOMContentLoaded', async () => {
+            lucide.createIcons();
+            await fetchPuzzle();
+            await loadSheetCore();
+        });
+
+       function switchTab(tab) {
+    // 1. Quitamos el estado activo de TODOS los botones de pestañas
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'text-white', 'bg-stone-800'));
+    
+    // 2. Ocultamos TODOS los contenedores de contenido primero
+    document.getElementById('content-liga').classList.add('hidden');
+    document.getElementById('content-reglamento').classList.add('hidden');
+    
+    const contentResumen = document.getElementById('content-resumen');
+    if (contentResumen) contentResumen.classList.add('hidden');
+
+    // 🆕 Ocultamos el nuevo contenedor de Mundo Chess
+    const contentMundo = document.getElementById('content-mundo-chess');
+    if (contentMundo) contentMundo.classList.add('hidden');
+
+    // 📇 Ocultamos el contenedor de Peones
+    const contentPeones = document.getElementById('content-peones');
+    if (contentPeones) contentPeones.classList.add('hidden');
+
+    // 👑 Ocultamos el contenedor de Palmarés
+    const contentPalmares = document.getElementById('content-palmares');
+    if (contentPalmares) contentPalmares.classList.add('hidden')
+    
+    // 📤 Ocultamos el contenedor de Reportar Resultado
+    const contentReportar = document.getElementById('content-reportar');
+    if (contentReportar) contentReportar.classList.add('hidden');
+
+    // 3. Activamos solo la pestaña y el contenido correspondiente
+    if (tab === 'liga') {
+        document.getElementById('tab-liga').classList.add('active');
+        document.getElementById('content-liga').classList.remove('hidden');
+    } else if (tab === 'resumen') {
+        document.getElementById('tab-resumen').classList.add('active');
+        if (contentResumen) contentResumen.classList.remove('hidden');
+    } else if (tab === 'reglamento') {
+        // 🆕 Ahora reglamento tiene su propia condición limpia
+        document.getElementById('tab-reglamento').classList.add('active');
+        document.getElementById('content-reglamento').classList.remove('hidden');
+    } else if (tab === 'mundo') {
+        // 🆕 Condición para activar la nueva pestaña de Mundo Chess
+        document.getElementById('tab-mundo').classList.add('active');
+        if (contentMundo) contentMundo.classList.remove('hidden');
+    } else if (tab === 'peones') {
+        // 📇 Condición para activar la nueva pestaña de Peones
+        document.getElementById('tab-peones').classList.add('active');
+        if (contentPeones) contentPeones.classList.remove('hidden');
+    } else if (tab === 'reportar') {
+        // 📤 Condición para activar la nueva pestaña de Reportar Resultado
+        document.getElementById('tab-reportar').classList.add('active');
+        if (contentReportar) contentReportar.classList.remove('hidden');
+        initReportarUI();
+    } else if (tab === 'palmares') {
+        // 👑 Condición para activar la nueva pestaña de Palmarés
+        document.getElementById('tab-palmares').classList.add('active');
+        if (contentPalmares) contentPalmares.classList.remove('hidden');
+        if (!palmaresCargado) cargarPalmares();
+    }
+
+}
+
+        async function fetchPuzzle() {
+            try {
+                const res = await fetch('https://lichess.org/api/puzzle/daily');
+                const data = await res.json();
+                document.getElementById('puzzle-side').innerHTML = `🎯 <b>Mueven:</b> ${data.puzzle.color === 'white' ? 'Blancas ⚪' : 'Negras ⚫'}`;
+                document.getElementById('puzzle-frame').src = `https://lichess.org/training/frame?id=${data.puzzle.id}&theme=brown&bg=light`;
+                document.getElementById('puzzle-link').href = `https://lichess.org/training/${data.puzzle.id}`;
+            } catch (e) {
+                document.getElementById('puzzle-side').innerText = "Desafío diario disponible online.";
+            }
+        }
+
+       async function fetchPuzzle() {
+            try {
+                const res = await fetch('https://lichess.org/api/puzzle/daily');
+                const data = await res.json();
+                document.getElementById('puzzle-side').innerHTML = `🎯 <b>Mueven:</b> ${data.puzzle.color === 'white' ? 'Blancas ⚪' : 'Negras ⚫'}`;
+                document.getElementById('puzzle-frame').src = `https://lichess.org/training/frame?id=${data.puzzle.id}&theme=brown&bg=light`;
+                document.getElementById('puzzle-link').href = `https://lichess.org/training/${data.puzzle.id}`;
+            } catch (e) {
+                document.getElementById('puzzle-side').innerText = "Desafío diario disponible online.";
+            }
+        }
+
+        async function loadSheetCore() {
+            // Unificamos el try principal de la función para envolver las peticiones de forma segura
+            try {
+                
+               // ==========================================================
+                // 🤖 LÓGICA: OBTENER RESUMEN DESDE GOOGLE SHEETS (BÚSQUEDA DINÁMICA)
+                // ==========================================================
+                try {
+                    console.log("🔍 [1/4] Solicitando pestaña RESUMEN_IA...");
+                    const resumenRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESUMEN_IA`);
+                    const resumenText = await resumenRes.text();
+                    const resumenRows = JSON.parse(resumenText.substring(47).slice(0, -2)).table.rows;
+                    
+                    let textoBruto = "";
+
+                    if (resumenRows && resumenRows.length > 0) {
+                        // Recorremos todas las filas devueltas buscando el texto de Gemini
+                        for (let i = 0; i < resumenRows.length; i++) {
+                            const celda = resumenRows[i]?.c?.[0]?.v;
+                            // Si encontramos una celda con un texto largo (la crónica), nos quedamos con ella
+                            if (celda && celda.toString().trim().length > 50) {
+                                textoBruto = celda.toString();
+                                console.log(`🎯 ¡Crónica encontrada con éxito en la fila de índice ${i}!`);
+                                break;
+                            }
+                        }
+                    }
+
+                    let resumenIAData = "";
+                    if (textoBruto.trim() !== "") {
+                        // ✨ Convertimos los asteriscos *texto* en negritas <b>texto</b>
+                        let textoConNegritas = textoBruto.replace(/\*(.*?)\*/g, '<b>$1</b>');
+                        
+                        // 📋 Separamos por saltos de línea para maquetar los párrafos
+                        resumenIAData = textoConNegritas
+                            .split('\n')
+                            .map(linea => {
+                                let trimLinea = linea.trim();
+                                if (trimLinea === "") return '<div class="h-3"></div>';
+                                return `<p class="mb-3">${trimLinea}</p>`;
+                            })
+                            .join('');
+                    }
+
+                    if (!resumenIAData) {
+                        resumenIAData = `<p class="text-stone-500 italic text-center py-4">El resumen estará disponible próximamente.</p>`;
+                    }
+                    
+                    const contenedorCronica = document.getElementById('texto-resumen-ia');
+                    if (contenedorCronica) {
+                        contenedorCronica.innerHTML = resumenIAData;
+                        console.log("✅ HTML de la crónica actualizado en pantalla.");
+                    }
+
+                } catch (errResumen) {
+                    console.error("❌ Error procesando la pestaña resumen:", errResumen);
+                }
+                // ==========================================================
+             // ==========================================================
+               // 🌍 LÓGICA: OBTENER NOTICIAS (MUNDO CHESS) DESDE GOOGLE SHEETS
+                // ==========================================================
+                try {
+                    console.log("🔍 Solicitando pestaña MUNDO_CHESS...");
+                    const noticiasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=MUNDO_CHESS`);
+                    const noticiasText = await noticiasRes.text();
+                    const noticiasRows = JSON.parse(noticiasText.substring(47).slice(0, -2)).table.rows;
+                    
+                    let noticiasTextoBruto = "";
+
+                    if (noticiasRows && noticiasRows.length > 0) {
+                        for (let i = 0; i < noticiasRows.length; i++) {
+                            const celdaNoticia = noticiasRows[i]?.c?.[0]?.v;
+                            if (celdaNoticia && celdaNoticia.toString().trim().length > 30) {
+                                noticiasTextoBruto = celdaNoticia.toString();
+                                console.log(`🎯 Noticias de Mundo Chess encontradas en el índice ${i}`);
+                                break;
+                            }
+                        }
+                    }
+
+                    let mundoChessData = "";
+                    if (noticiasTextoBruto.trim() !== "") {
+                        let textoConNegritas = noticiasTextoBruto.replace(/\*(.*?)\*/g, '<b>$1</b>');
+                        
+                        mundoChessData = textoConNegritas
+                            .split('\n')
+                            .map(linea => {
+                                let trimLinea = linea.trim();
+                                if (trimLinea === "") return '<div class="h-3"></div>';
+                                return `<p class="mb-3">${trimLinea}</p>`;
+                            })
+                            .join('');
+                    }
+
+                    if (!mundoChessData) {
+                        mundoChessData = `<p class="text-stone-500 italic text-center py-4">Las noticias de Mundo Chess estarán disponibles próximamente.</p>`;
+                    }
+                    
+                    const contenedorMundoChess = document.getElementById('texto-mundo-chess');
+                    if (contenedorMundoChess) {
+                        contenedorMundoChess.innerHTML = mundoChessData;
+                        console.log("✅ Sección Mundo Chess actualizada correctamente.");
+                    }
+
+                } catch (errMundoChess) {
+                    console.error("❌ Error procesando la pestaña Mundo Chess:", errMundoChess);
+                }
+                // ==========================================================
+
+                // 📦 NUEVA LOGICA: OBTENER RANKING DE ELOS DE LICHESS
+                // ==========================================================
+                try {
+                    const eloRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=ELO_RANKING`);
+                    const eloText = await eloRes.text();
+                    const eloRows = JSON.parse(eloText.substring(47).slice(0, -2)).table.rows;
+                    
+                    eloRankingData = eloRows.map(r => {
+                        return {
+                            Jugador: r.c[0] ? r.c[0].v : "",
+                            Ranking_Blitz: r.c[1] ? r.c[1].v : "N/A",
+                            Ranking_Rapidas: r.c[2] ? r.c[2].v : "N/A"
+                        };
+                    });
+                    console.log("✅ ELO_RANKING cargado con éxito");
+                } catch (errElo) {
+                    console.error("Error al cargar la pestaña ELO_RANKING:", errElo);
+                }
+                // ==========================================================
+
+                // ==========================================================
+                // 📇 LÓGICA: OBTENER FICHAS DE PARTICIPANTES DESDE LA PESTAÑA "Peones"
+                // (Respuestas del Google Form de bienvenida)
+                // ==========================================================
+                try {
+                    const peonesRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Peones`);
+                    const peonesText = await peonesRes.text();
+                    const peonesJson = JSON.parse(peonesText.substring(47).slice(0, -2));
+                    const peonesCols = peonesJson.table.cols || [];
+                    const peonesRows = peonesJson.table.rows || [];
+
+                    // Normaliza texto (minúsculas y sin acentos) para poder comparar cabeceras con seguridad
+                    const normaliza = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
+                    // Busca el índice de la columna cuya cabecera contenga alguna de las palabras clave
+                    const buscaCol = (keywords) => {
+                        for (let i = 0; i < peonesCols.length; i++) {
+                            const label = normaliza(peonesCols[i]?.label);
+                            if (label && keywords.some(k => label.includes(k))) return i;
+                        }
+                        return -1;
+                    };
+
+                    const idx = {
+                        nombre: buscaCol(['nombre y apellidos', 'nombre']),
+                        nickGrupo: buscaCol(['nick del grupo']),
+                        nickLichess: buscaCol(['nick de lichess', 'lichess']),
+                        telefono: buscaCol(['telefono', 'whatsapp']),
+                        ciudad: buscaCol(['ciudad', 'localidad']),
+                        desdeCuando: buscaCol(['desde cuando', 'como empezaste']),
+                        modalidad: buscaCol(['modalidad de juego']),
+                        colorPref: buscaCol(['blancas o negras', 'prefieres piezas']),
+                        apertura: buscaCol(['apertura o defensa']),
+                        estilo: buscaCol(['estilo de juego']),
+                        dias: buscaCol(['dias de la semana']),
+                        horarios: buscaCol(['horarios habituales']),
+                        hobbies: buscaCol(['hobbies o aficiones']),
+                        presentacion: buscaCol(['haz una presentacion', 'presentacion'])
+                    };
+
+                    const getVal = (r, i) => {
+                        if (i < 0 || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
+                        // Usamos el valor "formateado" (.f) si existe, igual que se hace con los resultados de partidas.
+                        // Esto evita que Google Sheets se coma los ceros iniciales de números de teléfono
+                        // que ha interpretado como cifras (ej. "0033612345678" -> 33612345678).
+                        const cell = r.c[i];
+                        return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
+                    };
+
+                    peonesData = peonesRows
+                        .map(r => {
+                            if (!r.c) return null;
+                            return {
+                                nombre: getVal(r, idx.nombre),
+                                nickGrupo: getVal(r, idx.nickGrupo),
+                                nickLichess: getVal(r, idx.nickLichess),
+                                telefono: getVal(r, idx.telefono),
+                                ciudad: getVal(r, idx.ciudad),
+                                desdeCuando: getVal(r, idx.desdeCuando),
+                                modalidad: getVal(r, idx.modalidad),
+                                colorPref: getVal(r, idx.colorPref),
+                                apertura: getVal(r, idx.apertura),
+                                estilo: getVal(r, idx.estilo),
+                                dias: getVal(r, idx.dias),
+                                horarios: getVal(r, idx.horarios),
+                                hobbies: getVal(r, idx.hobbies),
+                                presentacion: getVal(r, idx.presentacion)
+                            };
+                        })
+                        .filter(p => p && (p.nombre || p.nickGrupo));
+
+                    // 🔤 Ordenamos alfabéticamente por Nick del Grupo (o por nombre si no tiene nick)
+                    peonesData.sort((a, b) => {
+                        const claveA = (a.nickGrupo || a.nombre || '').toLowerCase();
+                        const claveB = (b.nickGrupo || b.nombre || '').toLowerCase();
+                        return claveA.localeCompare(claveB, 'es', { sensitivity: 'base' });
+                    });
+
+                    renderPeones(peonesData);
+
+                    if (!peonesSearchListenerAttached) {
+                        const inputBusqueda = document.getElementById('peones-search');
+                        if (inputBusqueda) {
+                            inputBusqueda.addEventListener('input', (e) => {
+                                const q = normaliza(e.target.value);
+                                const filtrado = peonesData.filter(p =>
+                                    normaliza(p.nombre).includes(q) ||
+                                    normaliza(p.nickGrupo).includes(q) ||
+                                    normaliza(p.nickLichess).includes(q) ||
+                                    normaliza(p.ciudad).includes(q)
+                                );
+                                renderPeones(filtrado);
+                            });
+                            peonesSearchListenerAttached = true;
+                        }
+                    }
+
+                    console.log(`✅ Peones cargado con éxito (${peonesData.length} fichas)`);
+                } catch (errPeones) {
+                    console.error("❌ Error al cargar la pestaña Peones:", errPeones);
+                    const gridPeones = document.getElementById('peones-grid');
+                    if (gridPeones) {
+                        gridPeones.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se han podido cargar las fichas de los participantes.</p>`;
+                    }
+                }
+                // ==========================================================
+
+                // 1. OBTENER INFORMACIÓN DE JUGADORES
+                const infoRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=INFO`);
+                const infoText = await infoRes.text();
+                const infoRows = JSON.parse(infoText.substring(47).slice(0, -2)).table.rows;
+                
+                infoRows.forEach((r) => {
+                    if (!r.c || !r.c[1]) return;
+        
+                    infoData.push({
+                        name: r.c[1]?.v || '',
+                        lichess: r.c[3]?.v || '',
+                        telefono: r.c[5]?.v || ''
+                    });
+
+                    if (r.c[7] && r.c[8] && r.c[9]) {
+                        datesMap[r.c[7].v] = { 
+                            start: r.c[8].f || r.c[8].v, 
+                            end: r.c[9].f || r.c[9].v 
+                        };
+                    }
+                }); // <-- LLAVE ALINEADA CORRECTAMENTE AQUÍ
+
+                // 2. OBTENER RESULTADOS COMPLETOS Y EVALUAR ESTADOS AVANZADOS
+const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
+const resText = await resRes.text();
+const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
+
+allMatches = [];
+const todayStr = new Date(); // Fecha actual para comparar
+
+resRows.forEach((r, idx) => {
+  if (!r.c || !r.c[2]) return;
+  
+  let roundNum = parseInt(r.c[0]?.v?.toString().replace(/\D/g,'') || '1');
+  let division = r.c[1]?.v || '';
+  let player1 = r.c[2]?.v || '';
+  let player2 = r.c[3]?.v || '';
+  let score1 = r.c[4] !== null ? (r.c[4].f || r.c[4].v.toString()) : '';
+  let score2 = r.c[5] !== null ? (r.c[5].f || r.c[5].v.toString()) : '';
+  
+  // Leemos la columna G (índice 6): número de partidas individuales que acabaron en tablas
+  let numTablasCol = r.c[6] !== null && r.c[6] !== undefined && r.c[6].v !== null && r.c[6].v !== undefined
+    ? parseInt(r.c[6].v.toString().replace(',', '.')) || 0
+    : 0;
+
+  // Leemos la columna H del Excel (índice 7)
+  let notasExcel = r.c[7]?.v?.toString().toLowerCase() || ''; 
+  
+  let matchStatus = 'Pendiente';
+  
+  if (score1 !== '' || score2 !== '') {
+    matchStatus = 'Terminado';
+  } else if (notasExcel.includes('aplazado')) {
+    matchStatus = 'Aplazado';
+  } else if (notasExcel.includes('fuera de tiempo')) {
+    matchStatus = 'Fuera de tiempo';
+  }
+
+  let individualDraws = 0;
+  if (score1.includes('.5') || score2.includes('.5')) {
+    individualDraws = 1;
+  }
+
+  allMatches.push({
+    round: roundNum, div: division, p1: player1, p2: player2,
+    s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
+  });
+}); // <--- AQUÍ CERRABA TU BUCLE FOREACH DE RESULTADOS
+
+// 3. OBTENER Y AJUSTAR CLASIFICACIÓN CON NUEVO ORDEN DE COLUMNAS
+const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=CLASIFICACION`);
+const clasText = await clasRes.text();
+const clasRows = JSON.parse(clasText.substring(47).slice(0, -2)).table.rows;
+
+chesspionsRows = []; 
+chesscondRows = [];
+
+clasRows.forEach((r) => {
+    if(!r.c || !r.c[1] || r.c[1].v === "Jugador" || typeof r.c[0]?.v !== 'number') return;
+    
+    let parseIntegerClean = (val) => {
+        if (!val) return 0;
+        let n = parseFloat(val.toString().replace(',', '.'));
+        return Math.floor(n);
+    };
+
+    let playerData = {
+        pos: r.c[0].v,
+        name: r.c[1].v,
+        div: r.c[2]?.v || '',
+        j: parseIntegerClean(r.c[3]?.v),
+        w: parseIntegerClean(r.c[4]?.v),
+        l: parseIntegerClean(r.c[5]?.v),
+        t: parseIntegerClean(r.c[6]?.v),
+        ev: r.c[7]?.v || 0,
+        ed: r.c[8]?.v || 0,
+        ee: r.c[9]?.v || 0,
+       pts: parseIntegerClean(r.c[10]?.v || 0)
+    };
+
+    if(playerData.div.toLowerCase().includes("chesspions")) {
+        chesspionsRows.push(playerData);
+    } else {
+        chesscondRows.push(playerData);
+    }
+});
+if (typeof currentRound !== 'undefined') {
+    renderRoundUI(currentRound); 
+}
+                
+// Helper de insignias independientes por división
+const getLimits = (rows) => {
+    let maxT = -1, maxW = -1, minL = 99;
+    rows.forEach(r => {
+        if(r.t > maxT) maxT = r.t;
+        if(r.w > maxW) maxW = r.w;
+        if(r.l < minL) minL = r.l;
+    });
+    return { maxT, maxW, minL };
+};
+
+const buildTableHTML = (rows, isChesspions) => {
+    let html = '';
+    const limits = getLimits(rows);
+    // --- NUEVO: PRECALCULAR LOS ROSCOS DE CADA JUGADOR EN ESTA CATEGORÍA ---
+    // Guardamos los roscos de cada uno para saber cuál es el número máximo
+    let roscosPorJugador = {};
+    let maxRoscosEnDivision = 0;
+    
+    // NUEVAS VARIABLES: Para contar los roscos RECIBIDOS (Samurái 🇯🇵)
+    let roscosRecibidosPorJugador = {};
+    let maxRoscosRecibidosEnDivision = 0;
+
+    rows.forEach(r => {
+        let count = 0;          // Cuenta los hechos a favor (Donut)
+        let countRecibidos = 0; // Cuenta los recibidos en contra (Japón)
+        
+        if (typeof allMatches !== 'undefined') {
+            allMatches.forEach(m => {
+                if (m.status === 'Terminado') {
+                    const s1Int = parseInt(m.s1);
+                    const s2Int = parseInt(m.s2);
+                    const rNameLower = r.name.toLowerCase().trim();
+                    const p1Lower = m.p1.toLowerCase().trim();
+                    const p2Lower = m.p2.toLowerCase().trim();
+
+                    // --- 🍩 ROSCOS HECHOS A FAVOR ---
+                    // Si ganó 4-0 como local
+                    if (p1Lower === rNameLower && s1Int === 4 && s2Int === 0) {
+                        count++;
+                    }
+                    // Si ganó 0-4 como visitante
+                    if (p2Lower === rNameLower && s1Int === 0 && s2Int === 4) {
+                        count++;
+                    }
+
+                    // --- 🇯🇵 ROSCOS RECIBIDOS EN CONTRA ---
+                    // Si PERDIÓ 0-4 como local
+                    if (p1Lower === rNameLower && s1Int === 0 && s2Int === 4) {
+                        countRecibidos++;
+                    }
+                    // Si PERDIÓ 4-0 como visitante
+                    if (p2Lower === rNameLower && s1Int === 4 && s2Int === 0) {
+                        countRecibidos++;
+                    }
+                }
+            });
+        }
+        
+        // Guardamos los datos de los roscos hechos
+        roscosPorJugador[r.name] = count;
+        if (count > maxRoscosEnDivision) {
+            maxRoscosEnDivision = count;
+        }
+
+        // Guardamos los datos de los roscos recibidos
+        roscosRecibidosPorJugador[r.name] = countRecibidos;
+        if (countRecibidos > maxRoscosRecibidosEnDivision) {
+            maxRoscosRecibidosEnDivision = countRecibidos;
+        }
+    });
+
+   // --- RENDERIZADO DE LAS FILAS CON LAS INSIGNIAS CORREGIDAS ---
+rows.forEach((r, index) => {
+    let badge = '';
+    if(r.t === limits.maxT && r.t > 0) badge += ' 🤝';
+    if(r.w === limits.maxW && r.w > 0) badge += ' 👑'; // Corona para el máximo de victorias
+    if(r.l === limits.minL) badge += ' 🛡️';
+
+    // El donut se otorga SOLO si el jugador tiene el número máximo de roscos A FAVOR de su división (y al menos tiene 1)
+    if (maxRoscosEnDivision > 0 && roscosPorJugador[r.name] === maxRoscosEnDivision) {
+        badge += ' 🍩';
+    }
+
+    // NUEVA INSIGNIA: Bandera de Japón para el que más roscos ha RECIBIDO en la división
+    if (typeof maxRoscosRecibidosEnDivision !== 'undefined' && maxRoscosRecibidosEnDivision > 0 && roscosRecibidosPorJugador[r.name] === maxRoscosRecibidosEnDivision) {
+        badge += ' 🇯🇵';
+    }
+
+    // Clases estéticas por defecto de tamaño para el Top 3
+    let rowStyle = "";
+    let textStyle = "text-stone-800 font-medium";
+
+    if(index === 0) { rowStyle = "bg-amber-100/50 scale-[1.01] font-bold text-base"; }
+    else if(index === 1) { rowStyle = "bg-stone-100/80 text-sm font-bold"; }
+    else if(index === 2) { rowStyle = "bg-orange-50/60 text-sm font-bold"; }
+    // ... el resto de tu código del forEach continúa igual
+        // // --- NUEVA LÓGICA DE COLORES DE LIGA PERSONALIZADOS ---
+        let estiloFila = '';
+                        const posicion = r.pos; // Usamos la posición real de la tabla
+
+                        if (isChesspions) {
+                            if (posicion >= 1 && posicion <= 4) {
+                                estiloFila = 'background-color: rgba(46, 204, 113, 0.15) !important; border-left: 5px solid #2ecc71;'; // Verde Playoff
+                            } else if (posicion >= 7 && posicion <= 11) {
+                                estiloFila = 'background-color: rgba(241, 196, 15, 0.15) !important; border-left: 5px solid #f1c40f;'; // Amarillo Promoción
+                            } else if (posicion >= 12 && posicion <= 14) {
+                                estiloFila = 'background-color: rgba(231, 76, 60, 0.15) !important; border-left: 5px solid #e74c3c;'; // Rojo Descenso
+                            }
+                        } else {
+                            // Si es Chesscond Division
+                            if (posicion >= 1 && posicion <= 3) {
+                                estiloFila = 'background-color: rgba(46, 204, 113, 0.15) !important; border-left: 5px solid #2ecc71;'; // Verde Ascenso
+                            } else if (posicion >= 4 && posicion <= 8) {
+                                estiloFila = 'background-color: rgba(241, 196, 15, 0.15) !important; border-left: 5px solid #f1c40f;'; // Amarillo Promoción
+                            }
+                        }
+
+                        // Añadimos el style="${estiloFila}" dinámico a la fila tr
+                        html += `<tr style="${estiloFila}" class="border-b border-stone-300 cursor-pointer transition ${rowStyle} ${textStyle}" onclick="openPlayerModal('${r.name.replace(/'/g, "\\'")}', '${r.div}')">
+                            <td class="py-3 px-3 font-black text-center text-stone-600">${r.pos}</td>
+                            <td class="py-3 px-3 font-bold text-stone-900">${r.name}${badge}</td>
+                            <td class="py-3 px-4 text-center bg-amber-50 font-black text-stone-950 text-base border-l border-r border-stone-300">${r.pts}</td>
+                            <td class="py-3 px-2 text-center text-indigo-900 font-bold">${r.ev}</td>
+                            <td class="py-3 px-2 text-center text-rose-700">${r.ed}</td>
+                            <td class="py-3 px-2 text-center text-stone-600">${r.ee}</td>
+                            <td class="py-3 px-2 text-center text-stone-800 font-semibold border-l border-stone-300">${r.j}</td>
+                            <td class="py-3 px-2 text-center text-emerald-700 font-bold">${r.w}</td>
+                            <td class="py-3 px-2 text-center text-red-600">${r.l}</td>
+                            <td class="py-3 px-2 text-center text-amber-600 font-semibold">${r.t}</td>
+                        </tr>`;
+                    });
+                    return html;
+                };
+                document.querySelector('#table-chesspions tbody').innerHTML = buildTableHTML(chesspionsRows, true);
+                document.querySelector('#table-chesscond tbody').innerHTML = buildTableHTML(chesscondRows, false);
+
+                // Detectar jornada activa por fecha actual
+const today = new Date();
+const currentYear = today.getFullYear(); // Detecta automáticamente el año actual (2026)
+
+for(let key in datesMap) {
+    if(!datesMap[key].start || !datesMap[key].end) continue;
+    
+    let pS = datesMap[key].start.split('/');
+    let pE = datesMap[key].end.split('/');
+    
+    // Creamos las fechas con números (Año, Mes - 1, Día, Hora, Minuto, Segundo)
+    // Restamos 1 al mes porque en JavaScript Enero es 0 y Diciembre es 11
+    let start = new Date(currentYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
+    let end = new Date(currentYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
+    
+    if(today >= start && today <= end) {
+        currentRound = parseInt(key.replace(/\D/g,'') || '10'); // Cambiado a '10' como fallback lógico por tu J10 actual
+        break;
+    }
+}
+
+initCalendarUI();
+renderRoundUI(currentRound);
+
+                // FASES FINALES
+                const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PLAYOFFS`);
+                const playText = await playRes.text();
+                const playRows = JSON.parse(playText.substring(47).slice(0, -2)).table.rows.slice(1);
+                renderPlayoffsUI(playRows);
+
+            } catch (e) {
+                console.error("Fallo crítico: ", e);
+            }
+        }
+
+        // ==========================================================
+        // 📇 RENDERIZADO DE LAS FICHAS DE PEONES (PARTICIPANTES)
+        // ==========================================================
+        function renderPeones(lista) {
+            const grid = document.getElementById('peones-grid');
+            if (!grid) return;
+
+            if (!lista || lista.length === 0) {
+                grid.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se ha encontrado ninguna ficha todavía. ¡Anima a la gente a rellenar el formulario! 📝</p>`;
+                return;
+            }
+
+            const iconoColor = (colorTxt) => {
+                const c = normalizaTexto(colorTxt);
+                if (c.includes('blanc')) return '⚪';
+                if (c.includes('negr')) return '⚫';
+                if (c.includes('igual')) return '🔄';
+                return '♟️';
+            };
+
+            const chips = (txt, colorClasses) => {
+                if (!txt) return '';
+                return txt.split(',').map(v => v.trim()).filter(Boolean)
+                    .map(v => `<span class="text-[10px] font-bold px-2 py-1 rounded-full border ${colorClasses}">${v}</span>`)
+                    .join('');
+            };
+
+            grid.innerHTML = lista.map(p => {
+                const nombreMostrado = p.nombre || p.nickGrupo || 'Peón Anónimo';
+                const inicial = nombreMostrado.trim().charAt(0).toUpperCase() || '♟️';
+
+                const lichessBtn = p.nickLichess
+                    ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-amber-800 hover:bg-amber-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
+                    : '';
+
+                const whatsappBtn = p.telefono
+                    ? (() => {
+                        const numLimpio = formatWhatsappNumber(p.telefono);
+                        return `<a href="https://wa.me/${numLimpio}?text=Hola%20${encodeURIComponent(nombreMostrado)},%20te%20escribo%20desde%20la%20app%20de%20ajedrez." target="_blank" class="flex-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-lg py-1.5 text-[11px] font-bold transition">💬 WhatsApp</a>`;
+                    })()
+                    : '';
+
+                return `
+                <div class="bg-white rounded-2xl border border-stone-300 shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition">
+                    <div class="flex items-center gap-3 border-b border-stone-200 pb-3">
+                        <div class="w-11 h-11 shrink-0 bg-stone-800 text-[#eddcc4] rounded-full flex items-center justify-center text-lg font-black">${inicial}</div>
+                        <div class="min-w-0">
+                            <h3 class="text-base font-black text-stone-900 truncate">${nombreMostrado}</h3>
+                            <div class="flex items-center flex-wrap gap-1.5 mt-0.5">
+                                ${p.nickGrupo ? `<span class="text-[10px] font-bold text-amber-900 bg-amber-100 border border-amber-300 px-1.5 py-0.5 rounded">🏷️ ${p.nickGrupo}</span>` : ''}
+                                ${p.ciudad ? `<span class="text-[10px] font-bold text-stone-600">📍 ${p.ciudad}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    ${(lichessBtn || whatsappBtn) ? `<div class="flex gap-2">${lichessBtn}${whatsappBtn}</div>` : ''}
+
+                    ${p.estilo ? `<p class="text-xs italic text-stone-800 bg-stone-50 border-l-4 border-amber-600 px-3 py-2 rounded-r-lg">"${p.estilo}"</p>` : ''}
+
+                    <div class="flex flex-wrap gap-1.5">
+                        ${p.modalidad ? `<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-100 text-sky-900 border border-sky-300">⏱️ ${p.modalidad}</span>` : ''}
+                        ${p.colorPref ? `<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-stone-100 text-stone-800 border border-stone-300">${iconoColor(p.colorPref)} ${p.colorPref}</span>` : ''}
+                    </div>
+
+                    ${p.apertura ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">♟️ Apertura/Defensa favorita:</span> ${p.apertura}</p>` : ''}
+
+                    ${p.desdeCuando ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">📅 ¿Desde cuándo juega?:</span> ${p.desdeCuando}</p>` : ''}
+
+                    ${(p.dias || p.horarios) ? `
+                    <div class="pt-2 border-t border-stone-100 space-y-1.5">
+                        <p class="text-[10px] font-bold uppercase tracking-wider text-stone-500">🗓️ Disponibilidad</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${chips(p.dias, 'bg-emerald-100 text-emerald-900 border-emerald-300')}
+                            ${chips(p.horarios, 'bg-indigo-100 text-indigo-900 border-indigo-300')}
+                        </div>
+                    </div>` : ''}
+
+                    ${p.hobbies ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">🎨 Aficiones:</span> ${p.hobbies}</p>` : ''}
+
+                    ${p.presentacion ? `
+                    <details class="text-xs text-stone-700 bg-stone-50 rounded-lg border border-stone-200 px-3 py-2">
+                        <summary class="font-bold text-stone-900 cursor-pointer select-none">🗣️ Presentación personal</summary>
+                        <p class="mt-2 whitespace-pre-line">${p.presentacion}</p>
+                    </details>` : ''}
+                </div>`;
+            }).join('');
+        }
+
+        // Normaliza texto (minúsculas, sin acentos) — usada por renderPeones
+        function normalizaTexto(s) {
+            return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        }
+
+
+// ==========================================================
+        // 👑 LÓGICA: PALMARÉS HISTÓRICO (pestaña "PALMARES" de la Sheet)
+        // Columnas esperadas: A=EDICION, B=CAMPEON, C=SEGUNDO, D=TERCERO
+        // ==========================================================
+        async function cargarPalmares() {
+            const gridRanking = document.getElementById('palmares-ranking-grid');
+            const tbody = document.getElementById('table-palmares-body');
+
+            try {
+                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PALMARES`);
+                const text = await res.text();
+                const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
+
+                const getTxt = (r, i) => {
+                    if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
+                    return r.c[i].v.toString().trim();
+                };
+
+                // Filtramos filas de cabecera y filas vacías (ediciones aún no jugadas, como la XIX en curso)
+                const ediciones = rows
+                    .map(r => ({
+                        edicion: getTxt(r, 0),
+                        campeon: getTxt(r, 1),
+                        segundo: getTxt(r, 2),
+                        tercero: getTxt(r, 3)
+                    }))
+                    .filter(e => e.edicion && normalizaTexto(e.edicion) !== 'edicion' && normalizaTexto(e.campeon) !== 'campeon' && e.campeon);
+
+                palmaresCargado = true;
+
+                if (ediciones.length === 0) {
+                    if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">Todavía no hay ediciones registradas en el palmarés.</p>`;
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">Todavía no hay ediciones registradas.</td></tr>`;
+                    return;
+                }
+
+                // --- 1) CONSTRUIMOS EL CONTEO DE PODIOS POR JUGADOR ---
+                const stats = {}; // { nombre: { titulos, sub, tercero } }
+                const sumar = (nombre, campo) => {
+                    if (!nombre) return;
+                    if (!stats[nombre]) stats[nombre] = { titulos: 0, sub: 0, tercero: 0 };
+                    stats[nombre][campo]++;
+                };
+                ediciones.forEach(e => {
+                    sumar(e.campeon, 'titulos');
+                    sumar(e.segundo, 'sub');
+                    sumar(e.tercero, 'tercero');
+                });
+
+                const ranking = Object.keys(stats).map(nombre => ({ nombre, ...stats[nombre] }));
+                ranking.sort((a, b) => {
+                    if (b.titulos !== a.titulos) return b.titulos - a.titulos;
+                    if (b.sub !== a.sub) return b.sub - a.sub;
+                    if (b.tercero !== a.tercero) return b.tercero - a.tercero;
+                    return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+                });
+
+                // --- 2) RENDERIZAMOS LAS TARJETAS DEL RANKING ---
+                if (gridRanking) {
+                    gridRanking.innerHTML = ranking.map((p, idx) => {
+                        let cardStyle = 'bg-white border-stone-300';
+                        let rankBadge = '';
+                        if (idx === 0 && p.titulos > 0) {
+                            cardStyle = 'bg-gradient-to-br from-amber-100 to-amber-50 border-amber-400 shadow-md scale-[1.02]';
+                            rankBadge = `<span class="text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white px-2 py-0.5 rounded-full">Máximo Campeón</span>`;
+                        } else if (idx === 1 && p.titulos > 0) {
+                            cardStyle = 'bg-gradient-to-br from-stone-100 to-stone-50 border-stone-400';
+                        } else if (idx === 2 && p.titulos > 0) {
+                            cardStyle = 'bg-gradient-to-br from-orange-50 to-white border-orange-300';
+                        }
+
+                        return `
+                        <div class="p-4 rounded-xl border ${cardStyle} transition flex flex-col gap-2">
+                            <div class="flex items-center justify-between gap-2">
+                                <h4 class="font-black text-stone-900 text-sm truncate">${p.nombre}</h4>
+                                ${rankBadge}
+                            </div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">🥇 ${p.titulos}</span>
+                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-stone-200 text-stone-800 border border-stone-400">🥈 ${p.sub}</span>
+                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-orange-100 text-orange-900 border border-orange-300">🥉 ${p.tercero}</span>
+                            </div>
+                        </div>`;
+                    }).join('');
+                }
+
+                // --- 3) RENDERIZAMOS LA TABLA DE EDICIONES (de la más reciente a la más antigua) ---
+                if (tbody) {
+                    const edicionesOrdenadas = [...ediciones].reverse();
+                    tbody.innerHTML = edicionesOrdenadas.map(e => `
+                        <tr class="transition">
+                            <td class="py-3 px-3 text-center font-black text-stone-600">${e.edicion}</td>
+                            <td class="py-3 px-4 font-black text-amber-900 bg-amber-50/70">🥇 ${e.campeon}</td>
+                            <td class="py-3 px-4 font-bold text-stone-700 bg-stone-100/70">${e.segundo ? `🥈 ${e.segundo}` : '—'}</td>
+                            <td class="py-3 px-4 font-bold text-orange-900 bg-orange-50/70">${e.tercero ? `🥉 ${e.tercero}` : '—'}</td>
+                        </tr>
+                    `).join('');
+                }
+
+            } catch (errPalmares) {
+                console.error('❌ Error al cargar la pestaña Palmarés:', errPalmares);
+                if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se ha podido cargar el palmarés histórico.</p>`;
+                if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">No se ha podido cargar el palmarés.</td></tr>`;
+            }
+        }
+
+
+        
+        // ==========================================================
+        // 📞 FUNCIÓN COMPARTIDA: prepara un número de teléfono para usarlo en un enlace wa.me
+        // Entiende prefijos escritos como "0034", "0033", "+34", "+33", o números sin prefijo (asume España)
+        // Se usa tanto en las fichas de Peones como en el modal del jugador
+        // ==========================================================
+        function formatWhatsappNumber(raw) {
+            if (!raw) return '';
+            let num = raw.toString().trim();
+
+            // Quitamos espacios, guiones, puntos y paréntesis
+            num = num.replace(/[\s\-\.\(\)]/g, '');
+
+            if (num.startsWith('+')) {
+                // Formato "+34612345678" o "+33612345678" -> quitamos el "+"
+                num = num.substring(1);
+            } else if (num.startsWith('00')) {
+                // Formato "0034612345678" o "0033612345678" -> quitamos el "00" (prefijo de marcación internacional)
+                num = num.substring(2);
+            } else if (num.replace(/[^0-9]/g, '').length <= 9) {
+                // Número corto sin ningún prefijo (ej. "612345678") -> asumimos España
+                num = '34' + num;
+            }
+            // Si no entra en ninguno de los casos anteriores, asumimos que ya viene con el código
+            // de país pegado sin separador (ej. "34612345678" o "33612345678") y lo dejamos tal cual.
+
+            // Nos quedamos solo con dígitos, por si se cuela alguna letra suelta
+            return num.replace(/[^0-9]/g, '');
+        }
+
+        // ==========================================================
+        // 📤 LÓGICA DE LA PESTAÑA "REPORTAR RESULTADO"
+        // ==========================================================
+        function initReportarUI() {
+            const selectRonda = document.getElementById('rep-ronda');
+            if (!selectRonda) return;
+
+            // Rondas disponibles: las que existan realmente en allMatches (o 1-14 si aún no ha cargado nada)
+            const rondasDisponibles = [...new Set(allMatches.map(m => m.round))].sort((a, b) => a - b);
+            const listaRondas = rondasDisponibles.length ? rondasDisponibles : Array.from({ length: 14 }, (_, i) => i + 1);
+
+            const rondaPrevia = selectRonda.value;
+            selectRonda.innerHTML = listaRondas.map(r => `<option value="${r}">Jornada ${r}</option>`).join('');
+            selectRonda.value = rondaPrevia || currentRound;
+            if (!selectRonda.value) selectRonda.selectedIndex = 0;
+
+            poblarPartidosReportar();
+            selectRonda.onchange = poblarPartidosReportar;
+        }
+
+        function poblarPartidosReportar() {
+            const selectRonda = document.getElementById('rep-ronda');
+            const selectPartido = document.getElementById('rep-partido');
+            if (!selectRonda || !selectPartido) return;
+
+            const ronda = parseInt(selectRonda.value);
+            const partidos = allMatches.filter(m => m.round === ronda);
+
+            if (partidos.length === 0) {
+                selectPartido.innerHTML = `<option value="">No hay emparejamientos en esta jornada</option>`;
+                return;
+            }
+
+            selectPartido.innerHTML = partidos.map((m, i) => {
+                const estadoTxt = m.status === 'Terminado' ? ' ✅' : m.status === 'Pendiente' ? ' ⏳' : ` (${m.status})`;
+                return `<option value="${i}">${m.p1} vs ${m.p2}${estadoTxt}</option>`;
+            }).join('');
+
+            selectPartido.onchange = () => actualizarEtiquetasJugadores(partidos);
+            actualizarEtiquetasJugadores(partidos);
+        }
+
+        function actualizarEtiquetasJugadores(partidos) {
+            const selectPartido = document.getElementById('rep-partido');
+            const labelP1 = document.getElementById('rep-label-p1');
+            const labelP2 = document.getElementById('rep-label-p2');
+            if (!selectPartido || !partidos || !partidos.length) return;
+
+            const m = partidos[parseInt(selectPartido.value)];
+            if (!m) return;
+            labelP1.innerText = `Puntos de ${m.p1}`;
+            labelP2.innerText = `Puntos de ${m.p2}`;
+        }
+
+        async function enviarResultado() {
+            const mensajeEl = document.getElementById('rep-mensaje');
+            const btn = document.getElementById('rep-submit-btn');
+            const mostrarMensaje = (texto, esError) => {
+                mensajeEl.innerText = texto;
+                mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
+                mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
+            };
+
+            if (!RESULTADOS_WEBAPP_URL || RESULTADOS_WEBAPP_URL.includes('PON_AQUI')) {
+                mostrarMensaje('⚠️ Todavía falta configurar la URL del Apps Script en el código (RESULTADOS_WEBAPP_URL).', true);
+                return;
+            }
+
+            const ronda = parseInt(document.getElementById('rep-ronda').value);
+            const partidos = allMatches.filter(m => m.round === ronda);
+            const selectPartido = document.getElementById('rep-partido');
+            const m = partidos[parseInt(selectPartido.value)];
+
+            if (!m) {
+                mostrarMensaje('❌ Selecciona un emparejamiento válido.', true);
+                return;
+            }
+
+            // 🔒 COMPROBACIÓN ANTES DE ENVIAR: si ya está "Terminado" o "Fuera de tiempo", ni lo intentamos.
+            // Esto es más fiable que esperar la respuesta del servidor, porque no depende
+            // de si el navegador consigue leer la respuesta (a veces se bloquea por CORS).
+            if (m.status === 'Terminado' || m.status === 'Fuera de tiempo') {
+                mostrarMensaje(`❌ Este partido ya está marcado como "${m.status}" y no se puede sobrescribir desde aquí. Si hay un error, contacta con el administrador de la liga.`, true);
+                return;
+            }
+
+            const score1 = document.getElementById('rep-score1').value;
+            const score2 = document.getElementById('rep-score2').value;
+            const tablas = document.getElementById('rep-tablas').value || 0;
+            const reportadoPor = document.getElementById('rep-nombre').value.trim();
+            const codigo = document.getElementById('rep-codigo').value.trim();
+
+            if (score1 === '' || score2 === '') {
+                mostrarMensaje('❌ Rellena los puntos de ambos jugadores.', true);
+                return;
+            }
+            if (!reportadoPor) {
+                mostrarMensaje('❌ Escribe tu nombre o nick.', true);
+                return;
+            }
+            if (!codigo) {
+                mostrarMensaje('❌ Falta el código de la liga.', true);
+                return;
+            }
+
+            const payload = {
+                ronda: `J${ronda}`,
+                jugador1: m.p1,
+                jugador2: m.p2,
+                score1: parseFloat(score1),
+                score2: parseFloat(score2),
+                tablas: parseInt(tablas) || 0,
+                reportadoPor: reportadoPor,
+                codigo: codigo
+            };
+
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // evita el preflight CORS con Apps Script
+                    body: JSON.stringify(payload)
+                });
+
+                let resultado = null;
+                try {
+                    resultado = await res.json();
+                } catch (errLectura) {
+                    // El navegador no ha podido leer la respuesta (típico bloqueo de CORS entre
+                    // GitHub Pages y Apps Script). No sabemos todavía si se guardó o no: lo
+                    // comprobamos de verdad más abajo, releyendo la Sheet, en vez de asumir éxito.
+                    resultado = null;
+                }
+
+                if (resultado && resultado.ok === false) {
+                    mostrarMensaje(`❌ ${resultado.error || 'No se ha podido registrar el resultado.'}`, true);
+                    return;
+                }
+
+                // ✅ COMPROBACIÓN DESPUÉS DE ENVIAR: releemos la Sheet y miramos si ESTE partido
+                // concreto ha pasado de verdad a "Terminado". Si sigue igual que antes, algo ha
+                // fallado (código incorrecto, nombre no encontrado, etc.) aunque no pudiéramos
+                // leer el mensaje de error exacto del servidor.
+                await loadSheetCore();
+
+                const partidosActualizados = allMatches.filter(mm => mm.round === ronda);
+                const mActualizado = partidosActualizados.find(mm =>
+                    (mm.p1 === m.p1 && mm.p2 === m.p2) || (mm.p1 === m.p2 && mm.p2 === m.p1)
+                );
+
+                if (resultado === null && mActualizado && mActualizado.status !== 'Terminado') {
+                    mostrarMensaje('⚠️ No se ha podido confirmar el envío. Revisa la clasificación o inténtalo de nuevo; si el problema persiste, avisa al administrador.', true);
+                    return;
+                }
+
+                mostrarMensaje('✅ ¡Resultado enviado! Clasificación actualizada.', false);
+                document.getElementById('rep-score1').value = '';
+                document.getElementById('rep-score2').value = '';
+                document.getElementById('rep-tablas').value = 0;
+                document.getElementById('rep-codigo').value = '';
+
+                poblarPartidosReportar();
+            } catch (err) {
+                console.error('Error al enviar el resultado:', err);
+                mostrarMensaje('❌ No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Enviar Resultado';
+            }
+        }
+
+        function initCalendarUI() {
+            const select = document.getElementById('round-select');
+            select.innerHTML = '';
+            for(let i=1; i<=14; i++) {
+                select.innerHTML += `<option value="${i}">Jornada ${i}</option>`;
+            }
+            select.value = currentRound;
+            select.addEventListener('change', (e) => {
+                currentRound = parseInt(e.target.value);
+                renderRoundUI(currentRound);
+            });
+            document.getElementById('prev-round').onclick = () => { if(currentRound > 1) { currentRound--; select.value = currentRound; renderRoundUI(currentRound); } };
+            document.getElementById('next-round').onclick = () => { if(currentRound < 14) { currentRound++; select.value = currentRound; renderRoundUI(currentRound); } };
+        }
+
+     function renderRoundUI(rNum) {
+    const container = document.getElementById('matches-grid');
+    container.innerHTML = '';
+    
+    const roundInfo = datesMap[`J${rNum}`];
+    document.getElementById('calendar-dates').innerText = roundInfo ? `Rango de juego: Del ${roundInfo.start} al ${roundInfo.end}` : 'Sin rango asignado';
+
+    const roundMatches = allMatches.filter(m => m.round === rNum);
+
+    // Renderizado del Grid del Calendario con distinciones claras de división y tablas
+    roundMatches.forEach(m => {
+        const isFin = m.status === 'Terminado';
+        const isChesspions = m.div.toLowerCase().includes('chesspions');
+        const divBadgeClass = isChesspions ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-emerald-100 text-emerald-900 border-emerald-300';
+
+        // --- NUEVO: Buscamos los nicks reales de Lichess en infoData ---
+        const player1Info = infoData.find(p => p.name.toLowerCase().trim() === m.p1.toLowerCase().trim());
+        const player2Info = infoData.find(p => p.name.toLowerCase().trim() === m.p2.toLowerCase().trim());
+        
+        // Si encontramos el nick usamos el de Lichess, si no, dejamos el nombre por defecto como salvavidas
+        const lichessUser1 = player1Info && player1Info.lichess ? player1Info.lichess.trim() : m.p1.trim();
+        const lichessUser2 = player2Info && player2Info.lichess ? player2Info.lichess.trim() : m.p2.trim();
+
+        // --- INDICADORES VISUALES EXTRA EN EL RESULTADO GENERAL (SOLO ROSCO) ---
+        let matchBadgeIndicator = "";
+        
+        if (isFin) {
+            const s1Int = parseInt(m.s1);
+            const s2Int = parseInt(m.s2);
+
+            // Si es un Rosco (4-0 o 0-4), muestra siempre el Donut sin importar quién perdió
+            if ((s1Int === 4 && s2Int === 0) || (s1Int === 0 && s2Int === 4)) {
+                matchBadgeIndicator = `<span class="text-[10px] font-black bg-amber-50 text-amber-950 px-1.5 py-0.5 rounded border border-amber-300 block text-center mt-1 animate-pulse">🍩 ¡Rosco!</span>`;
+            } 
+            else if (m.tablas && parseInt(m.tablas) > 0) {
+                const numTablas = parseInt(m.tablas);
+                const textoTablas = numTablas === 1 ? 'Tablas' : 'Tablas';
+                matchBadgeIndicator = `<span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300 block text-center mt-1">🤝 ${numTablas} ${textoTablas}</span>`;
+            }
+        }
+
+        // --- ASIGNACIÓN DINÁMICA DE ESTILOS SEGÚN EL ESTADO REAL DEL PARTIDO ---
+        let btnStatusClass = "";
+        if (m.status === 'Terminado') {
+            btnStatusClass = "bg-stone-800 text-white border-stone-900";
+        } else if (m.status === 'Aplazado') {
+            btnStatusClass = "bg-amber-100 text-amber-800 border-amber-300"; // Fondo amarillento/arena
+        } else if (m.status === 'Fuera de tiempo') {
+            btnStatusClass = "bg-red-100 text-red-700 border-red-300"; // Fondo rojizo
+        } else {
+            btnStatusClass = "bg-stone-100 text-stone-500 border-stone-300"; // Pendiente estándar
+        }
+
+        container.innerHTML += `
+            <div class="p-4 rounded-xl bg-white border border-stone-300 flex justify-between items-center shadow-xs">
+                <div class="space-y-1">
+                    <span class="text-[9px] uppercase font-black px-2 py-0.5 rounded-md border ${divBadgeClass} inline-block tracking-wider">${m.div}</span>
+                    <span class="text-sm font-bold text-stone-900 block pt-1">
+                        <span class="cursor-pointer hover:text-amber-800 hover:underline transition" onclick="openPlayerModal('${m.p1.replace(/'/g, "\\'")}', '${m.div}')">${m.p1}</span> 
+                        <span class="font-normal text-stone-500">vs</span> 
+                        <span class="cursor-pointer hover:text-amber-800 hover:underline transition" onclick="openPlayerModal('${m.p2.replace(/'/g, "\\'")}', '${m.div}')">${m.p2}</span>
+                    </span>
+                </div>
+                <div class="text-right">
+                    <span onclick="
+                        const p1Name = '${m.p1.replace(/'/g, "\\'")}';
+                        const p2Name = '${m.p2.replace(/'/g, "\\'")}';
+                        
+                        // Buscamos en infoData en tiempo real
+                        const f1 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p1Name.toLowerCase().trim()) : null;
+                        const f2 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p2Name.toLowerCase().trim()) : null;
+                        
+                        // Sacamos los nicks de Lichess de la columna D del Sheets
+                        const nick1 = f1 && f1.lichess ? f1.lichess.trim() : p1Name.trim();
+                        const nick2 = f2 && f2.lichess ? f2.lichess.trim() : p2Name.trim();
+                        
+                        // Formateamos la URL: Si terminó, usa la estructura de búsqueda. Si está pendiente, va a /tv
+                        const url = '${isFin}' === 'true' 
+                            ? 'https://lichess.org/games/search?players.a=' + encodeURIComponent(nick1) + '&players.b=' + encodeURIComponent(nick2) + '&sort.field=d&sort.order=desc#results'
+                            : 'https://lichess.org/@/' + encodeURIComponent(nick1) + '/tv';
+                            
+                        window.open(url, '_blank'); 
+                        event.stopPropagation();
+                    " 
+                          class="font-mono text-xs font-black px-3 py-1.5 rounded-lg border block shadow-xs transition-all cursor-pointer hover:bg-amber-800 hover:text-white hover:border-amber-900 hover:scale-105 ${btnStatusClass}"
+                          title="${isFin ? 'Ver partidas del duelo' : 'Ver partida en directo o perfil'}">
+                       ${
+                            m.status === 'Terminado' 
+                                ? `${m.s1} - ${m.s2}` 
+                                : m.status === 'Aplazado'
+                                    ? 'Aplazado ⏳'
+                                    : m.status === 'Fuera de tiempo'
+                                        ? 'Fuera de Tiempo 🔴'
+                                        : 'Pendiente 🟢'
+                        }
+                    </span>
+                    ${matchBadgeIndicator}
+                </div>
+            </div>     
+        `;
+    }); // <-- Aquí termina el pintado de las tarjetas normales
+
+    // =========================================================================
+    // --- NUEVO: SELECCIÓN MATEMÁTICA INTELIGENTE DE PARTIDOS DESTACADOS ---
+    // =========================================================================
+    
+    // 1. SELECCIÓN PARA CHESSPIONS (PRIMERA)
+    let matchChesspions = null;
+    let mejorValorChesspions = Infinity; 
+
+    let roundChesspionsMatches = roundMatches.filter(m => m.div.toLowerCase().includes('chesspions'));
+     // ... (debajo de let roundChesspionsMatches = ...)
+    console.log("Partidos encontrados en la jornada:", roundChesspionsMatches);
+    console.log("Clasificación de Primera disponible:", typeof chesspionsRows !== 'undefined' ? chesspionsRows : "No detectada");    
+
+    roundChesspionsMatches.forEach(m => {
+        let p1Clas = typeof chesspionsRows !== 'undefined' ? chesspionsRows.find(p => p.name.toLowerCase().trim() === m.p1.toLowerCase().trim()) : null;
+        let p2Clas = typeof chesspionsRows !== 'undefined' ? chesspionsRows.find(p => p.name.toLowerCase().trim() === m.p2.toLowerCase().trim()) : null;
+        
+        if (p1Clas && p2Clas) {
+            let valorPartido = -(p1Clas.pts * p2Clas.pts); // Enfoque 1: Menor suma de posiciones
+            if (valorPartido < mejorValorChesspions) {
+                mejorValorChesspions = valorPartido;
+                matchChesspions = m;
+            }
+        }
+    });
+    if (!matchChesspions) matchChesspions = roundChesspionsMatches[0];
+
+    // 2. SELECCIÓN PARA CHESSCOND (SEGUNDA)
+    let matchChesscond = null;
+    let mejorValorChesscond = Infinity;
+
+    let roundChesscondMatches = roundMatches.filter(m => m.div.toLowerCase().includes('chesscond') || m.div.toLowerCase().includes('segunda'));
+
+    roundChesscondMatches.forEach(m => {
+        let p1Clas = typeof chesscondRows !== 'undefined' ? chesscondRows.find(p => p.name.toLowerCase().trim() === m.p1.toLowerCase().trim()) : null;
+        let p2Clas = typeof chesscondRows !== 'undefined' ? chesscondRows.find(p => p.name.toLowerCase().trim() === m.p2.toLowerCase().trim()) : null;
+        
+        if (p1Clas && p2Clas) {
+            let valorPartido = p1Clas.pos + p2Clas.pos;
+            if (valorPartido < mejorValorChesscond) {
+                mejorValorChesscond = valorPartido;
+                matchChesscond = m;
+            }
+        }
+    });
+    if (!matchChesscond) matchChesscond = roundChesscondMatches[0];
+
+    // 3. INYECTAR EL HTML EN LAS CABECERAS DESTACADAS (MOTW)
+    if(matchChesspions) {
+        const isFinC = matchChesspions.status === 'Terminado';
+        document.getElementById('motw-chesspions-details').innerHTML = `
+            <div class="flex-1 font-black text-sm tracking-tight">${matchChesspions.p1}</div>
+            <div class="px-3 py-1 bg-stone-900 rounded-lg font-mono text-base text-amber-400 mx-2 border border-stone-700">
+                ${isFinC ? `${matchChesspions.s1} - ${matchChesspions.s2}` : 'VS'}
+            </div>
+            <div class="flex-1 font-black text-sm tracking-tight">${matchChesspions.p2}</div>
+        `;
+    }
+    
+    if(matchChesscond) {
+        const isFinS = matchChesscond.status === 'Terminado';
+        document.getElementById('motw-chesscond-details').innerHTML = `
+            <div class="flex-1 font-black text-sm tracking-tight">${matchChesscond.p1}</div>
+            <div class="px-3 py-1 bg-stone-900 rounded-lg font-mono text-base text-emerald-400 mx-2 border border-stone-700">
+                ${isFinS ? `${matchChesscond.s1} - ${matchChesscond.s2}` : 'VS'}
+            </div>
+            <div class="flex-1 font-black text-sm tracking-tight">${matchChesscond.p2}</div>
+        `;
+    }
+}
+        function renderPlayoffsUI(rows) {
+            const container = document.getElementById('playoffs-container');
+            container.innerHTML = '';
+
+            let groups = {};
+            rows.forEach(r => {
+                if(!r.c || !r.c[0]) return;
+                let phase = r.c[0].v;
+                if(!groups[phase]) groups[phase] = [];
+                groups[phase].push({
+                    div: r.c[1]?.v || '', p1: r.c[2]?.v || 'Por Clasificar', p2: r.c[3]?.v || 'Por Clasificar',
+                    score: r.c[4] ? (r.c[4].f || r.c[4].v.toString()) : '', blitz: r.c[5]?.v || '', winner: r.c[6]?.v || ''
+                });
+            });
+
+            for(let phase in groups) {
+                let section = `<div class="p-4 bg-stone-100 border border-stone-300 rounded-xl space-y-3">
+                    <h3 class="text-xs font-black text-stone-700 uppercase tracking-wider border-b border-stone-300 pb-1">${phase}</h3>`;
+                
+                groups[phase].forEach(m => {
+                    section += `
+                        <div class="p-3 bg-white rounded-lg border border-stone-200 text-xs">
+                            <p class="text-[9px] font-black text-stone-400 uppercase mb-1.5">${m.div}</p>
+                            <div class="flex justify-between items-center">
+                                <div class="space-y-1 font-bold">
+                                    <p class="${m.winner === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${m.p1}</p>
+                                    <p class="${m.winner === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${m.p2}</p>
+                                </div>
+                                <div class="text-right font-mono font-bold">
+                                    <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${m.score || '- / -'}</p>
+                                    ${m.blitz ? `<p class="text-[10px] text-purple-700 mt-0.5 font-bold">⚡ ${m.blitz}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                section += `</div>`;
+                container.innerHTML += section;
+            }
+            lucide.createIcons();
+        }
+
+       window.openPlayerModal = function(name, division) {
+    // Ponemos un try/catch global para que, pase lo que pase con el ELO, la ventana NO se quede bloqueada
+    try {
+        document.getElementById('modal-name').innerText = name || "-";
+        document.getElementById('modal-division').innerText = division || "-";
+        
+        // ==========================================
+        // 🔲 LÓGICA: MOSTRAR RANKING DE ELO (CORREGIDA Y SEGURA)
+        // ==========================================
+        const eloContainer = document.getElementById('modal-elo-container');
+        const eloBlitzTxt = document.getElementById('modal-elo-blitz');
+        const eloRapidasTxt = document.getElementById('modal-elo-rapidas');
+        
+        let eloInfo = null;
+        if (typeof eloRankingData !== 'undefined' && Array.isArray(eloRankingData)) {
+            eloInfo = eloRankingData.find(e => {
+                // Protección: Verificamos que 'e' y 'e.Jugador' existan antes de hacer el string-clean
+                if (!e || !e.Jugador) return false;
+                return e.Jugador.toLowerCase().trim() === name.toLowerCase().trim();
+            });
+        }
+        
+        if (eloInfo && eloContainer && eloBlitzTxt && eloRapidasTxt) {
+            eloBlitzTxt.innerText = eloInfo.Ranking_Blitz || "N/A";
+            eloRapidasTxt.innerText = eloInfo.Ranking_Rapidas || "N/A";
+            eloContainer.classList.remove('hidden'); 
+        } else if (eloContainer) {
+            eloContainer.classList.add('hidden'); 
+        }
+    } catch (errEloGlobal) {
+        console.error("Error en la sección de carga de Elo:", errEloGlobal);
+    }
+    // ==========================================
+    
+    // CONTINUACIÓN DE TU LOGICA CORE ORIGINAL (RETAR / WHATSAPP / HISTORIAL)
+    const playerInfo = infoData.find(i => i.name && i.name.toLowerCase().trim() === name.toLowerCase().trim());
+    const lichessBtn = document.getElementById('modal-lichess-btn');
+    if(playerInfo && playerInfo.lichess) {
+        const nickLichess = playerInfo.lichess.trim();
+        lichessBtn.href = `https://lichess.org/?user=${encodeURIComponent(nickLichess)}&time=10&increment=0#friend`;
+        lichessBtn.style.display = 'flex';
+    } else if (lichessBtn) {
+        lichessBtn.style.display = 'none';
+    }
+
+    // --- LÓGICA BOTÓN DE WHATSAPP ---
+    const btnWhatsapp = document.getElementById('modal-whatsapp-btn');
+    if (playerInfo && playerInfo.telefono) {
+        const numLimpio = formatWhatsappNumber(playerInfo.telefono);
+        if (numLimpio !== "") {
+            btnWhatsapp.href = `https://wa.me/${numLimpio}?text=Hola%20${encodeURIComponent(playerInfo.name)},%20te%20escribo%20desde%20la%20app%20de%20ajedrez.`;
+            btnWhatsapp.style.display = 'flex';
+        } else if (btnWhatsapp) {
+            btnWhatsapp.style.display = 'none';
+        }
+    } else if (btnWhatsapp) {
+        btnWhatsapp.style.display = 'none';
+    }
+
+    const historyContainer = document.getElementById('modal-history');
+    if (historyContainer) {
+        historyContainer.innerHTML = '';
+        
+        let playerMatches = allMatches.filter(m => (m.p1 && m.p1.toLowerCase().trim() === name.toLowerCase().trim()) || (m.p2 && m.p2.toLowerCase().trim() === name.toLowerCase().trim()));
+        playerMatches.sort((a,b) => a.round - b.round);
+
+        let streak = [];
+        let formHistory = []; // 🚦 Guarda {round, result} de cada partida finalizada, para el semáforo
+        if(playerMatches.length === 0) {
+            historyContainer.innerHTML = `<p class="text-xs text-stone-500 text-center py-4">Sin partidas asignadas en esta edición.</p>`;
+        } else {
+            playerMatches.forEach(m => {
+                const isP1 = m.p1 && m.p1.toLowerCase().trim() === name.toLowerCase().trim();
+                const opponent = isP1 ? m.p2 : m.p1;
+                
+                let badgeHTML = "";
+                let tablasFichaHTML = '';
+
+                if (m.status === 'Terminado') {
+                    let myScore = parseFloat(isP1 ? m.s1.replace(',','.') : m.s2.replace(',','.'));
+                    let oppScore = parseFloat(isP1 ? m.s2.replace(',','.') : m.s1.replace(',','.'));
+                    
+                    let outcome = '⚔️ E';
+                    let badgeClass = 'bg-amber-100 text-amber-950 border-amber-300';
+                    
+                    if(myScore > oppScore) { 
+                        if (myScore === 4 && oppScore === 0) {
+                            outcome = '🍩 ¡Rosco!';
+                            badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300 animate-pulse';
+                        } else {
+                            outcome = '🔥 V';
+                            badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300';
+                        }
+                        streak.push('V'); 
+                        formHistory.push({ round: m.round, result: 'V' });
+                    }
+                    else if(myScore < oppScore) { 
+                        if (myScore === 0 && oppScore === 4) {
+                            outcome = '🇯🇵 ¡Samurai!';
+                            badgeClass = 'bg-red-100 text-red-950 border-red-300 animate-pulse';
+                        } else {
+                            outcome = '💀 D';
+                            badgeClass = 'bg-red-100 text-red-950 border-red-300';
+                        }
+                        streak.push('D'); 
+                        formHistory.push({ round: m.round, result: 'D' });
+                    }
+                    else { 
+                        streak.push('T'); 
+                        formHistory.push({ round: m.round, result: 'T' });
+                    }
+
+                    badgeHTML = `<span class="px-2 py-0.5 rounded font-black border ${badgeClass}">${outcome} (${myScore}-${oppScore})</span>`;
+
+                    if (m.tablas && parseInt(m.tablas) > 0) {
+                        tablasFichaHTML = `<span class="text-[10px] text-amber-900 bg-amber-100 border border-amber-300 px-1.5 py-0.5 rounded font-bold ml-1 inline-flex items-center gap-1">🤝 ${m.tablas}</span>`;
+                    }
+                } 
+                else {
+                    badgeHTML = `<span class="px-2 py-0.5 rounded font-bold border bg-stone-100 text-stone-500 border-stone-300 inline-flex items-center gap-1">⏳ Pendiente</span>`;
+                }
+
+                historyContainer.innerHTML += `
+                    <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg text-xs border border-stone-200">
+                        <span class="text-stone-800 font-bold"><b>J${m.round}</b> vs ${opponent}</span>
+                        <div class="flex items-center gap-1">
+                            ${badgeHTML}
+                            ${tablasFichaHTML}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+            
+       let continuousStreak = 0;
+        const streakElem = document.getElementById('modal-streak');
+        if (streakElem) {
+            if (streak.length > 0) {
+                let last = streak[streak.length - 1];
+                for (let i = streak.length - 1; i >= 0; i--) {
+                    if (streak[i] === last) continuousStreak++;
+                    else break;
+                }
+                streakElem.innerText = `${continuousStreak} ${last === 'V' ? 'Victorias Seguidas' : last === 'D' ? 'Derrotas Seguidas' : 'Tablas Continuas'}`;
+            } else {
+                streakElem.innerText = 'Sin racha registrada';
+            }
+        }
+
+        // 🚦 SEMÁFORO: pintamos las bolitas de los últimos 5 encuentros disputados
+        const semaforoElem = document.getElementById('modal-semaforo');
+        if (semaforoElem) {
+            const ultimos5 = formHistory.slice(-5);
+            if (ultimos5.length === 0) {
+                semaforoElem.innerHTML = `<p class="text-xs text-stone-400 italic">Sin encuentros finalizados todavía</p>`;
+            } else {
+                semaforoElem.innerHTML = ultimos5.map(f => {
+                    let colorClass, letra, titulo;
+                    if (f.result === 'V') { colorClass = 'bg-emerald-500 border-emerald-700'; letra = 'V'; titulo = 'Victoria'; }
+                    else if (f.result === 'D') { colorClass = 'bg-red-500 border-red-700'; letra = 'D'; titulo = 'Derrota'; }
+                    else { colorClass = 'bg-amber-400 border-amber-600'; letra = 'E'; titulo = 'Empate'; }
+                    return `<div title="Jornada ${f.round} · ${titulo}" class="w-7 h-7 rounded-full ${colorClass} border-2 flex items-center justify-center text-white text-[10px] font-black shadow-sm cursor-default">${letra}</div>`;
+                }).join('');
+            }
+        }
+        
+        // Esto vuelve a hacer visible el modal en pantalla 
+        document.getElementById('player-modal').classList.remove('hidden');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        };
+    }; // Aquí se cierra correctamente window.openPlayerModal
+
+    // Evento para el botón de cerrar el modal
+    document.getElementById('close-modal').onclick = () => {
+        document.getElementById('player-modal').classList.add('hidden');
+    };
+        
+    </script>
+</body>
+</html>

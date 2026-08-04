@@ -1109,23 +1109,25 @@ rows.forEach((r, index) => {
                 document.querySelector('#table-chesspions tbody').innerHTML = buildTableHTML(chesspionsRows, true);
                 document.querySelector('#table-chesscond tbody').innerHTML = buildTableHTML(chesscondRows, false);
 
-                // Detectar jornada activa por fecha actual
+               // Detectar jornada activa por fecha actual
 const today = new Date();
-const currentYear = today.getFullYear(); // Detecta automáticamente el año actual (2026)
 
-for(let key in datesMap) {
-    if(!datesMap[key].start || !datesMap[key].end) continue;
+for (let key in datesMap) {
+    if (!datesMap[key].start || !datesMap[key].end) continue;
     
+    // Asume formato "DD/MM/YYYY" o "DD/MM"
     let pS = datesMap[key].start.split('/');
     let pE = datesMap[key].end.split('/');
     
-    // Creamos las fechas con números (Año, Mes - 1, Día, Hora, Minuto, Segundo)
-    // Restamos 1 al mes porque en JavaScript Enero es 0 y Diciembre es 11
-    let start = new Date(currentYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
-    let end = new Date(currentYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
+    // Si no incluye año en la string, usa el año actual
+    let startYear = pS[2] ? parseInt(pS[2]) : today.getFullYear();
+    let endYear = pE[2] ? parseInt(pE[2]) : today.getFullYear();
+
+    let start = new Date(startYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
+    let end = new Date(endYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
     
-    if(today >= start && today <= end) {
-        currentRound = parseInt(key.replace(/\D/g,'') || '10'); // Cambiado a '10' como fallback lógico por tu J10 actual
+    if (today >= start && today <= end) {
+        currentRound = parseInt(key.replace(/\D/g, '')) || 10;
         break;
     }
 }

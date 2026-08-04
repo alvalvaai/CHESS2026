@@ -1127,7 +1127,7 @@ for (let key in datesMap) {
     let end = new Date(endYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
     
     if (today >= start && today <= end) {
-        currentRound = parseInt(key.replace(/\D/g, '')) || 10;
+        currentRound = parseInt(key.replace(/\D/g, '')) || 1;
         break;
     }
 }

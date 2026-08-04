@@ -1111,25 +1111,31 @@ rows.forEach((r, index) => {
 
                // Detectar jornada activa por fecha actual
 const today = new Date();
+let roundFound = false;
 
 for (let key in datesMap) {
     if (!datesMap[key].start || !datesMap[key].end) continue;
     
-    // Asume formato "DD/MM/YYYY" o "DD/MM"
-    let pS = datesMap[key].start.split('/');
-    let pE = datesMap[key].end.split('/');
+    let pS = String(datesMap[key].start).split('/');
+    let pE = String(datesMap[key].end).split('/');
     
-    // Si no incluye año en la string, usa el año actual
-    let startYear = pS[2] ? parseInt(pS[2]) : today.getFullYear();
-    let endYear = pE[2] ? parseInt(pE[2]) : today.getFullYear();
+    if (pS.length < 2 || pE.length < 2) continue;
 
-    let start = new Date(startYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
-    let end = new Date(endYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
+    // Asumimos el año actual para comparar
+    let start = new Date(today.getFullYear(), parseInt(pS[1], 10) - 1, parseInt(pS[0], 10), 0, 0, 0);
+    let end = new Date(today.getFullYear(), parseInt(pE[1], 10) - 1, parseInt(pE[0], 10), 23, 59, 59);
     
     if (today >= start && today <= end) {
-        currentRound = parseInt(key.replace(/\D/g, '')) || 1;
+        currentRound = parseInt(key.replace(/\D/g, ''), 10);
+        roundFound = true;
         break;
     }
+}
+
+// Si la fecha actual no cae dentro de ninguna jornada (ej. pretemporada):
+if (!roundFound) {
+    // Puedes forzar la J1 si aún no ha empezado el torneo, o la última si ya terminó
+    currentRound = 1; 
 }
 
 initCalendarUI();

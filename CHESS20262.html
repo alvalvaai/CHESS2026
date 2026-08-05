@@ -198,7 +198,7 @@
             </div>
             <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
 
-            <a href="https://forms.gle/tV1PFD4SdrybCEpq8" target="_blank" class="flex items-center justify-between gap-3 bg-amber-800 hover:bg-amber-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
+            <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-amber-800 hover:bg-amber-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
                 <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
                 <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
             </a>
@@ -452,7 +452,7 @@
         // 📤 URL de tu Apps Script publicado como "Aplicación Web" (ver instrucciones aparte).
         // Sustituye el texto de abajo por la URL real que te dé Google al desplegarlo (termina en /exec).
         const RESULTADOS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwLwrJYcOB4y-Wrm9Crq9Pnn_e_mLBl0C6AbFHWrKWuU1_H9frfeZQEL8T1GMHC8G9TJw/exec';
-        
+
         // ==========================================================================
         // 🎨 TEMAS DE DIVISIÓN: aquí se define el aspecto y las zonas de ascenso/
         // descenso/playoff de cada división. Las divisiones se detectan solas leyendo
@@ -526,6 +526,22 @@
         // Guardamos aquí, en cuanto se detectan, qué división le tocó a cada tema
         // (nombreDivision -> objeto tema), para poder reutilizarlo en el calendario, etc.
         let temaPorDivision = {};
+
+        // ==========================================================================
+        // 🔢 ORDEN PREFERIDO DE LAS DIVISIONES: así se decide en qué orden se pintan
+        // las tablas de clasificación (de arriba a abajo), sea cual sea el orden en
+        // que vengan las filas en tu pestaña CLASIFICACION de Sheets.
+        //
+        // Escribe aquí el nombre EXACTO de cada división, tal como aparece en la
+        // columna "División" de CLASIFICACION (mayúsculas y todo tienen que coincidir).
+        // Cualquier división que no esté en esta lista se añade al final, en el orden
+        // en que aparezca en la Sheet (para que nunca se "pierda" ninguna).
+        // ==========================================================================
+        const ORDEN_PREFERIDO_DIVISIONES = [
+            'Chesspions League',
+            'Chesscond Division',
+            'Tercera División' // ⚠️ Cambia esto por el nombre EXACTO de tu tercera división
+        ];
 
         let currentRound = 1;
         let allMatches = [];
@@ -978,6 +994,16 @@ clasRows.forEach((r) => {
     divisionesData[nombreDivision].push(playerData);
 });
 
+// 🔢 Reordenamos las divisiones según ORDEN_PREFERIDO_DIVISIONES (las que no estén
+// en la lista se quedan al final, en el orden en que aparecieron en la Sheet)
+ordenDivisiones.sort((a, b) => {
+    let ia = ORDEN_PREFERIDO_DIVISIONES.indexOf(a);
+    let ib = ORDEN_PREFERIDO_DIVISIONES.indexOf(b);
+    if (ia === -1) ia = ORDEN_PREFERIDO_DIVISIONES.length + ordenDivisiones.indexOf(a);
+    if (ib === -1) ib = ORDEN_PREFERIDO_DIVISIONES.length + ordenDivisiones.indexOf(b);
+    return ia - ib;
+});
+
 // 🎨 Asignamos un tema visual a cada división según el orden en que se han encontrado
 // (repite temas en bucle si hay más divisiones que temas definidos, para no romperse nunca)
 temaPorDivision = {};
@@ -1283,6 +1309,14 @@ renderRoundUI(currentRound);
         // Normaliza texto (minúsculas, sin acentos) — usada por renderPeones
         function normalizaTexto(s) {
             return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        }
+
+        // Busca el tema de una división de forma tolerante (ignora mayúsculas, acentos y
+        // espacios de más), por si el texto no coincide EXACTO entre RESULTADOS y CLASIFICACION.
+        function buscarTemaPorDivision(nombreDiv) {
+            const objetivo = normalizaTexto(nombreDiv);
+            const encontrado = Object.keys(temaPorDivision).find(k => normalizaTexto(k) === objetivo);
+            return encontrado ? temaPorDivision[encontrado] : TEMAS_DIVISION[0];
         }
 
         // ==========================================================
@@ -1749,7 +1783,7 @@ renderRoundUI(currentRound);
     // Renderizado del Grid del Calendario con distinciones claras de división y tablas
     roundMatches.forEach(m => {
         const isFin = m.status === 'Terminado';
-        const temaPartido = temaPorDivision[m.div] || TEMAS_DIVISION[0];
+        const temaPartido = buscarTemaPorDivision(m.div);
         const divBadgeClass = temaPartido.calBadge;
 
         // --- NUEVO: Buscamos los nicks reales de Lichess en infoData ---
@@ -1847,7 +1881,7 @@ renderRoundUI(currentRound);
         motwContainer.innerHTML = ordenDivisiones.map(nombreDivision => {
             const rowsDivision = divisionesData[nombreDivision] || [];
             const tema = temaPorDivision[nombreDivision] || TEMAS_DIVISION[0];
-            const partidosDivision = roundMatches.filter(m => m.div === nombreDivision);
+            const partidosDivision = roundMatches.filter(m => normalizaTexto(m.div) === normalizaTexto(nombreDivision));
 
             // Elegimos el partido "más destacado": el que enfrenta a los dos jugadores
             // mejor situados en la tabla (menor suma de posiciones).

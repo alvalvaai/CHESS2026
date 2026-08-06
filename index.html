@@ -21,14 +21,14 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Paleta estilo Lichess Arena / Maderas Clara */
-        body { background-color: #eddcc4; color: #262322; }
-        .bg-lichess-card { background-color: #f7f3eb; border: 1px solid #dcd1be; }
-        .bg-lichess-dark-header { background-color: #363231; color: #edebe9; }
+        /* Paleta "Tablero de Noche" — fría, oscura, acento índigo */
+        body { background-color: #e3e8f2; color: #1b2333; }
+        .bg-lichess-card { background-color: #ffffff; border: 1px solid #d6ddec; }
+        .bg-lichess-dark-header { background-color: #101a30; color: #e8ecfb; }
         .bg-lichess-chesspions { background-color: #fff9e6; border-left: 5px solid #d4af37; }
         .bg-lichess-chesscond { background-color: #f0f4f8; border-left: 5px solid #4a7c59; }
-        tr:hover { background-color: #f1eae0 !important; }
-       .tab-btn.active { background-color: #262322 !important; color: #ffffff !important; opacity: 1 !important; }
+        tr:hover { background-color: #eef1f8 !important; }
+       .tab-btn.active { background-color: #4338ca !important; color: #ffffff !important; opacity: 1 !important; }
         
         /* Indicadores de posición */
         .zone-upgrade { border-left: 4px solid #16a34a !important; } /* Sube */
@@ -43,25 +43,25 @@
         <div class="flex items-center gap-3">
             <img src="Logo.jpg" alt="Logo Torneo" class="h-10 w-10 object-cover rounded-lg shadow-sm border border-stone-700">
             <div>
-                <h1 class="text-2xl font-black tracking-tight text-[#eddcc4]">XX Torneo de Ajedrez</h1>
-                <p class="text-xs text-stone-400 font-bold uppercase tracking-widest">Portal de Competición Oficial</p>
+                <h1 class="text-2xl font-black tracking-tight text-[#e8ecfb]">XX Torneo de Ajedrez</h1>
+                <p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Temporada 2026-27 · Portal Oficial</p>
             </div>
         </div>
         
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 w-full max-w-4xl mx-auto bg-stone-900/40 p-1.5 rounded-2xl border border-stone-700/50">
             <button id="tab-liga" onclick="switchTab('liga')" class="tab-btn active text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🏆 Competición</button>
             
-            <button id="tab-resumen" onclick="switchTab('resumen')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">✍️ El Ojo del Alfil</button>
+            <button id="tab-resumen" onclick="switchTab('resumen')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">✍️ El Ojo del Alfil</button>
             
-            <button id="tab-mundo" onclick="switchTab('mundo')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🌍 Mundo Chess</button>
+            <button id="tab-mundo" onclick="switchTab('mundo')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🌍 Mundo Chess</button>
 
-            <button id="tab-peones" onclick="switchTab('peones')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📇 Peones</button>
+            <button id="tab-peones" onclick="switchTab('peones')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📇 Peones</button>
 
-            <button id="tab-reportar" onclick="switchTab('reportar')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📤 Resultados</button>
+            <button id="tab-reportar" onclick="switchTab('reportar')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📤 Resultados</button>
 
-            <button id="tab-palmares" onclick="switchTab('palmares')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">👑 Palmarés</button>
+            <button id="tab-palmares" onclick="switchTab('palmares')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">👑 Palmarés</button>
 
-            <button id="tab-reglamento" onclick="switchTab('reglamento')" class="tab-btn text-stone-400 hover:text-stone-200 px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📜 Reglamento</button>
+            <button id="tab-reglamento" onclick="switchTab('reglamento')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📜 Reglamento</button>
         </div>
     </header>
 
@@ -69,7 +69,7 @@
     <div id="content-reglamento" class="hidden max-w-5xl mx-auto p-4 md:p-6 space-y-6">
     <div class="bg-lichess-card p-6 md:p-8 rounded-2xl shadow-md border border-stone-300">
         <h2 class="text-2xl font-black mb-6 border-b-2 border-stone-400 pb-2 text-stone-800 flex items-center gap-2">
-            <i data-lucide="book-open" class="text-amber-800"></i> XIX Torneo - Reglamento Oficial
+            <i data-lucide="book-open" class="text-indigo-800"></i> XIX Torneo - Reglamento Oficial
         </h2>
         
         <div class="prose max-w-none text-stone-800 space-y-6 font-medium leading-relaxed">
@@ -168,7 +168,6 @@
         <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
             🤖 Crónica de la Jornada
         </h2>
-        <!-- Aquí dentro se inyectará el texto de Google Sheets -->
         <div id="texto-resumen-ia" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
             <p class="text-stone-500 italic text-center py-4">Cargando crónica de la semana...</p>
         </div>
@@ -180,7 +179,6 @@
         <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
             🌍 Noticias Mundiales de Ajedrez
         </h2>
-        <!-- 🎯 Aquí dentro se inyectará el resumen de las noticias desde la Sheets -->
         <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
             <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
         </div>
@@ -194,11 +192,11 @@
                 <h2 class="text-xl font-black text-stone-900 flex items-center gap-2">
                     📇 Peones — Conoce a los Participantes
                 </h2>
-                <input id="peones-search" type="text" placeholder="🔍 Buscar por nombre o nick..." class="w-full sm:w-72 px-4 py-2 rounded-xl border border-stone-300 bg-white text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-amber-700">
+                <input id="peones-search" type="text" placeholder="🔍 Buscar por nombre o nick..." class="w-full sm:w-72 px-4 py-2 rounded-xl border border-stone-300 bg-white text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-indigo-700">
             </div>
             <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
 
-            <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-amber-800 hover:bg-amber-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
+            <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
                 <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
                 <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
             </a>
@@ -264,42 +262,42 @@
             <div class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
-                    <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700"></select>
+                    <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                 </div>
 
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
-                    <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700"></select>
+                    <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
-                        <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                        <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                     </div>
                     <div>
                         <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
-                        <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                        <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                     </div>
                 </div>
                 <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
 
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
-                    <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                    <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
 
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
-                    <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                    <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
 
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
-                    <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-700">
+                    <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
 
-                <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
                     Enviar Resultado
                 </button>
 
@@ -322,7 +320,7 @@
                 <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
                     <div>
                         <h2 class="text-xl font-black flex items-center gap-2 text-stone-800">
-                            <i data-lucide="calendar-days" class="w-5 h-5 text-amber-800"></i> Calendario de Enfrentamientos
+                            <i data-lucide="calendar-days" class="w-5 h-5 text-indigo-800"></i> Calendario de Enfrentamientos
                         </h2>
                         <p class="text-sm font-bold text-stone-600 mt-1" id="calendar-dates">Cargando fechas de juego...</p>
                     </div>
@@ -386,7 +384,7 @@
                     <div class="aspect-square w-full rounded-xl overflow-hidden border border-stone-300 bg-white">
                         <iframe id="puzzle-frame" class="w-full h-full border-0" allowtransparency="true"></iframe>
                     </div>
-                    <a id="puzzle-link" target="_blank" class="w-full block text-center bg-amber-800 hover:bg-amber-900 text-white rounded-xl py-3 font-bold text-sm transition shadow-md">
+                    <a id="puzzle-link" target="_blank" class="w-full block text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl py-3 font-bold text-sm transition shadow-md">
                         Resolver en Lichess ♟️
                     </a>
                 </div>
@@ -405,7 +403,6 @@
                     <h3 class="text-xl font-black text-stone-900" id="modal-name">-</h3>
                     <p class="text-xs text-amber-900 font-bold uppercase tracking-wider" id="modal-division">-</p>
                     
-                    <!-- 📦 EL NUEVO CONTENEDOR DE ELOS PEGADO AQUÍ COMIENZA -->
                     <div id="modal-elo-container" class="mt-2 flex gap-2 hidden">
                         <div class="bg-sky-100 border border-sky-300 px-2 py-0.5 rounded flex items-center gap-1">
                             <span class="text-[10px] font-bold text-sky-950">⏱️ Blitz:</span>
@@ -416,7 +413,6 @@
                             <span id="modal-elo-rapidas" class="text-[11px] font-black text-emerald-950">-</span>
                         </div>
                     </div>
-                    <!-- EL NUEVO CONTENEDOR TERMINA -->
                 </div>
             </div>
             
@@ -425,11 +421,10 @@
                     <p class="text-[10px] text-stone-600 font-bold uppercase tracking-wider">Racha de Forma</p>
                     <p class="text-sm font-black text-stone-900 mt-1" id="modal-streak">-</p>
                 </div>
-                <a id="modal-lichess-btn" target="_blank" class="bg-amber-800 hover:bg-amber-900 text-white rounded-xl flex flex-col items-center justify-center font-bold text-xs transition shadow-sm px-2">
+                <a id="modal-lichess-btn" target="_blank" class="bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl flex flex-col items-center justify-center font-bold text-xs transition shadow-sm px-2">
                     <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Sala de Espera</span> RETAR EN LICHESS 🚀
                 </a>
 
-                <!-- NUEVO BOTÓN DE WHATSAPP -->
                 <a id="modal-whatsapp-btn" target="_blank" class="mt-3 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl flex flex-col items-center justify-center p-3 text-center font-bold" style="display: none;">
                     <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Conversación</span> ENVIAR WHATSAPP 💬
                 </a>
@@ -449,24 +444,10 @@
     <script>
         const SHEET_ID = '1_9bVTGafzGQZzxrkV2Yt-sD6QgwIZiCsbL-ZwnsK3Zk';
 
-        // 📤 URL de tu Apps Script publicado como "Aplicación Web" (ver instrucciones aparte).
-        // Sustituye el texto de abajo por la URL real que te dé Google al desplegarlo (termina en /exec).
         const RESULTADOS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwLwrJYcOB4y-Wrm9Crq9Pnn_e_mLBl0C6AbFHWrKWuU1_H9frfeZQEL8T1GMHC8G9TJw/exec';
 
-        // ==========================================================================
-        // 🎨 TEMAS DE DIVISIÓN: aquí se define el aspecto y las zonas de ascenso/
-        // descenso/playoff de cada división. Las divisiones se detectan solas leyendo
-        // la columna "División" de CLASIFICACION — NO hace falta tocar nada más del
-        // código si añades una división nueva, solo (opcionalmente) añadir un tema
-        // aquí para ella. Si hay más divisiones que temas definidos, se repiten los
-        // colores en bucle (para que nunca se rompa, aunque no sea lo más bonito).
-        //
-        // "zonas" son los tramos de color de ascenso/playoff/descenso: desde/hasta
-        // son posiciones en la tabla (1 = primero). Déjalo como "zonas: []" para una
-        // división nueva hasta que decidas las reglas de ascensos/descensos.
-        // ==========================================================================
         const TEMAS_DIVISION = [
-            { // 1ª división encontrada -> tema ORO (igual que la Chesspions League de siempre)
+            {
                 icono: '🏆',
                 headerBg: 'bg-gradient-to-r from-amber-100 to-amber-50 border-b border-stone-300',
                 headerText: 'text-amber-900',
@@ -477,12 +458,12 @@
                 motwScore: 'text-amber-400',
                 calBadge: 'bg-amber-100 text-amber-900 border-amber-300',
                 zonas: [
-                    { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },   // Verde: Playoff
-                    { desde: 7, hasta: 11, rgb: '241, 196, 15', borde: '#f1c40f' },  // Amarillo: Promoción
-                    { desde: 12, hasta: 14, rgb: '231, 76, 60', borde: '#e74c3c' }   // Rojo: Descenso
+                    { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },
+                    { desde: 7, hasta: 11, rgb: '241, 196, 15', borde: '#f1c40f' },
+                    { desde: 12, hasta: 14, rgb: '231, 76, 60', borde: '#e74c3c' }
                 ]
             },
-            { // 2ª división encontrada -> tema PLATA (igual que la Chesscond Division de siempre)
+            {
                 icono: '🥈',
                 headerBg: 'bg-gradient-to-r from-emerald-100 to-emerald-50 border-b border-stone-300',
                 headerText: 'text-emerald-900',
@@ -493,11 +474,11 @@
                 motwScore: 'text-emerald-400',
                 calBadge: 'bg-emerald-100 text-emerald-900 border-emerald-300',
                 zonas: [
-                    { desde: 1, hasta: 3, rgb: '46, 204, 113', borde: '#2ecc71' },  // Verde: Ascenso
-                    { desde: 4, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' }   // Amarillo: Promoción
+                    { desde: 1, hasta: 3, rgb: '46, 204, 113', borde: '#2ecc71' },
+                    { desde: 4, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' }
                 ]
             },
-            { // 3ª división encontrada -> tema BRONCE (nuevo, sin zonas todavía)
+            {
                 icono: '🥉',
                 headerBg: 'bg-gradient-to-r from-sky-100 to-sky-50 border-b border-stone-300',
                 headerText: 'text-sky-900',
@@ -507,9 +488,9 @@
                 motwBadge: 'bg-sky-400 text-slate-950',
                 motwScore: 'text-sky-400',
                 calBadge: 'bg-sky-100 text-sky-900 border-sky-300',
-                zonas: [] // ⚠️ Añade aquí las zonas de ascenso/descenso cuando definas las reglas de esta división
+                zonas: []
             },
-            { // 4ª división encontrada -> tema extra, por si acaso
+            {
                 icono: '🎖️',
                 headerBg: 'bg-gradient-to-r from-purple-100 to-purple-50 border-b border-stone-300',
                 headerText: 'text-purple-900',
@@ -523,37 +504,25 @@
             }
         ];
 
-        // Guardamos aquí, en cuanto se detectan, qué división le tocó a cada tema
-        // (nombreDivision -> objeto tema), para poder reutilizarlo en el calendario, etc.
         let temaPorDivision = {};
 
-        // ==========================================================================
-        // 🔢 ORDEN PREFERIDO DE LAS DIVISIONES: así se decide en qué orden se pintan
-        // las tablas de clasificación (de arriba a abajo), sea cual sea el orden en
-        // que vengan las filas en tu pestaña CLASIFICACION de Sheets.
-        //
-        // Escribe aquí el nombre EXACTO de cada división, tal como aparece en la
-        // columna "División" de CLASIFICACION (mayúsculas y todo tienen que coincidir).
-        // Cualquier división que no esté en esta lista se añade al final, en el orden
-        // en que aparezca en la Sheet (para que nunca se "pierda" ninguna).
-        // ==========================================================================
         const ORDEN_PREFERIDO_DIVISIONES = [
             'Chesspions League',
             'Chesscond Division',
-            'Tercera División' // ⚠️ Cambia esto por el nombre EXACTO de tu tercera división
+            'Tercera División'
         ];
 
         let currentRound = 1;
         let allMatches = [];
         let infoData = [];
-        let eloRankingData = []; // 🚀 NUEVA VARIABLE GLOBAL AÑADIDA
+        let eloRankingData = [];
         let datesMap = {};
         let resumenIAData = "";
-        let divisionesData = {};   // { "Nombre de la División": [ playerData, playerData, ... ] }
-        let ordenDivisiones = [];  // Orden en el que se han encontrado las divisiones (para pintar siempre igual)
-        let peonesData = []; // 📇 Fichas de participantes (respuestas del Google Form)
+        let divisionesData = {};
+        let ordenDivisiones = [];
+        let peonesData = [];
         let peonesSearchListenerAttached = false;
-        let palmaresCargado = false; // 👑 Evita recargar la pestaña Palmarés cada vez que se abre
+        let palmaresCargado = false;
 
         window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
@@ -568,33 +537,26 @@
         });
 
        function switchTab(tab) {
-    // 1. Quitamos el estado activo de TODOS los botones de pestañas
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'text-white', 'bg-stone-800'));
     
-    // 2. Ocultamos TODOS los contenedores de contenido primero
     document.getElementById('content-liga').classList.add('hidden');
     document.getElementById('content-reglamento').classList.add('hidden');
     
     const contentResumen = document.getElementById('content-resumen');
     if (contentResumen) contentResumen.classList.add('hidden');
 
-    // 🆕 Ocultamos el nuevo contenedor de Mundo Chess
     const contentMundo = document.getElementById('content-mundo-chess');
     if (contentMundo) contentMundo.classList.add('hidden');
 
-    // 📇 Ocultamos el contenedor de Peones
     const contentPeones = document.getElementById('content-peones');
     if (contentPeones) contentPeones.classList.add('hidden');
 
-    // 📤 Ocultamos el contenedor de Reportar Resultado
     const contentReportar = document.getElementById('content-reportar');
     if (contentReportar) contentReportar.classList.add('hidden');
 
-    // 👑 Ocultamos el contenedor de Palmarés
     const contentPalmares = document.getElementById('content-palmares');
     if (contentPalmares) contentPalmares.classList.add('hidden');
 
-    // 3. Activamos solo la pestaña y el contenido correspondiente
     if (tab === 'liga') {
         document.getElementById('tab-liga').classList.add('active');
         document.getElementById('content-liga').classList.remove('hidden');
@@ -602,24 +564,19 @@
         document.getElementById('tab-resumen').classList.add('active');
         if (contentResumen) contentResumen.classList.remove('hidden');
     } else if (tab === 'reglamento') {
-        // 🆕 Ahora reglamento tiene su propia condición limpia
         document.getElementById('tab-reglamento').classList.add('active');
         document.getElementById('content-reglamento').classList.remove('hidden');
     } else if (tab === 'mundo') {
-        // 🆕 Condición para activar la nueva pestaña de Mundo Chess
         document.getElementById('tab-mundo').classList.add('active');
         if (contentMundo) contentMundo.classList.remove('hidden');
     } else if (tab === 'peones') {
-        // 📇 Condición para activar la nueva pestaña de Peones
         document.getElementById('tab-peones').classList.add('active');
         if (contentPeones) contentPeones.classList.remove('hidden');
     } else if (tab === 'reportar') {
-        // 📤 Condición para activar la nueva pestaña de Reportar Resultado
         document.getElementById('tab-reportar').classList.add('active');
         if (contentReportar) contentReportar.classList.remove('hidden');
         initReportarUI();
     } else if (tab === 'palmares') {
-        // 👑 Condición para activar la nueva pestaña de Palmarés
         document.getElementById('tab-palmares').classList.add('active');
         if (contentPalmares) contentPalmares.classList.remove('hidden');
         if (!palmaresCargado) cargarPalmares();
@@ -651,12 +608,8 @@
         }
 
         async function loadSheetCore() {
-            // Unificamos el try principal de la función para envolver las peticiones de forma segura
             try {
                 
-               // ==========================================================
-                // 🤖 LÓGICA: OBTENER RESUMEN DESDE GOOGLE SHEETS (BÚSQUEDA DINÁMICA)
-                // ==========================================================
                 try {
                     console.log("🔍 [1/4] Solicitando pestaña RESUMEN_IA...");
                     const resumenRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESUMEN_IA`);
@@ -666,10 +619,8 @@
                     let textoBruto = "";
 
                     if (resumenRows && resumenRows.length > 0) {
-                        // Recorremos todas las filas devueltas buscando el texto de Gemini
                         for (let i = 0; i < resumenRows.length; i++) {
                             const celda = resumenRows[i]?.c?.[0]?.v;
-                            // Si encontramos una celda con un texto largo (la crónica), nos quedamos con ella
                             if (celda && celda.toString().trim().length > 50) {
                                 textoBruto = celda.toString();
                                 console.log(`🎯 ¡Crónica encontrada con éxito en la fila de índice ${i}!`);
@@ -680,10 +631,8 @@
 
                     let resumenIAData = "";
                     if (textoBruto.trim() !== "") {
-                        // ✨ Convertimos los asteriscos *texto* en negritas <b>texto</b>
                         let textoConNegritas = textoBruto.replace(/\*(.*?)\*/g, '<b>$1</b>');
                         
-                        // 📋 Separamos por saltos de línea para maquetar los párrafos
                         resumenIAData = textoConNegritas
                             .split('\n')
                             .map(linea => {
@@ -707,10 +656,7 @@
                 } catch (errResumen) {
                     console.error("❌ Error procesando la pestaña resumen:", errResumen);
                 }
-                // ==========================================================
-             // ==========================================================
-               // 🌍 LÓGICA: OBTENER NOTICIAS (MUNDO CHESS) DESDE GOOGLE SHEETS
-                // ==========================================================
+
                 try {
                     console.log("🔍 Solicitando pestaña MUNDO_CHESS...");
                     const noticiasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=MUNDO_CHESS`);
@@ -757,10 +703,7 @@
                 } catch (errMundoChess) {
                     console.error("❌ Error procesando la pestaña Mundo Chess:", errMundoChess);
                 }
-                // ==========================================================
 
-                // 📦 NUEVA LOGICA: OBTENER RANKING DE ELOS DE LICHESS
-                // ==========================================================
                 try {
                     const eloRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=ELO_RANKING`);
                     const eloText = await eloRes.text();
@@ -777,12 +720,7 @@
                 } catch (errElo) {
                     console.error("Error al cargar la pestaña ELO_RANKING:", errElo);
                 }
-                // ==========================================================
 
-                // ==========================================================
-                // 📇 LÓGICA: OBTENER FICHAS DE PARTICIPANTES DESDE LA PESTAÑA "Peones"
-                // (Respuestas del Google Form de bienvenida)
-                // ==========================================================
                 try {
                     const peonesRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Peones`);
                     const peonesText = await peonesRes.text();
@@ -790,10 +728,8 @@
                     const peonesCols = peonesJson.table.cols || [];
                     const peonesRows = peonesJson.table.rows || [];
 
-                    // Normaliza texto (minúsculas y sin acentos) para poder comparar cabeceras con seguridad
                     const normaliza = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
-                    // Busca el índice de la columna cuya cabecera contenga alguna de las palabras clave
                     const buscaCol = (keywords) => {
                         for (let i = 0; i < peonesCols.length; i++) {
                             const label = normaliza(peonesCols[i]?.label);
@@ -821,9 +757,6 @@
 
                     const getVal = (r, i) => {
                         if (i < 0 || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
-                        // Usamos el valor "formateado" (.f) si existe, igual que se hace con los resultados de partidas.
-                        // Esto evita que Google Sheets se coma los ceros iniciales de números de teléfono
-                        // que ha interpretado como cifras (ej. "0033612345678" -> 33612345678).
                         const cell = r.c[i];
                         return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
                     };
@@ -850,7 +783,6 @@
                         })
                         .filter(p => p && (p.nombre || p.nickGrupo));
 
-                    // 🔤 Ordenamos alfabéticamente por Nick del Grupo (o por nombre si no tiene nick)
                     peonesData.sort((a, b) => {
                         const claveA = (a.nickGrupo || a.nombre || '').toLowerCase();
                         const claveB = (b.nickGrupo || b.nombre || '').toLowerCase();
@@ -884,9 +816,7 @@
                         gridPeones.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se han podido cargar las fichas de los participantes.</p>`;
                     }
                 }
-                // ==========================================================
 
-                // 1. OBTENER INFORMACIÓN DE JUGADORES
                 const infoRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=INFO`);
                 const infoText = await infoRes.text();
                 const infoRows = JSON.parse(infoText.substring(47).slice(0, -2)).table.rows;
@@ -906,15 +836,14 @@
                             end: r.c[9].f || r.c[9].v 
                         };
                     }
-                }); // <-- LLAVE ALINEADA CORRECTAMENTE AQUÍ
+                });
 
-                // 2. OBTENER RESULTADOS COMPLETOS Y EVALUAR ESTADOS AVANZADOS
 const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
 const resText = await resRes.text();
 const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
 
 allMatches = [];
-const todayStr = new Date(); // Fecha actual para comparar
+const todayStr = new Date();
 
 resRows.forEach((r, idx) => {
   if (!r.c || !r.c[2]) return;
@@ -926,12 +855,10 @@ resRows.forEach((r, idx) => {
   let score1 = r.c[4] !== null ? (r.c[4].f || r.c[4].v.toString()) : '';
   let score2 = r.c[5] !== null ? (r.c[5].f || r.c[5].v.toString()) : '';
   
-  // Leemos la columna G (índice 6): número de partidas individuales que acabaron en tablas
   let numTablasCol = r.c[6] !== null && r.c[6] !== undefined && r.c[6].v !== null && r.c[6].v !== undefined
     ? parseInt(r.c[6].v.toString().replace(',', '.')) || 0
     : 0;
 
-  // Leemos la columna H del Excel (índice 7)
   let notasExcel = r.c[7]?.v?.toString().toLowerCase() || ''; 
   
   let matchStatus = 'Pendiente';
@@ -953,9 +880,8 @@ resRows.forEach((r, idx) => {
     round: roundNum, div: division, p1: player1, p2: player2,
     s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
   });
-}); // <--- AQUÍ CERRABA TU BUCLE FOREACH DE RESULTADOS
+});
 
-// 3. OBTENER Y AJUSTAR CLASIFICACIÓN CON NUEVO ORDEN DE COLUMNAS
 const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=CLASIFICACION`);
 const clasText = await clasRes.text();
 const clasRows = JSON.parse(clasText.substring(47).slice(0, -2)).table.rows;
@@ -994,8 +920,6 @@ clasRows.forEach((r) => {
     divisionesData[nombreDivision].push(playerData);
 });
 
-// 🔢 Reordenamos las divisiones según ORDEN_PREFERIDO_DIVISIONES (las que no estén
-// en la lista se quedan al final, en el orden en que aparecieron en la Sheet)
 ordenDivisiones.sort((a, b) => {
     let ia = ORDEN_PREFERIDO_DIVISIONES.indexOf(a);
     let ib = ORDEN_PREFERIDO_DIVISIONES.indexOf(b);
@@ -1004,16 +928,11 @@ ordenDivisiones.sort((a, b) => {
     return ia - ib;
 });
 
-// 🎨 Asignamos un tema visual a cada división según el orden en que se han encontrado
-// (repite temas en bucle si hay más divisiones que temas definidos, para no romperse nunca)
 temaPorDivision = {};
 ordenDivisiones.forEach((nombreDivision, i) => {
     temaPorDivision[nombreDivision] = TEMAS_DIVISION[i % TEMAS_DIVISION.length];
 });
 
-// ⚖️ APLICAMOS LOS CRITERIOS DE DESEMPATE DEL REGLAMENTO (ver pestaña Reglamento)
-// La Sheet ya trae el orden por puntos totales; aquí solo reordenamos los grupos
-// de jugadores EMPATADOS A PUNTOS, según enfrentamiento directo / mini-liga / etc.
 ordenDivisiones.forEach(nombreDivision => {
     divisionesData[nombreDivision] = aplicarCriteriosDesempate(divisionesData[nombreDivision], allMatches);
 });
@@ -1022,7 +941,6 @@ if (typeof currentRound !== 'undefined') {
     renderRoundUI(currentRound); 
 }
                 
-// Helper de insignias independientes por división
 const getLimits = (rows) => {
     let maxT = -1, maxW = -1, minL = 99;
     rows.forEach(r => {
@@ -1036,18 +954,15 @@ const getLimits = (rows) => {
 const buildTableHTML = (rows, tema) => {
     let html = '';
     const limits = getLimits(rows);
-    // --- NUEVO: PRECALCULAR LOS ROSCOS DE CADA JUGADOR EN ESTA CATEGORÍA ---
-    // Guardamos los roscos de cada uno para saber cuál es el número máximo
     let roscosPorJugador = {};
     let maxRoscosEnDivision = 0;
     
-    // NUEVAS VARIABLES: Para contar los roscos RECIBIDOS (Samurái 🇯🇵)
     let roscosRecibidosPorJugador = {};
     let maxRoscosRecibidosEnDivision = 0;
 
     rows.forEach(r => {
-        let count = 0;          // Cuenta los hechos a favor (Donut)
-        let countRecibidos = 0; // Cuenta los recibidos en contra (Japón)
+        let count = 0;
+        let countRecibidos = 0;
         
         if (typeof allMatches !== 'undefined') {
             allMatches.forEach(m => {
@@ -1058,22 +973,16 @@ const buildTableHTML = (rows, tema) => {
                     const p1Lower = m.p1.toLowerCase().trim();
                     const p2Lower = m.p2.toLowerCase().trim();
 
-                    // --- 🍩 ROSCOS HECHOS A FAVOR ---
-                    // Si ganó 4-0 como local
                     if (p1Lower === rNameLower && s1Int === 4 && s2Int === 0) {
                         count++;
                     }
-                    // Si ganó 0-4 como visitante
                     if (p2Lower === rNameLower && s1Int === 0 && s2Int === 4) {
                         count++;
                     }
 
-                    // --- 🇯🇵 ROSCOS RECIBIDOS EN CONTRA ---
-                    // Si PERDIÓ 0-4 como local
                     if (p1Lower === rNameLower && s1Int === 0 && s2Int === 4) {
                         countRecibidos++;
                     }
-                    // Si PERDIÓ 4-0 como visitante
                     if (p2Lower === rNameLower && s1Int === 4 && s2Int === 0) {
                         countRecibidos++;
                     }
@@ -1081,54 +990,45 @@ const buildTableHTML = (rows, tema) => {
             });
         }
         
-        // Guardamos los datos de los roscos hechos
         roscosPorJugador[r.name] = count;
         if (count > maxRoscosEnDivision) {
             maxRoscosEnDivision = count;
         }
 
-        // Guardamos los datos de los roscos recibidos
         roscosRecibidosPorJugador[r.name] = countRecibidos;
         if (countRecibidos > maxRoscosRecibidosEnDivision) {
             maxRoscosRecibidosEnDivision = countRecibidos;
         }
     });
 
-   // --- RENDERIZADO DE LAS FILAS CON LAS INSIGNIAS CORREGIDAS ---
 rows.forEach((r, index) => {
     let badge = '';
     if(r.t === limits.maxT && r.t > 0) badge += ' 🤝';
-    if(r.w === limits.maxW && r.w > 0) badge += ' 👑'; // Corona para el máximo de victorias
+    if(r.w === limits.maxW && r.w > 0) badge += ' 👑';
     if(r.l === limits.minL) badge += ' 🛡️';
 
-    // El donut se otorga SOLO si el jugador tiene el número máximo de roscos A FAVOR de su división (y al menos tiene 1)
     if (maxRoscosEnDivision > 0 && roscosPorJugador[r.name] === maxRoscosEnDivision) {
         badge += ' 🍩';
     }
 
-    // NUEVA INSIGNIA: Bandera de Japón para el que más roscos ha RECIBIDO en la división
     if (typeof maxRoscosRecibidosEnDivision !== 'undefined' && maxRoscosRecibidosEnDivision > 0 && roscosRecibidosPorJugador[r.name] === maxRoscosRecibidosEnDivision) {
         badge += ' 🇯🇵';
     }
 
-    // Clases estéticas por defecto de tamaño para el Top 3
     let rowStyle = "";
     let textStyle = "text-stone-800 font-medium";
 
     if(index === 0) { rowStyle = "bg-amber-100/50 scale-[1.01] font-bold text-base"; }
     else if(index === 1) { rowStyle = "bg-stone-100/80 text-sm font-bold"; }
     else if(index === 2) { rowStyle = "bg-orange-50/60 text-sm font-bold"; }
-    // ... el resto de tu código del forEach continúa igual
-        // // --- ZONAS DE ASCENSO/DESCENSO/PLAYOFF, GENÉRICAS POR DIVISIÓN (ver TEMAS_DIVISION) ---
         let estiloFila = '';
-        const posicion = r.pos; // Usamos la posición real de la tabla
+        const posicion = r.pos;
 
         const zona = (tema.zonas || []).find(z => posicion >= z.desde && posicion <= z.hasta);
         if (zona) {
             estiloFila = `background-color: rgba(${zona.rgb}, 0.15) !important; border-left: 5px solid ${zona.borde};`;
         }
 
-                        // Añadimos el style="${estiloFila}" dinámico a la fila tr
                         html += `<tr style="${estiloFila}" class="border-b border-stone-300 cursor-pointer transition ${rowStyle} ${textStyle}" onclick="openPlayerModal('${r.name.replace(/'/g, "\\'")}', '${r.div}')">
                             <td class="py-3 px-3 font-black text-center text-stone-600">${r.pos}</td>
                             <td class="py-3 px-3 font-bold text-stone-900">${r.name}${badge}</td>
@@ -1145,7 +1045,6 @@ rows.forEach((r, index) => {
                     return html;
                 };
 
-                // Construye el bloque completo (cabecera + tabla) de UNA división
                 const buildSeccionDivisionHTML = (nombreDivision, rows, tema) => {
                     const idTabla = `table-div-${nombreDivision.replace(/[^a-zA-Z0-9]/g, '-')}`;
                     return `
@@ -1175,7 +1074,6 @@ rows.forEach((r, index) => {
                     </div>`;
                 };
 
-                // 🖊️ Pintamos TODAS las divisiones que se hayan encontrado, una tras otra
                 const contenedorClasificaciones = document.getElementById('clasificaciones-container');
                 if (contenedorClasificaciones) {
                     contenedorClasificaciones.innerHTML = ordenDivisiones
@@ -1183,9 +1081,8 @@ rows.forEach((r, index) => {
                         .join('');
                 }
 
-                // Detectar jornada activa por fecha actual
 const today = new Date();
-const currentYear = today.getFullYear(); // Detecta automáticamente el año actual (2026)
+const currentYear = today.getFullYear();
 
 for(let key in datesMap) {
     if(!datesMap[key].start || !datesMap[key].end) continue;
@@ -1193,13 +1090,11 @@ for(let key in datesMap) {
     let pS = datesMap[key].start.split('/');
     let pE = datesMap[key].end.split('/');
     
-    // Creamos las fechas con números (Año, Mes - 1, Día, Hora, Minuto, Segundo)
-    // Restamos 1 al mes porque en JavaScript Enero es 0 y Diciembre es 11
     let start = new Date(currentYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
     let end = new Date(currentYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
     
     if(today >= start && today <= end) {
-        currentRound = parseInt(key.replace(/\D/g,'') || '10'); // Cambiado a '10' como fallback lógico por tu J10 actual
+        currentRound = parseInt(key.replace(/\D/g,'') || '10');
         break;
     }
 }
@@ -1207,7 +1102,6 @@ for(let key in datesMap) {
 initCalendarUI();
 renderRoundUI(currentRound);
 
-                // FASES FINALES
                 const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PLAYOFFS`);
                 const playText = await playRes.text();
                 const playRows = JSON.parse(playText.substring(47).slice(0, -2)).table.rows.slice(1);
@@ -1218,9 +1112,6 @@ renderRoundUI(currentRound);
             }
         }
 
-        // ==========================================================
-        // 📇 RENDERIZADO DE LAS FICHAS DE PEONES (PARTICIPANTES)
-        // ==========================================================
         function renderPeones(lista) {
             const grid = document.getElementById('peones-grid');
             if (!grid) return;
@@ -1250,7 +1141,7 @@ renderRoundUI(currentRound);
                 const inicial = nombreMostrado.trim().charAt(0).toUpperCase() || '♟️';
 
                 const lichessBtn = p.nickLichess
-                    ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-amber-800 hover:bg-amber-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
+                    ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
                     : '';
 
                 const whatsappBtn = p.telefono
@@ -1306,23 +1197,16 @@ renderRoundUI(currentRound);
             }).join('');
         }
 
-        // Normaliza texto (minúsculas, sin acentos) — usada por renderPeones
         function normalizaTexto(s) {
             return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
         }
 
-        // Busca el tema de una división de forma tolerante (ignora mayúsculas, acentos y
-        // espacios de más), por si el texto no coincide EXACTO entre RESULTADOS y CLASIFICACION.
         function buscarTemaPorDivision(nombreDiv) {
             const objetivo = normalizaTexto(nombreDiv);
             const encontrado = Object.keys(temaPorDivision).find(k => normalizaTexto(k) === objetivo);
             return encontrado ? temaPorDivision[encontrado] : TEMAS_DIVISION[0];
         }
 
-        // ==========================================================
-        // 👑 LÓGICA: PALMARÉS HISTÓRICO (pestaña "PALMARES" de la Sheet)
-        // Columnas esperadas: A=EDICION, B=CAMPEON, C=SEGUNDO, D=TERCERO
-        // ==========================================================
         async function cargarPalmares() {
             const gridRanking = document.getElementById('palmares-ranking-grid');
             const tbody = document.getElementById('table-palmares-body');
@@ -1337,7 +1221,6 @@ renderRoundUI(currentRound);
                     return r.c[i].v.toString().trim();
                 };
 
-                // Filtramos filas de cabecera y filas vacías (ediciones aún no jugadas, como la XIX en curso)
                 const ediciones = rows
                     .map(r => ({
                         edicion: getTxt(r, 0),
@@ -1355,8 +1238,7 @@ renderRoundUI(currentRound);
                     return;
                 }
 
-                // --- 1) CONSTRUIMOS EL CONTEO DE PODIOS POR JUGADOR ---
-                const stats = {}; // { nombre: { titulos, sub, tercero } }
+                const stats = {};
                 const sumar = (nombre, campo) => {
                     if (!nombre) return;
                     if (!stats[nombre]) stats[nombre] = { titulos: 0, sub: 0, tercero: 0 };
@@ -1376,7 +1258,6 @@ renderRoundUI(currentRound);
                     return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
                 });
 
-                // --- 2) RENDERIZAMOS LAS TARJETAS DEL RANKING ---
                 if (gridRanking) {
                     gridRanking.innerHTML = ranking.map((p, idx) => {
                         let cardStyle = 'bg-white border-stone-300';
@@ -1405,7 +1286,6 @@ renderRoundUI(currentRound);
                     }).join('');
                 }
 
-                // --- 3) RENDERIZAMOS LA TABLA DE EDICIONES (de la más reciente a la más antigua) ---
                 if (tbody) {
                     const edicionesOrdenadas = [...ediciones].reverse();
                     tbody.innerHTML = edicionesOrdenadas.map(e => `
@@ -1425,42 +1305,23 @@ renderRoundUI(currentRound);
             }
         }
 
-        // ==========================================================
-        // 📞 FUNCIÓN COMPARTIDA: prepara un número de teléfono para usarlo en un enlace wa.me
-        // Entiende prefijos escritos como "0034", "0033", "+34", "+33", o números sin prefijo (asume España)
-        // Se usa tanto en las fichas de Peones como en el modal del jugador
-        // ==========================================================
         function formatWhatsappNumber(raw) {
             if (!raw) return '';
             let num = raw.toString().trim();
 
-            // Quitamos espacios, guiones, puntos y paréntesis
             num = num.replace(/[\s\-\.\(\)]/g, '');
 
             if (num.startsWith('+')) {
-                // Formato "+34612345678" o "+33612345678" -> quitamos el "+"
                 num = num.substring(1);
             } else if (num.startsWith('00')) {
-                // Formato "0034612345678" o "0033612345678" -> quitamos el "00" (prefijo de marcación internacional)
                 num = num.substring(2);
             } else if (num.replace(/[^0-9]/g, '').length <= 9) {
-                // Número corto sin ningún prefijo (ej. "612345678") -> asumimos España
                 num = '34' + num;
             }
-            // Si no entra en ninguno de los casos anteriores, asumimos que ya viene con el código
-            // de país pegado sin separador (ej. "34612345678" o "33612345678") y lo dejamos tal cual.
 
-            // Nos quedamos solo con dígitos, por si se cuela alguna letra suelta
             return num.replace(/[^0-9]/g, '');
         }
 
-        // ==========================================================
-        // ⚖️ CRITERIOS DE DESEMPATE DE LA CLASIFICACIÓN (ver pestaña Reglamento)
-        // ==========================================================
-
-        // 🔧 Puntos que otorga GANAR/EMPATAR un enfrentamiento (encuentro de 4 partidas), solo se
-        // usan para comparar DENTRO de una mini-liga entre jugadores empatados. Si tu sistema de
-        // puntuación general no es "victoria=3, empate 2-2=1, derrota=0", cambia estos dos números.
         const PUNTOS_ENCUENTRO_GANADO = 2;
         const PUNTOS_ENCUENTRO_EMPATADO = 1;
 
@@ -1468,8 +1329,6 @@ renderRoundUI(currentRound);
             return parseFloat((cadena || '0').toString().replace(',', '.')) || 0;
         }
 
-        // Devuelve el resultado agregado (sumando todos los encuentros que se hayan jugado entre
-        // ellos, por si hubiera más de uno) del enfrentamiento directo entre dos jugadores.
         function resultadoEnfrentamientoDirecto(nombreA, nombreB, matches) {
             let ptsA = 0, ptsB = 0, encontrado = false;
             const a = (nombreA || '').toLowerCase().trim();
@@ -1491,8 +1350,6 @@ renderRoundUI(currentRound);
             return { ptsA, ptsB, encontrado };
         }
 
-        // Puntos de "mini-liga": solo se cuentan los encuentros jugados ENTRE los jugadores
-        // empatados (se ignoran los resultados contra el resto de la liga).
         function puntosMiniLiga(nombreJugador, nombresImplicados, matches) {
             const jl = (nombreJugador || '').toLowerCase().trim();
             let pts = 0;
@@ -1504,7 +1361,7 @@ renderRoundUI(currentRound);
                 if (p1 !== jl && p2 !== jl) return;
 
                 const rival = p1 === jl ? p2 : p1;
-                if (!nombresImplicados.includes(rival)) return; // Solo entre los implicados en el empate
+                if (!nombresImplicados.includes(rival)) return;
 
                 const propio = p1 === jl ? _puntosIndividuales(m.s1) : _puntosIndividuales(m.s2);
                 const delRival = p1 === jl ? _puntosIndividuales(m.s2) : _puntosIndividuales(m.s1);
@@ -1516,49 +1373,37 @@ renderRoundUI(currentRound);
             return pts;
         }
 
-        // Desempate para EXACTAMENTE 2 jugadores empatados a puntos.
         function ordenarEmpateDoble(grupo, matches) {
             const [x, y] = grupo;
 
-            // 1. Enfrentamiento directo
             const { ptsA, ptsB, encontrado } = resultadoEnfrentamientoDirecto(x.name, y.name, matches);
             if (encontrado && ptsA !== ptsB) {
                 return ptsA > ptsB ? [x, y] : [y, x];
             }
 
-            // 2. Más jornadas (encuentros) ganadas en todo el torneo -> columna EV
             if (x.ev !== y.ev) return x.ev > y.ev ? [x, y] : [y, x];
 
-            // 3. Más partidas individuales ganadas en todo el torneo -> columna G
             if (x.w !== y.w) return x.w > y.w ? [x, y] : [y, x];
 
-            // Empate total en todos los criterios: dejamos el orden que ya traían
             return grupo;
         }
 
-        // Desempate para 3 o más jugadores empatados a puntos (triple empate o más).
         function ordenarEmpateTriple(grupo, matches) {
             const nombresImplicados = grupo.map(g => (g.name || '').toLowerCase().trim());
 
             return [...grupo].sort((a, b) => {
-                // 1. Puntos en mini-liga particular (solo partidos entre los implicados)
                 const pa = puntosMiniLiga(a.name, nombresImplicados, matches);
                 const pb = puntosMiniLiga(b.name, nombresImplicados, matches);
                 if (pa !== pb) return pb - pa;
 
-                // 2. Más jornadas (encuentros) ganadas en todo el torneo -> columna EV
                 if (a.ev !== b.ev) return b.ev - a.ev;
 
-                // 3. Más partidas individuales ganadas en todo el torneo -> columna G
                 if (a.w !== b.w) return b.w - a.w;
 
-                // Empate total: mantenemos el orden relativo que ya traían
                 return 0;
             });
         }
 
-        // Agrupa la clasificación por bloques de puntos idénticos y aplica el desempate
-        // correspondiente a cada bloque (2 jugadores o triple empate+), luego renumera la posición.
         function aplicarCriteriosDesempate(rows, matches) {
             if (!rows || rows.length === 0) return rows;
 
@@ -1583,14 +1428,10 @@ renderRoundUI(currentRound);
             return resultado;
         }
 
-        // ==========================================================
-        // 📤 LÓGICA DE LA PESTAÑA "REPORTAR RESULTADO"
-        // ==========================================================
         function initReportarUI() {
             const selectRonda = document.getElementById('rep-ronda');
             if (!selectRonda) return;
 
-            // Rondas disponibles: las que existan realmente en allMatches (o 1-14 si aún no ha cargado nada)
             const rondasDisponibles = [...new Set(allMatches.map(m => m.round))].sort((a, b) => a - b);
             const listaRondas = rondasDisponibles.length ? rondasDisponibles : Array.from({ length: 14 }, (_, i) => i + 1);
 
@@ -1661,9 +1502,6 @@ renderRoundUI(currentRound);
                 return;
             }
 
-            // 🔒 COMPROBACIÓN ANTES DE ENVIAR: si ya está "Terminado" o "Fuera de tiempo", ni lo intentamos.
-            // Esto es más fiable que esperar la respuesta del servidor, porque no depende
-            // de si el navegador consigue leer la respuesta (a veces se bloquea por CORS).
             if (m.status === 'Terminado' || m.status === 'Fuera de tiempo') {
                 mostrarMensaje(`❌ Este partido ya está marcado como "${m.status}" y no se puede sobrescribir desde aquí. Si hay un error, contacta con el administrador de la liga.`, true);
                 return;
@@ -1705,7 +1543,7 @@ renderRoundUI(currentRound);
             try {
                 const res = await fetch(RESULTADOS_WEBAPP_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // evita el preflight CORS con Apps Script
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
 
@@ -1713,9 +1551,6 @@ renderRoundUI(currentRound);
                 try {
                     resultado = await res.json();
                 } catch (errLectura) {
-                    // El navegador no ha podido leer la respuesta (típico bloqueo de CORS entre
-                    // GitHub Pages y Apps Script). No sabemos todavía si se guardó o no: lo
-                    // comprobamos de verdad más abajo, releyendo la Sheet, en vez de asumir éxito.
                     resultado = null;
                 }
 
@@ -1724,10 +1559,6 @@ renderRoundUI(currentRound);
                     return;
                 }
 
-                // ✅ COMPROBACIÓN DESPUÉS DE ENVIAR: releemos la Sheet y miramos si ESTE partido
-                // concreto ha pasado de verdad a "Terminado". Si sigue igual que antes, algo ha
-                // fallado (código incorrecto, nombre no encontrado, etc.) aunque no pudiéramos
-                // leer el mensaje de error exacto del servidor.
                 await loadSheetCore();
 
                 const partidosActualizados = allMatches.filter(mm => mm.round === ronda);
@@ -1780,28 +1611,23 @@ renderRoundUI(currentRound);
 
     const roundMatches = allMatches.filter(m => m.round === rNum);
 
-    // Renderizado del Grid del Calendario con distinciones claras de división y tablas
     roundMatches.forEach(m => {
         const isFin = m.status === 'Terminado';
         const temaPartido = buscarTemaPorDivision(m.div);
         const divBadgeClass = temaPartido.calBadge;
 
-        // --- NUEVO: Buscamos los nicks reales de Lichess en infoData ---
         const player1Info = infoData.find(p => p.name.toLowerCase().trim() === m.p1.toLowerCase().trim());
         const player2Info = infoData.find(p => p.name.toLowerCase().trim() === m.p2.toLowerCase().trim());
         
-        // Si encontramos el nick usamos el de Lichess, si no, dejamos el nombre por defecto como salvavidas
         const lichessUser1 = player1Info && player1Info.lichess ? player1Info.lichess.trim() : m.p1.trim();
         const lichessUser2 = player2Info && player2Info.lichess ? player2Info.lichess.trim() : m.p2.trim();
 
-        // --- INDICADORES VISUALES EXTRA EN EL RESULTADO GENERAL (SOLO ROSCO) ---
         let matchBadgeIndicator = "";
         
         if (isFin) {
             const s1Int = parseInt(m.s1);
             const s2Int = parseInt(m.s2);
 
-            // Si es un Rosco (4-0 o 0-4), muestra siempre el Donut sin importar quién perdió
             if ((s1Int === 4 && s2Int === 0) || (s1Int === 0 && s2Int === 4)) {
                 matchBadgeIndicator = `<span class="text-[10px] font-black bg-amber-50 text-amber-950 px-1.5 py-0.5 rounded border border-amber-300 block text-center mt-1 animate-pulse">🍩 ¡Rosco!</span>`;
             } 
@@ -1812,16 +1638,15 @@ renderRoundUI(currentRound);
             }
         }
 
-        // --- ASIGNACIÓN DINÁMICA DE ESTILOS SEGÚN EL ESTADO REAL DEL PARTIDO ---
         let btnStatusClass = "";
         if (m.status === 'Terminado') {
             btnStatusClass = "bg-stone-800 text-white border-stone-900";
         } else if (m.status === 'Aplazado') {
-            btnStatusClass = "bg-amber-100 text-amber-800 border-amber-300"; // Fondo amarillento/arena
+            btnStatusClass = "bg-amber-100 text-amber-800 border-amber-300";
         } else if (m.status === 'Fuera de tiempo') {
-            btnStatusClass = "bg-red-100 text-red-700 border-red-300"; // Fondo rojizo
+            btnStatusClass = "bg-red-100 text-red-700 border-red-300";
         } else {
-            btnStatusClass = "bg-stone-100 text-stone-500 border-stone-300"; // Pendiente estándar
+            btnStatusClass = "bg-stone-100 text-stone-500 border-stone-300";
         }
 
         container.innerHTML += `
@@ -1829,9 +1654,9 @@ renderRoundUI(currentRound);
                 <div class="space-y-1">
                     <span class="text-[9px] uppercase font-black px-2 py-0.5 rounded-md border ${divBadgeClass} inline-block tracking-wider">${m.div}</span>
                     <span class="text-sm font-bold text-stone-900 block pt-1">
-                        <span class="cursor-pointer hover:text-amber-800 hover:underline transition" onclick="openPlayerModal('${m.p1.replace(/'/g, "\\'")}', '${m.div}')">${m.p1}</span> 
+                        <span class="cursor-pointer hover:text-indigo-700 hover:underline transition" onclick="openPlayerModal('${m.p1.replace(/'/g, "\\'")}', '${m.div}')">${m.p1}</span> 
                         <span class="font-normal text-stone-500">vs</span> 
-                        <span class="cursor-pointer hover:text-amber-800 hover:underline transition" onclick="openPlayerModal('${m.p2.replace(/'/g, "\\'")}', '${m.div}')">${m.p2}</span>
+                        <span class="cursor-pointer hover:text-indigo-700 hover:underline transition" onclick="openPlayerModal('${m.p2.replace(/'/g, "\\'")}', '${m.div}')">${m.p2}</span>
                     </span>
                 </div>
                 <div class="text-right">
@@ -1839,15 +1664,12 @@ renderRoundUI(currentRound);
                         const p1Name = '${m.p1.replace(/'/g, "\\'")}';
                         const p2Name = '${m.p2.replace(/'/g, "\\'")}';
                         
-                        // Buscamos en infoData en tiempo real
                         const f1 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p1Name.toLowerCase().trim()) : null;
                         const f2 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p2Name.toLowerCase().trim()) : null;
                         
-                        // Sacamos los nicks de Lichess de la columna D del Sheets
                         const nick1 = f1 && f1.lichess ? f1.lichess.trim() : p1Name.trim();
                         const nick2 = f2 && f2.lichess ? f2.lichess.trim() : p2Name.trim();
                         
-                        // Formateamos la URL: Si terminó, usa la estructura de búsqueda. Si está pendiente, va a /tv
                         const url = '${isFin}' === 'true' 
                             ? 'https://lichess.org/games/search?players.a=' + encodeURIComponent(nick1) + '&players.b=' + encodeURIComponent(nick2) + '&sort.field=d&sort.order=desc#results'
                             : 'https://lichess.org/@/' + encodeURIComponent(nick1) + '/tv';
@@ -1855,7 +1677,7 @@ renderRoundUI(currentRound);
                         window.open(url, '_blank'); 
                         event.stopPropagation();
                     " 
-                          class="font-mono text-xs font-black px-3 py-1.5 rounded-lg border block shadow-xs transition-all cursor-pointer hover:bg-amber-800 hover:text-white hover:border-amber-900 hover:scale-105 ${btnStatusClass}"
+                          class="font-mono text-xs font-black px-3 py-1.5 rounded-lg border block shadow-xs transition-all cursor-pointer hover:bg-indigo-800 hover:text-white hover:border-indigo-900 hover:scale-105 ${btnStatusClass}"
                           title="${isFin ? 'Ver partidas del duelo' : 'Ver partida en directo o perfil'}">
                        ${
                             m.status === 'Terminado' 
@@ -1871,11 +1693,8 @@ renderRoundUI(currentRound);
                 </div>
             </div>     
         `;
-    }); // <-- Aquí termina el pintado de las tarjetas normales
+    });
 
-    // =========================================================================
-    // --- SELECCIÓN MATEMÁTICA INTELIGENTE DE PARTIDOS DESTACADOS (una tarjeta por división) ---
-    // =========================================================================
     const motwContainer = document.getElementById('motw-container');
     if (motwContainer) {
         motwContainer.innerHTML = ordenDivisiones.map(nombreDivision => {
@@ -1883,8 +1702,6 @@ renderRoundUI(currentRound);
             const tema = temaPorDivision[nombreDivision] || TEMAS_DIVISION[0];
             const partidosDivision = roundMatches.filter(m => normalizaTexto(m.div) === normalizaTexto(nombreDivision));
 
-            // Elegimos el partido "más destacado": el que enfrenta a los dos jugadores
-            // mejor situados en la tabla (menor suma de posiciones).
             let mejorPartido = null;
             let mejorValor = Infinity;
             partidosDivision.forEach(m => {
@@ -1899,7 +1716,7 @@ renderRoundUI(currentRound);
                 }
             });
             if (!mejorPartido) mejorPartido = partidosDivision[0];
-            if (!mejorPartido) return ''; // Esta división no tiene ningún partido en esta jornada
+            if (!mejorPartido) return '';
 
             const terminado = mejorPartido.status === 'Terminado';
             return `
@@ -1959,14 +1776,10 @@ renderRoundUI(currentRound);
         }
 
        window.openPlayerModal = function(name, division) {
-    // Ponemos un try/catch global para que, pase lo que pase con el ELO, la ventana NO se quede bloqueada
     try {
         document.getElementById('modal-name').innerText = name || "-";
         document.getElementById('modal-division').innerText = division || "-";
         
-        // ==========================================
-        // 🔲 LÓGICA: MOSTRAR RANKING DE ELO (CORREGIDA Y SEGURA)
-        // ==========================================
         const eloContainer = document.getElementById('modal-elo-container');
         const eloBlitzTxt = document.getElementById('modal-elo-blitz');
         const eloRapidasTxt = document.getElementById('modal-elo-rapidas');
@@ -1974,7 +1787,6 @@ renderRoundUI(currentRound);
         let eloInfo = null;
         if (typeof eloRankingData !== 'undefined' && Array.isArray(eloRankingData)) {
             eloInfo = eloRankingData.find(e => {
-                // Protección: Verificamos que 'e' y 'e.Jugador' existan antes de hacer el string-clean
                 if (!e || !e.Jugador) return false;
                 return e.Jugador.toLowerCase().trim() === name.toLowerCase().trim();
             });
@@ -1990,9 +1802,7 @@ renderRoundUI(currentRound);
     } catch (errEloGlobal) {
         console.error("Error en la sección de carga de Elo:", errEloGlobal);
     }
-    // ==========================================
     
-    // CONTINUACIÓN DE TU LOGICA CORE ORIGINAL (RETAR / WHATSAPP / HISTORIAL)
     const playerInfo = infoData.find(i => i.name && i.name.toLowerCase().trim() === name.toLowerCase().trim());
     const lichessBtn = document.getElementById('modal-lichess-btn');
     if(playerInfo && playerInfo.lichess) {
@@ -2003,7 +1813,6 @@ renderRoundUI(currentRound);
         lichessBtn.style.display = 'none';
     }
 
-    // --- LÓGICA BOTÓN DE WHATSAPP ---
     const btnWhatsapp = document.getElementById('modal-whatsapp-btn');
     if (playerInfo && playerInfo.telefono) {
         const numLimpio = formatWhatsappNumber(playerInfo.telefono);
@@ -2025,7 +1834,7 @@ renderRoundUI(currentRound);
         playerMatches.sort((a,b) => a.round - b.round);
 
         let streak = [];
-        let formHistory = []; // 🚦 Guarda {round, result} de cada partida finalizada, para el semáforo
+        let formHistory = [];
         if(playerMatches.length === 0) {
             historyContainer.innerHTML = `<p class="text-xs text-stone-500 text-center py-4">Sin partidas asignadas en esta edición.</p>`;
         } else {
@@ -2107,7 +1916,6 @@ renderRoundUI(currentRound);
             }
         }
 
-        // 🚦 SEMÁFORO: pintamos las bolitas de los últimos 5 encuentros disputados
         const semaforoElem = document.getElementById('modal-semaforo');
         if (semaforoElem) {
             const ultimos5 = formHistory.slice(-5);
@@ -2124,13 +1932,11 @@ renderRoundUI(currentRound);
             }
         }
         
-        // Esto vuelve a hacer visible el modal en pantalla 
         document.getElementById('player-modal').classList.remove('hidden');
         if (typeof lucide !== 'undefined') lucide.createIcons();
         };
-    }; // Aquí se cierra correctamente window.openPlayerModal
+    };
 
-    // Evento para el botón de cerrar el modal
     document.getElementById('close-modal').onclick = () => {
         document.getElementById('player-modal').classList.add('hidden');
     };

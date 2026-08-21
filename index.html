@@ -3,16 +3,14 @@
 <head>
     <!-- 1. Favicon para la pestaña del navegador -->
     <link rel="icon" type="image/jpeg" href="Logo.jpg">
-
     <!-- 2. Icono oficial para la pantalla de inicio en iPhone / iPad -->
     <link rel="apple-touch-icon" href="Logo.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="Logo.jpg">
-
     <!-- 3. Nombre y comportamiento de App en el móvil -->
     <meta name="apple-mobile-web-app-title" content="Torneo Ajedrez">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XX Torneo de Ajedrez - Portal Oficial</title>
@@ -29,7 +27,7 @@
         .bg-lichess-chesscond { background-color: #f0f4f8; border-left: 5px solid #4a7c59; }
         tr:hover { background-color: #eef1f8 !important; }
        .tab-btn.active { background-color: #4338ca !important; color: #ffffff !important; opacity: 1 !important; }
-        
+
         /* Indicadores de posición */
         .zone-upgrade { border-left: 4px solid #16a34a !important; } /* Sube */
         .zone-playoff { border-left: 4px solid #ea580c !important; }  /* Promoción */
@@ -37,7 +35,6 @@
     </style>
 </head>
 <body class="font-sans min-h-screen antialiased">
-
     <!-- CABECERA PRINCIPAL -->
     <header class="bg-lichess-dark-header text-white shadow-md px-6 py-4 flex flex-col md:flex-row justify-between items-center sticky top-0 z-50 gap-4">
         <div class="flex items-center gap-3">
@@ -47,38 +44,33 @@
                 <p class="text-xs text-indigo-300 font-bold uppercase tracking-widest">Temporada 2026 · Portal Oficial</p>
             </div>
         </div>
-        
+
         <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 w-full max-w-4xl mx-auto bg-stone-900/40 p-1.5 rounded-2xl border border-stone-700/50">
             <button id="tab-liga" onclick="switchTab('liga')" class="tab-btn active text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🥇 Liga</button>
-
             <button id="tab-copa" onclick="switchTab('copa')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🏆 Copa</button>
-            
+
             <button id="tab-reportar" onclick="switchTab('reportar')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📤 Resultados</button>
-            
+
             <button id="tab-peones" onclick="switchTab('peones')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📇 Peones</button>
-            
+
             <button id="tab-resumen" onclick="switchTab('resumen')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">✍️ El Ojo del Alfil</button>
-            
+
             <button id="tab-mundo" onclick="switchTab('mundo')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">🌍 Mundo Chess</button>
-
             <button id="tab-palmares" onclick="switchTab('palmares')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">👑 Palmarés</button>
-
             <button id="tab-reglamento" onclick="switchTab('reglamento')" class="tab-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-xs transition uppercase tracking-wider text-center block">📜 Reglamento</button>
         </div>
     </header>
-
     <!-- PESTAÑA REGLAMENTO -->
     <div id="content-reglamento" class="hidden max-w-5xl mx-auto p-4 md:p-6 space-y-6">
     <div class="bg-lichess-card p-6 md:p-8 rounded-2xl shadow-md border border-stone-300">
         <h2 class="text-2xl font-black mb-6 border-b-2 border-stone-400 pb-2 text-stone-800 flex items-center gap-2">
-            <i data-lucide="book-open" class="text-indigo-800"></i> XIX Torneo - Reglamento Oficial
+            <i data-lucide="book-open" class="text-indigo-800"></i> XX Torneo - Reglamento Oficial
         </h2>
-        
+
         <div class="prose max-w-none text-stone-800 space-y-6 font-medium leading-relaxed">
             <p class="text-base italic text-stone-600 font-semibold border-l-4 border-amber-600 pl-3 bg-stone-50 py-2 rounded-r">
-                ¡Bienvenidos al "XIX Torneo"! En nombre de la organización, queremos agradecer a todos los participantes su disposición y sus ganas para esta XIX edición. ♟️🔥
+                ¡Bienvenidos al "XX Torneo"! En nombre de la organización, queremos agradecer a todos los participantes su disposición y sus ganas para esta XX edición. ♟️🔥
             </p>
-
             <div>
                 <p class="font-bold text-lg text-amber-900 flex items-center gap-1">📌 Formato de Jornada y Puntuación</p>
                 <ul class="list-disc pl-5 space-y-2 mt-2">
@@ -87,7 +79,6 @@
                     <li><b>Sistema de puntuación:</b> Cada partida individual otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate).</li>
                 </ul>
             </div>
-
           <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
                 <p class="font-bold text-base text-stone-900 flex items-center gap-1">⚖️ Criterios de Desempate en la Clasificación</p>
                 <div class="mt-2 space-y-3 text-sm">
@@ -111,21 +102,21 @@
             </div>
             <div>
                 <p class="font-bold text-lg text-emerald-900 flex items-center gap-1">🔄 Estructura, Ascensos y Descensos</p>
-                <p class="mt-1">El torneo se compone de dos divisiones equilibradas de <b>14 jugadores en Primera</b> y <b>14 jugadores en Segunda</b>. Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
-                
+                <p class="mt-1">El torneo se compone de <b>Primera</b> y <b>Segunda</b>, con <b>10 jugadores</b> cada una, y de una <b>Tercera</b> con el número de jugadores que resulte de las inscripciones (si son demasiados, se dividirá en varios grupos). Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
+
                 <ul class="list-disc pl-5 space-y-3 mt-2">
-                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Primera División</span> Los <b>3 últimos clasificados</b> descienden de forma directa a Segunda.</li>
-                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Segunda División</span> Los <b>3 primeros clasificados</b> obtienen el ascenso directo a Primera.</li>
-                    <li><span class="inline-flex bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Promoción Híbrida</span> Del <b>7º al 11º de Primera</b> disputarán una promoción de duelo directo contra los clasificados del <b>4º al 8º de Segunda</b> (5 duelos en total).
+                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Primera División</span> Los <b>2 últimos clasificados (9º y 10º)</b> descienden de forma directa a Segunda. Los clasificados <b>7º y 8º</b> disputan una promoción para mantenerse en Primera o bajar a Segunda.</li>
+                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Segunda División</span> Los <b>2 primeros clasificados (1º y 2º)</b> obtienen el ascenso directo a Primera. Los <b>3º y 4º</b> disputan la promoción de ascenso contra el 7º y 8º de Primera. En el otro extremo, los <b>2 últimos (9º y 10º)</b> descienden de forma directa a Tercera, y los clasificados <b>7º y 8º</b> disputan la promoción de descenso contra el 3º y 4º de Tercera.</li>
+                    <li><span class="inline-flex bg-sky-100 text-sky-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Tercera División</span> Los <b>2 primeros clasificados</b> obtienen el ascenso directo a Segunda. Los <b>3º y 4º</b> disputan la promoción de ascenso contra el 7º y 8º de Segunda.</li>
+                    <li><span class="inline-flex bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Promociones (todas)</span>
                         <ul class="list-circle pl-5 mt-1 text-stone-700">
-                            <li>El ganador de cada duelo obtendrá/mantendrá la plaza en Primera.</li>
+                            <li>El ganador de cada duelo obtiene/mantiene la plaza en la categoría superior.</li>
                             <li>El formato del match es idéntico al de la liga regular (4 partidas).</li>
                             <li>En caso de empate en el duelo, se jugará un desempate reduciendo tiempos sin incremento hasta que alguien gane dos partidas seguidas: primero a <b>5’</b>, luego <b>3’</b> y finalmente <b>1’</b>.</li>
                         </ul>
                     </li>
                 </ul>
             </div>
-
             <div class="border-l-4 border-emerald-600 bg-emerald-50/50 p-4 rounded-r-xl">
                 <p class="font-bold text-lg text-emerald-950 flex items-center gap-1">🏆 Final Four (Título de Primera)</p>
                 <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-emerald-900">
@@ -134,11 +125,18 @@
                     <li>En caso de empate en la ronda, avanzará o ganará el jugador que haya obtenido la <b>mejor posición en la liga regular</b>.</li>
                 </ul>
             </div>
-
+            <div class="border-l-4 border-purple-600 bg-purple-50/50 p-4 rounded-r-xl">
+                <p class="font-bold text-lg text-purple-950 flex items-center gap-1">🥇 Copa (Torneo KO por Eliminatorias)</p>
+                <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-purple-900">
+                    <li>Torneo paralelo a la liga, de <b>eliminatoria directa</b>: el cuadro completo se sortea <b>una única vez al principio</b> y se juega una ronda <b>cada 15 días</b>; quien pierde la eliminatoria queda eliminado de la Copa.</li>
+                    <li>Cada eliminatoria tiene el <b>mismo formato de enfrentamiento que la liga regular</b>: 4 partidas individuales — 2 a ritmo <b>10'+0</b> y 2 a ritmo <b>3'+2"</b>.</li>
+                    <li>En caso de empate en la eliminatoria, se jugará un desempate reduciendo los tiempos sin incremento hasta que alguien gane dos partidas seguidas: primero dos partidas a <b>5’</b>, después dos partidas a <b>3’</b> y finalmente dos partidas a <b>1’</b>.</li>
+                </ul>
+            </div>
             <div>
                 <p class="font-bold text-lg text-indigo-950 flex items-center gap-1">💬 Normas de Convivencia y Comunicación</p>
                 <p class="mt-1 text-sm">Contamos con dos chats específicos en WhatsApp. Los administradores <span class="font-bold text-indigo-900">FranHerrera</span> y <span class="font-bold text-indigo-900">Gordeza</span> velarán estrictamente por el cumplimiento de estas normas: 🧐</p>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
                     <div class="p-3 bg-stone-50 rounded-xl border border-stone-200">
                         <span class="font-bold text-indigo-900 block mb-1">💬 Chat TERTULIA</span>
@@ -149,12 +147,10 @@
                         <p class="text-xs text-stone-600"><span class="font-bold uppercase text-red-700">SÓLO</span> sirve para anunciar los horarios acordados y publicar los resultados definitivos.</p>
                     </div>
                 </div>
-
                 <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl mt-4 text-xs space-y-2">
                     <p><b>✍️ Formato para anunciar enfrentamientos:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">FranHerrera vs Alberzas a las 18'30</code></p>
                     <p><b>✍️ Formato para anunciar resultados:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">J1 Gordeza 0 - 4 Guindiana 🍩</code></p>
                 </div>
-
                 <ul class="list-disc pl-5 space-y-2 mt-4">
                     <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es <b>IRREVOCABLE de martes a lunes</b>. Los martes, nuestro corresponsal <span class="font-bold text-stone-950">Guindiana</span> actualizará los cuadros y clasificaciones oficiales de la app.</li>
                     <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
@@ -163,7 +159,6 @@
         </div>
     </div>
 </div>
-
 <!-- TAB: RESUMEN DE LA JORNADA -->
 <div id="content-resumen" class="hidden space-y-4">
     <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400 max-w-2xl mx-auto">
@@ -186,7 +181,18 @@
         </div>
     </div>
 </div>
-
+    <!-- TAB: COPA (TORNEO KO POR ELIMINATORIAS) -->
+    <div id="content-copa" class="hidden max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+        <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
+            <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
+                🏆 Copa — Torneo KO por Eliminatorias
+            </h2>
+            <p class="text-xs text-stone-500 mb-5">Cuadro de eliminatoria directa. Cada 15 días se juega una ronda; el perdedor queda eliminado. Desliza en horizontal para ver el cuadro completo.</p>
+            <div id="copa-container">
+                <p class="text-stone-500 italic text-center py-8">Cargando cuadro de la Copa...</p>
+            </div>
+        </div>
+    </div>
     <!-- TAB: PEONES (FICHAS DE LOS PARTICIPANTES) -->
     <div id="content-peones" class="hidden max-w-7xl mx-auto p-4 md:p-6 space-y-6">
         <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
@@ -197,21 +203,17 @@
                 <input id="peones-search" type="text" placeholder="🔍 Buscar por nombre o nick..." class="w-full sm:w-72 px-4 py-2 rounded-xl border border-stone-300 bg-white text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-indigo-700">
             </div>
             <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
-
             <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
                 <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
                 <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
             </a>
-
             <div id="peones-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                 <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando fichas de los participantes...</p>
             </div>
         </div>
     </div>
-
     <!-- TAB: PALMARÉS HISTÓRICO -->
     <div id="content-palmares" class="hidden max-w-6xl mx-auto p-4 md:p-6 space-y-8">
-
         <!-- CABECERA -->
         <div class="text-center space-y-2">
             <h2 class="text-2xl md:text-3xl font-black text-stone-900 flex items-center justify-center gap-2">
@@ -219,7 +221,6 @@
             </h2>
             <p class="text-sm text-stone-600 font-medium">Todos los campeones, subcampeones y terceros clasificados a lo largo de la historia.</p>
         </div>
-
         <!-- RANKING HISTÓRICO (PALMARÉS POR JUGADOR) -->
         <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
             <div class="p-5 bg-gradient-to-r from-amber-100 via-amber-50 to-stone-100 border-b border-stone-300">
@@ -230,7 +231,6 @@
                 <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando palmarés histórico...</p>
             </div>
         </section>
-
         <!-- TABLA DE EDICIONES -->
         <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
             <div class="p-5 bg-gradient-to-r from-stone-200 to-stone-100 border-b border-stone-300">
@@ -252,7 +252,6 @@
             </div>
         </section>
     </div>
-
     <!-- TAB: REPORTAR RESULTADO -->
     <div id="content-reportar" class="hidden max-w-2xl mx-auto p-4 md:p-6 space-y-6">
         <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
@@ -260,18 +259,15 @@
                 📤 Resultados
             </h2>
             <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
-
             <div class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
                     <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                 </div>
-
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
                     <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                 </div>
-
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
@@ -283,40 +279,34 @@
                     </div>
                 </div>
                 <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
-
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
                     <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
-
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
                     <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
-
                 <div>
                     <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
                     <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
                 </div>
-
                 <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
                     Enviar Resultado
                 </button>
-
                 <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
             </div>
         </div>
     </div>
-    
+
     <!-- PESTAÑA PRINCIPAL: LIGA -->
     <div id="content-liga" class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+
         <!-- SECCIÓN IZQUIERDA Y CENTRAL -->
         <div class="lg:col-span-2 space-y-8">
-            
+
             <!-- DESTACADOS: PARTIDOS DE LA JORNADA (uno por cada división, generado dinámicamente) -->
             <div id="motw-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-
             <!-- CALENDARIO INTERACTIVO -->
             <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300">
                 <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
@@ -334,11 +324,9 @@
                 </div>
                 <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
             </section>
-
             <!-- CLASIFICACIONES (una tabla por cada división, generada dinámicamente) -->
             <section class="space-y-8">
                 <div id="clasificaciones-container" class="space-y-8"></div>
-
                 <!-- LEYENDA DETALLADA Y REFERENCIAS DE ZONAS -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bold text-stone-700">
                 <div class="p-4 bg-lichess-card rounded-xl border border-stone-300 space-y-2">
@@ -347,7 +335,7 @@
                     </p>
                     <p><b>EV / ED / EE:</b> Enfrentamientos Victorias, Derrotas y Empatados.</p>
                     <p><b>J / G / P / T:</b> Partidas individuales Jugadas, Ganadas, Perdidas y Tablas.</p>
-                    
+
                     <div class="grid grid-cols-2 gap-2 pt-2 border-t border-stone-200 text-[11px] font-medium">
                         <div class="flex items-center gap-1.5"><span>👑</span> <span class="font-bold text-stone-950">Victorias</span></div>
                         <div class="flex items-center gap-1.5"><span>🤝</span> <span class="font-bold text-stone-950">Tablas</span></div>
@@ -356,7 +344,6 @@
                         <div class="flex items-center gap-1.5"><span>🇯🇵</span> <span class="font-bold text-red-900">Samurái (Más 0-4)</span></div>
                     </div>
                 </div>
-
                 <div class="p-4 bg-lichess-card rounded-xl border border-stone-300 space-y-2">
                     <p class="text-stone-900 uppercase tracking-wider font-black text-[10px]">ESTRUCTURA DE LA TABLA Y COLORES:</p>
                     <div class="flex items-center gap-2"><span class="w-3 h-3 bg-green-600 rounded-xs"></span> Zona de Final Four / Ascenso Directo</div>
@@ -365,7 +352,6 @@
                 </div>
             </div>
             </section>
-
             <!-- FASES FINALES -->
             <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300">
                 <h2 class="text-xl font-black mb-6 flex items-center gap-2 text-stone-800">
@@ -374,7 +360,6 @@
                 <div id="playoffs-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
             </section>
         </div>
-
         <!-- SECCIÓN DERECHA: PUZLE LICHESS -->
         <div class="space-y-6">
             <section class="bg-lichess-card p-6 rounded-2xl shadow-sm border border-stone-300 sticky top-24">
@@ -393,18 +378,17 @@
             </section>
         </div>
     </div>
-
     <!-- VENTANA MODAL: FICHA INTERACTIVA DE JUGADOR -->
     <div id="player-modal" class="hidden fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
         <div class="bg-lichess-card max-w-md w-full rounded-2xl shadow-2xl overflow-hidden p-6 relative border border-stone-400">
             <button id="close-modal" class="absolute top-4 right-4 p-1 rounded-lg text-stone-500 hover:bg-stone-200"><i data-lucide="x" class="w-5 h-5"></i></button>
-            
+
             <div class="flex items-center gap-4 mb-5 border-b border-stone-300 pb-4">
                 <div class="w-12 h-12 bg-stone-800 text-[#eddcc4] rounded-full flex items-center justify-center text-xl font-bold">♟️</div>
                 <div>
                     <h3 class="text-xl font-black text-stone-900" id="modal-name">-</h3>
                     <p class="text-xs text-amber-900 font-bold uppercase tracking-wider" id="modal-division">-</p>
-                    
+
                     <div id="modal-elo-container" class="mt-2 flex gap-2 hidden">
                         <div class="bg-sky-100 border border-sky-300 px-2 py-0.5 rounded flex items-center gap-1">
                             <span class="text-[10px] font-bold text-sky-950">⏱️ Blitz:</span>
@@ -417,7 +401,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="grid grid-cols-2 gap-3 mb-5">
                 <div class="bg-stone-200/70 p-3 rounded-xl border border-stone-300 text-center">
                     <p class="text-[10px] text-stone-600 font-bold uppercase tracking-wider">Racha de Forma</p>
@@ -426,28 +410,22 @@
                 <a id="modal-lichess-btn" target="_blank" class="bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl flex flex-col items-center justify-center font-bold text-xs transition shadow-sm px-2">
                     <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Sala de Espera</span> RETAR EN LICHESS 🚀
                 </a>
-
                 <a id="modal-whatsapp-btn" target="_blank" class="mt-3 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl flex flex-col items-center justify-center p-3 text-center font-bold" style="display: none;">
                     <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Conversación</span> ENVIAR WHATSAPP 💬
                 </a>
             </div>
-
             <!-- 🚦 SEMÁFORO DE FORMA: ÚLTIMOS 5 ENCUENTROS -->
             <div class="mb-5">
                 <p class="text-[10px] text-stone-600 font-bold uppercase tracking-wider mb-2 text-center">🚦 Últimos 5 Encuentros</p>
                 <div id="modal-semaforo" class="flex items-center justify-center gap-2"></div>
             </div>
-
             <h4 class="text-xs font-bold uppercase text-stone-500 tracking-wider mb-2.5">Historial Reciente</h4>
             <div id="modal-history" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
         </div>
     </div>
-
     <script>
         const SHEET_ID = '1_9bVTGafzGQZzxrkV2Yt-sD6QgwIZiCsbL-ZwnsK3Zk';
-
         const RESULTADOS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwLwrJYcOB4y-Wrm9Crq9Pnn_e_mLBl0C6AbFHWrKWuU1_H9frfeZQEL8T1GMHC8G9TJw/exec';
-
         const TEMAS_DIVISION = [
             {
                 icono: '🏆',
@@ -458,12 +436,7 @@
                 motwGradient: 'bg-gradient-to-br from-amber-700 to-amber-900',
                 motwBadge: 'bg-amber-400 text-slate-950',
                 motwScore: 'text-amber-400',
-                calBadge: 'bg-amber-100 text-amber-900 border-amber-300',
-                zonas: [
-                    { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },
-                    { desde: 7, hasta: 11, rgb: '241, 196, 15', borde: '#f1c40f' },
-                    { desde: 12, hasta: 14, rgb: '231, 76, 60', borde: '#e74c3c' }
-                ]
+                calBadge: 'bg-amber-100 text-amber-900 border-amber-300'
             },
             {
                 icono: '🥈',
@@ -474,11 +447,7 @@
                 motwGradient: 'bg-gradient-to-br from-emerald-700 to-emerald-950',
                 motwBadge: 'bg-emerald-400 text-slate-950',
                 motwScore: 'text-emerald-400',
-                calBadge: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-                zonas: [
-                    { desde: 1, hasta: 3, rgb: '46, 204, 113', borde: '#2ecc71' },
-                    { desde: 4, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' }
-                ]
+                calBadge: 'bg-emerald-100 text-emerald-900 border-emerald-300'
             },
             {
                 icono: '🥉',
@@ -489,8 +458,7 @@
                 motwGradient: 'bg-gradient-to-br from-sky-700 to-sky-900',
                 motwBadge: 'bg-sky-400 text-slate-950',
                 motwScore: 'text-sky-400',
-                calBadge: 'bg-sky-100 text-sky-900 border-sky-300',
-                zonas: []
+                calBadge: 'bg-sky-100 text-sky-900 border-sky-300'
             },
             {
                 icono: '🎖️',
@@ -501,19 +469,45 @@
                 motwGradient: 'bg-gradient-to-br from-purple-700 to-purple-900',
                 motwBadge: 'bg-purple-400 text-slate-950',
                 motwScore: 'text-purple-400',
-                calBadge: 'bg-purple-100 text-purple-900 border-purple-300',
-                zonas: []
+                calBadge: 'bg-purple-100 text-purple-900 border-purple-300'
             }
         ];
-
+        // Zonas de ascenso/descenso según el NIVEL de la división (no según su posición en el orden visual).
+        // Así, si "Tercera" se divide en varios grupos (A, B, ...), todos comparten las mismas zonas automáticamente,
+        // porque la búsqueda se hace por palabra clave en el nombre de la división, no por índice.
+        //
+        // Supuestos actuales de tamaño: Primera = 10 jugadores, Segunda = 10 jugadores, Tercera = variable.
+        // Si cambia el número de jugadores de una división, hay que ajustar aquí los "desde/hasta".
+        const ZONAS_POR_NIVEL = {
+            primera: [
+                { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },  // Clasifican a la Final Four
+                { desde: 7, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción: se juegan mantenerse o bajar a Segunda
+                { desde: 9, hasta: 10, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Segunda
+            ],
+            segunda: [
+                { desde: 1, hasta: 2, rgb: '46, 204, 113', borde: '#2ecc71' },  // Ascenso directo a Primera
+                { desde: 3, hasta: 4, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción de ascenso vs 7º-8º de Primera
+                { desde: 7, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción de descenso vs 3º-4º de Tercera
+                { desde: 9, hasta: 10, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Tercera
+            ],
+            tercera: [
+                { desde: 1, hasta: 2, rgb: '46, 204, 113', borde: '#2ecc71' },  // Ascenso directo a Segunda
+                { desde: 3, hasta: 4, rgb: '241, 196, 15', borde: '#f1c40f' }   // Promoción de ascenso vs 7º-8º de Segunda
+            ]
+        };
+        function obtenerZonasPorDivision(nombreDivision) {
+            const nombreNorm = normalizaTexto(nombreDivision);
+            if (nombreNorm.includes('primera') || nombreNorm.includes('chesspions')) return ZONAS_POR_NIVEL.primera;
+            if (nombreNorm.includes('segunda') || nombreNorm.includes('chesscond')) return ZONAS_POR_NIVEL.segunda;
+            if (nombreNorm.includes('tercera')) return ZONAS_POR_NIVEL.tercera;
+            return [];
+        }
         let temaPorDivision = {};
-
         const ORDEN_PREFERIDO_DIVISIONES = [
             'Chesspions League',
             'Chesscond Division',
             'Tercera División'
         ];
-
         let currentRound = 1;
         let allMatches = [];
         let infoData = [];
@@ -525,40 +519,35 @@
         let peonesData = [];
         let peonesSearchListenerAttached = false;
         let palmaresCargado = false;
-
+        let copaCargado = false;
         window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             await fetchPuzzle();
             await loadSheetCore();
         });
-
           window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             await fetchPuzzle();
             await loadSheetCore();
         });
-
        function switchTab(tab) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'text-white', 'bg-stone-800'));
-    
+
     document.getElementById('content-liga').classList.add('hidden');
     document.getElementById('content-reglamento').classList.add('hidden');
-    
+
     const contentResumen = document.getElementById('content-resumen');
     if (contentResumen) contentResumen.classList.add('hidden');
-
     const contentMundo = document.getElementById('content-mundo-chess');
     if (contentMundo) contentMundo.classList.add('hidden');
-
     const contentPeones = document.getElementById('content-peones');
     if (contentPeones) contentPeones.classList.add('hidden');
-
     const contentReportar = document.getElementById('content-reportar');
     if (contentReportar) contentReportar.classList.add('hidden');
-
     const contentPalmares = document.getElementById('content-palmares');
     if (contentPalmares) contentPalmares.classList.add('hidden');
-
+    const contentCopa = document.getElementById('content-copa');
+    if (contentCopa) contentCopa.classList.add('hidden');
     if (tab === 'liga') {
         document.getElementById('tab-liga').classList.add('active');
         document.getElementById('content-liga').classList.remove('hidden');
@@ -582,9 +571,12 @@
         document.getElementById('tab-palmares').classList.add('active');
         if (contentPalmares) contentPalmares.classList.remove('hidden');
         if (!palmaresCargado) cargarPalmares();
+    } else if (tab === 'copa') {
+        document.getElementById('tab-copa').classList.add('active');
+        if (contentCopa) contentCopa.classList.remove('hidden');
+        if (!copaCargado) cargarCopa();
     }
 }
-
         async function fetchPuzzle() {
             try {
                 const res = await fetch('https://lichess.org/api/puzzle/daily');
@@ -596,7 +588,6 @@
                 document.getElementById('puzzle-side').innerText = "Desafío diario disponible online.";
             }
         }
-
        async function fetchPuzzle() {
             try {
                 const res = await fetch('https://lichess.org/api/puzzle/daily');
@@ -608,18 +599,16 @@
                 document.getElementById('puzzle-side').innerText = "Desafío diario disponible online.";
             }
         }
-
         async function loadSheetCore() {
             try {
-                
+
                 try {
                     console.log("🔍 [1/4] Solicitando pestaña RESUMEN_IA...");
                     const resumenRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESUMEN_IA`);
                     const resumenText = await resumenRes.text();
                     const resumenRows = JSON.parse(resumenText.substring(47).slice(0, -2)).table.rows;
-                    
-                    let textoBruto = "";
 
+                    let textoBruto = "";
                     if (resumenRows && resumenRows.length > 0) {
                         for (let i = 0; i < resumenRows.length; i++) {
                             const celda = resumenRows[i]?.c?.[0]?.v;
@@ -630,11 +619,10 @@
                             }
                         }
                     }
-
                     let resumenIAData = "";
                     if (textoBruto.trim() !== "") {
                         let textoConNegritas = textoBruto.replace(/\*(.*?)\*/g, '<b>$1</b>');
-                        
+
                         resumenIAData = textoConNegritas
                             .split('\n')
                             .map(linea => {
@@ -644,29 +632,25 @@
                             })
                             .join('');
                     }
-
                     if (!resumenIAData) {
                         resumenIAData = `<p class="text-stone-500 italic text-center py-4">El resumen estará disponible próximamente.</p>`;
                     }
-                    
+
                     const contenedorCronica = document.getElementById('texto-resumen-ia');
                     if (contenedorCronica) {
                         contenedorCronica.innerHTML = resumenIAData;
                         console.log("✅ HTML de la crónica actualizado en pantalla.");
                     }
-
                 } catch (errResumen) {
                     console.error("❌ Error procesando la pestaña resumen:", errResumen);
                 }
-
                 try {
                     console.log("🔍 Solicitando pestaña MUNDO_CHESS...");
                     const noticiasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=MUNDO_CHESS`);
                     const noticiasText = await noticiasRes.text();
                     const noticiasRows = JSON.parse(noticiasText.substring(47).slice(0, -2)).table.rows;
-                    
-                    let noticiasTextoBruto = "";
 
+                    let noticiasTextoBruto = "";
                     if (noticiasRows && noticiasRows.length > 0) {
                         for (let i = 0; i < noticiasRows.length; i++) {
                             const celdaNoticia = noticiasRows[i]?.c?.[0]?.v;
@@ -677,11 +661,10 @@
                             }
                         }
                     }
-
                     let mundoChessData = "";
                     if (noticiasTextoBruto.trim() !== "") {
                         let textoConNegritas = noticiasTextoBruto.replace(/\*(.*?)\*/g, '<b>$1</b>');
-                        
+
                         mundoChessData = textoConNegritas
                             .split('\n')
                             .map(linea => {
@@ -691,26 +674,23 @@
                             })
                             .join('');
                     }
-
                     if (!mundoChessData) {
                         mundoChessData = `<p class="text-stone-500 italic text-center py-4">Las noticias de Mundo Chess estarán disponibles próximamente.</p>`;
                     }
-                    
+
                     const contenedorMundoChess = document.getElementById('texto-mundo-chess');
                     if (contenedorMundoChess) {
                         contenedorMundoChess.innerHTML = mundoChessData;
                         console.log("✅ Sección Mundo Chess actualizada correctamente.");
                     }
-
                 } catch (errMundoChess) {
                     console.error("❌ Error procesando la pestaña Mundo Chess:", errMundoChess);
                 }
-
                 try {
                     const eloRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=ELO_RANKING`);
                     const eloText = await eloRes.text();
                     const eloRows = JSON.parse(eloText.substring(47).slice(0, -2)).table.rows;
-                    
+
                     eloRankingData = eloRows.map(r => {
                         return {
                             Jugador: r.c[0] ? r.c[0].v : "",
@@ -722,16 +702,13 @@
                 } catch (errElo) {
                     console.error("Error al cargar la pestaña ELO_RANKING:", errElo);
                 }
-
                 try {
                     const peonesRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Peones`);
                     const peonesText = await peonesRes.text();
                     const peonesJson = JSON.parse(peonesText.substring(47).slice(0, -2));
                     const peonesCols = peonesJson.table.cols || [];
                     const peonesRows = peonesJson.table.rows || [];
-
-                    const normaliza = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-
+                    const normaliza = (s) => (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
                     const buscaCol = (keywords) => {
                         for (let i = 0; i < peonesCols.length; i++) {
                             const label = normaliza(peonesCols[i]?.label);
@@ -739,7 +716,6 @@
                         }
                         return -1;
                     };
-
                     const idx = {
                         nombre: buscaCol(['nombre y apellidos', 'nombre']),
                         nickGrupo: buscaCol(['nick del grupo']),
@@ -756,13 +732,11 @@
                         hobbies: buscaCol(['hobbies o aficiones']),
                         presentacion: buscaCol(['haz una presentacion', 'presentacion'])
                     };
-
                     const getVal = (r, i) => {
                         if (i < 0 || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
                         const cell = r.c[i];
                         return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
                     };
-
                     peonesData = peonesRows
                         .map(r => {
                             if (!r.c) return null;
@@ -784,15 +758,12 @@
                             };
                         })
                         .filter(p => p && (p.nombre || p.nickGrupo));
-
                     peonesData.sort((a, b) => {
                         const claveA = (a.nickGrupo || a.nombre || '').toLowerCase();
                         const claveB = (b.nickGrupo || b.nombre || '').toLowerCase();
                         return claveA.localeCompare(claveB, 'es', { sensitivity: 'base' });
                     });
-
                     renderPeones(peonesData);
-
                     if (!peonesSearchListenerAttached) {
                         const inputBusqueda = document.getElementById('peones-search');
                         if (inputBusqueda) {
@@ -809,7 +780,6 @@
                             peonesSearchListenerAttached = true;
                         }
                     }
-
                     console.log(`✅ Peones cargado con éxito (${peonesData.length} fichas)`);
                 } catch (errPeones) {
                     console.error("❌ Error al cargar la pestaña Peones:", errPeones);
@@ -818,53 +788,47 @@
                         gridPeones.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se han podido cargar las fichas de los participantes.</p>`;
                     }
                 }
-
                 const infoRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=INFO`);
                 const infoText = await infoRes.text();
                 const infoRows = JSON.parse(infoText.substring(47).slice(0, -2)).table.rows;
-                
+
                 infoRows.forEach((r) => {
                     if (!r.c || !r.c[1]) return;
-        
+
                     infoData.push({
                         name: r.c[1]?.v || '',
                         lichess: r.c[3]?.v || '',
                         telefono: r.c[5]?.v || ''
                     });
-
                     if (r.c[7] && r.c[8] && r.c[9]) {
-                        datesMap[r.c[7].v] = { 
-                            start: r.c[8].f || r.c[8].v, 
-                            end: r.c[9].f || r.c[9].v 
+                        datesMap[r.c[7].v] = {
+                            start: r.c[8].f || r.c[8].v,
+                            end: r.c[9].f || r.c[9].v
                         };
                     }
                 });
-
 const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
 const resText = await resRes.text();
 const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
-
 allMatches = [];
 const todayStr = new Date();
-
 resRows.forEach((r, idx) => {
   if (!r.c || !r.c[2]) return;
-  
+
   let roundNum = parseInt(r.c[0]?.v?.toString().replace(/\D/g,'') || '1');
   let division = r.c[1]?.v || '';
   let player1 = r.c[2]?.v || '';
   let player2 = r.c[3]?.v || '';
   let score1 = r.c[4] !== null ? (r.c[4].f || r.c[4].v.toString()) : '';
   let score2 = r.c[5] !== null ? (r.c[5].f || r.c[5].v.toString()) : '';
-  
+
   let numTablasCol = r.c[6] !== null && r.c[6] !== undefined && r.c[6].v !== null && r.c[6].v !== undefined
     ? parseInt(r.c[6].v.toString().replace(',', '.')) || 0
     : 0;
+  let notasExcel = r.c[7]?.v?.toString().toLowerCase() || '';
 
-  let notasExcel = r.c[7]?.v?.toString().toLowerCase() || ''; 
-  
   let matchStatus = 'Pendiente';
-  
+
   if (score1 !== '' || score2 !== '') {
     matchStatus = 'Terminado';
   } else if (notasExcel.includes('aplazado')) {
@@ -872,34 +836,28 @@ resRows.forEach((r, idx) => {
   } else if (notasExcel.includes('fuera de tiempo')) {
     matchStatus = 'Fuera de tiempo';
   }
-
   let individualDraws = 0;
   if (score1.includes('.5') || score2.includes('.5')) {
     individualDraws = 1;
   }
-
   allMatches.push({
     round: roundNum, div: division, p1: player1, p2: player2,
     s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
   });
 });
-
 const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=CLASIFICACION`);
 const clasText = await clasRes.text();
 const clasRows = JSON.parse(clasText.substring(47).slice(0, -2)).table.rows;
-
 divisionesData = {};
 ordenDivisiones = [];
-
 clasRows.forEach((r) => {
     if(!r.c || !r.c[1] || r.c[1].v === "Jugador" || typeof r.c[0]?.v !== 'number') return;
-    
+
     let parseIntegerClean = (val) => {
         if (!val) return 0;
         let n = parseFloat(val.toString().replace(',', '.'));
         return Math.floor(n);
     };
-
     let playerData = {
         pos: r.c[0].v,
         name: r.c[1].v,
@@ -913,7 +871,6 @@ clasRows.forEach((r) => {
         ee: r.c[9]?.v || 0,
        pts: parseIntegerClean(r.c[10]?.v || 0)
     };
-
     const nombreDivision = playerData.div || 'Sin División';
     if (!divisionesData[nombreDivision]) {
         divisionesData[nombreDivision] = [];
@@ -921,7 +878,6 @@ clasRows.forEach((r) => {
     }
     divisionesData[nombreDivision].push(playerData);
 });
-
 ordenDivisiones.sort((a, b) => {
     let ia = ORDEN_PREFERIDO_DIVISIONES.indexOf(a);
     let ib = ORDEN_PREFERIDO_DIVISIONES.indexOf(b);
@@ -929,20 +885,17 @@ ordenDivisiones.sort((a, b) => {
     if (ib === -1) ib = ORDEN_PREFERIDO_DIVISIONES.length + ordenDivisiones.indexOf(b);
     return ia - ib;
 });
-
 temaPorDivision = {};
 ordenDivisiones.forEach((nombreDivision, i) => {
     temaPorDivision[nombreDivision] = TEMAS_DIVISION[i % TEMAS_DIVISION.length];
 });
-
 ordenDivisiones.forEach(nombreDivision => {
     divisionesData[nombreDivision] = aplicarCriteriosDesempate(divisionesData[nombreDivision], allMatches);
 });
-
 if (typeof currentRound !== 'undefined') {
-    renderRoundUI(currentRound); 
+    renderRoundUI(currentRound);
 }
-                
+
 const getLimits = (rows) => {
     let maxT = -1, maxW = -1, minL = 99;
     rows.forEach(r => {
@@ -952,20 +905,19 @@ const getLimits = (rows) => {
     });
     return { maxT, maxW, minL };
 };
-
-const buildTableHTML = (rows, tema) => {
+const buildTableHTML = (rows, tema, nombreDivision) => {
     let html = '';
     const limits = getLimits(rows);
+    const zonasDivision = obtenerZonasPorDivision(nombreDivision);
     let roscosPorJugador = {};
     let maxRoscosEnDivision = 0;
-    
+
     let roscosRecibidosPorJugador = {};
     let maxRoscosRecibidosEnDivision = 0;
-
     rows.forEach(r => {
         let count = 0;
         let countRecibidos = 0;
-        
+
         if (typeof allMatches !== 'undefined') {
             allMatches.forEach(m => {
                 if (m.status === 'Terminado') {
@@ -974,14 +926,12 @@ const buildTableHTML = (rows, tema) => {
                     const rNameLower = r.name.toLowerCase().trim();
                     const p1Lower = m.p1.toLowerCase().trim();
                     const p2Lower = m.p2.toLowerCase().trim();
-
                     if (p1Lower === rNameLower && s1Int === 4 && s2Int === 0) {
                         count++;
                     }
                     if (p2Lower === rNameLower && s1Int === 0 && s2Int === 4) {
                         count++;
                     }
-
                     if (p1Lower === rNameLower && s1Int === 0 && s2Int === 4) {
                         countRecibidos++;
                     }
@@ -991,46 +941,38 @@ const buildTableHTML = (rows, tema) => {
                 }
             });
         }
-        
+
         roscosPorJugador[r.name] = count;
         if (count > maxRoscosEnDivision) {
             maxRoscosEnDivision = count;
         }
-
         roscosRecibidosPorJugador[r.name] = countRecibidos;
         if (countRecibidos > maxRoscosRecibidosEnDivision) {
             maxRoscosRecibidosEnDivision = countRecibidos;
         }
     });
-
 rows.forEach((r, index) => {
     let badge = '';
     if(r.t === limits.maxT && r.t > 0) badge += ' 🤝';
     if(r.w === limits.maxW && r.w > 0) badge += ' 👑';
     if(r.l === limits.minL) badge += ' 🛡️';
-
     if (maxRoscosEnDivision > 0 && roscosPorJugador[r.name] === maxRoscosEnDivision) {
         badge += ' 🍩';
     }
-
     if (typeof maxRoscosRecibidosEnDivision !== 'undefined' && maxRoscosRecibidosEnDivision > 0 && roscosRecibidosPorJugador[r.name] === maxRoscosRecibidosEnDivision) {
         badge += ' 🇯🇵';
     }
-
     let rowStyle = "";
     let textStyle = "text-stone-800 font-medium";
-
     if(index === 0) { rowStyle = "bg-amber-100/50 scale-[1.01] font-bold text-base"; }
     else if(index === 1) { rowStyle = "bg-stone-100/80 text-sm font-bold"; }
     else if(index === 2) { rowStyle = "bg-orange-50/60 text-sm font-bold"; }
         let estiloFila = '';
         const posicion = r.pos;
-
-        const zona = (tema.zonas || []).find(z => posicion >= z.desde && posicion <= z.hasta);
+        const zona = zonasDivision.find(z => posicion >= z.desde && posicion <= z.hasta);
         if (zona) {
             estiloFila = `background-color: rgba(${zona.rgb}, 0.15) !important; border-left: 5px solid ${zona.borde};`;
         }
-
                         html += `<tr style="${estiloFila}" class="border-b border-stone-300 cursor-pointer transition ${rowStyle} ${textStyle}" onclick="openPlayerModal('${r.name.replace(/'/g, "\\'")}', '${r.div}')">
                             <td class="py-3 px-3 font-black text-center text-stone-600">${r.pos}</td>
                             <td class="py-3 px-3 font-bold text-stone-900">${r.name}${badge}</td>
@@ -1046,7 +988,6 @@ rows.forEach((r, index) => {
                     });
                     return html;
                 };
-
                 const buildSeccionDivisionHTML = (nombreDivision, rows, tema) => {
                     const idTabla = `table-div-${nombreDivision.replace(/[^a-zA-Z0-9]/g, '-')}`;
                     return `
@@ -1070,59 +1011,50 @@ rows.forEach((r, index) => {
                                         <th class="py-3 px-2 text-center text-amber-600 w-10">T</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-stone-300">${buildTableHTML(rows, tema)}</tbody>
+                                <tbody class="divide-y divide-stone-300">${buildTableHTML(rows, tema, nombreDivision)}</tbody>
                             </table>
                         </div>
                     </div>`;
                 };
-
                 const contenedorClasificaciones = document.getElementById('clasificaciones-container');
                 if (contenedorClasificaciones) {
                     contenedorClasificaciones.innerHTML = ordenDivisiones
                         .map(nombreDivision => buildSeccionDivisionHTML(nombreDivision, divisionesData[nombreDivision], temaPorDivision[nombreDivision]))
                         .join('');
                 }
-
 const today = new Date();
 const currentYear = today.getFullYear();
-
 for(let key in datesMap) {
     if(!datesMap[key].start || !datesMap[key].end) continue;
-    
+
     let pS = datesMap[key].start.split('/');
     let pE = datesMap[key].end.split('/');
-    
+
     let start = new Date(currentYear, parseInt(pS[1]) - 1, parseInt(pS[0]), 0, 0, 0);
     let end = new Date(currentYear, parseInt(pE[1]) - 1, parseInt(pE[0]), 23, 59, 59);
-    
+
     if(today >= start && today <= end) {
         currentRound = parseInt(key.replace(/\D/g,'') || '10');
         break;
     }
 }
-
 initCalendarUI();
 renderRoundUI(currentRound);
-
                 const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PLAYOFFS`);
                 const playText = await playRes.text();
                 const playRows = JSON.parse(playText.substring(47).slice(0, -2)).table.rows.slice(1);
                 renderPlayoffsUI(playRows);
-
             } catch (e) {
                 console.error("Fallo crítico: ", e);
             }
         }
-
         function renderPeones(lista) {
             const grid = document.getElementById('peones-grid');
             if (!grid) return;
-
             if (!lista || lista.length === 0) {
                 grid.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se ha encontrado ninguna ficha todavía. ¡Anima a la gente a rellenar el formulario! 📝</p>`;
                 return;
             }
-
             const iconoColor = (colorTxt) => {
                 const c = normalizaTexto(colorTxt);
                 if (c.includes('blanc')) return '⚪';
@@ -1130,29 +1062,24 @@ renderRoundUI(currentRound);
                 if (c.includes('igual')) return '🔄';
                 return '♟️';
             };
-
             const chips = (txt, colorClasses) => {
                 if (!txt) return '';
                 return txt.split(',').map(v => v.trim()).filter(Boolean)
                     .map(v => `<span class="text-[10px] font-bold px-2 py-1 rounded-full border ${colorClasses}">${v}</span>`)
                     .join('');
             };
-
             grid.innerHTML = lista.map(p => {
                 const nombreMostrado = p.nombre || p.nickGrupo || 'Peón Anónimo';
                 const inicial = nombreMostrado.trim().charAt(0).toUpperCase() || '♟️';
-
                 const lichessBtn = p.nickLichess
                     ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
                     : '';
-
                 const whatsappBtn = p.telefono
                     ? (() => {
                         const numLimpio = formatWhatsappNumber(p.telefono);
                         return `<a href="https://wa.me/${numLimpio}?text=Hola%20${encodeURIComponent(nombreMostrado)},%20te%20escribo%20desde%20la%20app%20de%20ajedrez." target="_blank" class="flex-1 text-center bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-lg py-1.5 text-[11px] font-bold transition">💬 WhatsApp</a>`;
                     })()
                     : '';
-
                 return `
                 <div class="bg-white rounded-2xl border border-stone-300 shadow-sm p-5 flex flex-col gap-3 hover:shadow-md transition">
                     <div class="flex items-center gap-3 border-b border-stone-200 pb-3">
@@ -1165,20 +1092,14 @@ renderRoundUI(currentRound);
                             </div>
                         </div>
                     </div>
-
                     ${(lichessBtn || whatsappBtn) ? `<div class="flex gap-2">${lichessBtn}${whatsappBtn}</div>` : ''}
-
                     ${p.estilo ? `<p class="text-xs italic text-stone-800 bg-stone-50 border-l-4 border-amber-600 px-3 py-2 rounded-r-lg">"${p.estilo}"</p>` : ''}
-
                     <div class="flex flex-wrap gap-1.5">
                         ${p.modalidad ? `<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-sky-100 text-sky-900 border border-sky-300">⏱️ ${p.modalidad}</span>` : ''}
                         ${p.colorPref ? `<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-stone-100 text-stone-800 border border-stone-300">${iconoColor(p.colorPref)} ${p.colorPref}</span>` : ''}
                     </div>
-
                     ${p.apertura ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">♟️ Apertura/Defensa favorita:</span> ${p.apertura}</p>` : ''}
-
                     ${p.desdeCuando ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">📅 ¿Desde cuándo juega?:</span> ${p.desdeCuando}</p>` : ''}
-
                     ${(p.dias || p.horarios) ? `
                     <div class="pt-2 border-t border-stone-100 space-y-1.5">
                         <p class="text-[10px] font-bold uppercase tracking-wider text-stone-500">🗓️ Disponibilidad</p>
@@ -1187,9 +1108,7 @@ renderRoundUI(currentRound);
                             ${chips(p.horarios, 'bg-indigo-100 text-indigo-900 border-indigo-300')}
                         </div>
                     </div>` : ''}
-
                     ${p.hobbies ? `<p class="text-xs text-stone-700"><span class="font-bold text-stone-900">🎨 Aficiones:</span> ${p.hobbies}</p>` : ''}
-
                     ${p.presentacion ? `
                     <details class="text-xs text-stone-700 bg-stone-50 rounded-lg border border-stone-200 px-3 py-2">
                         <summary class="font-bold text-stone-900 cursor-pointer select-none">🗣️ Presentación personal</summary>
@@ -1198,31 +1117,25 @@ renderRoundUI(currentRound);
                 </div>`;
             }).join('');
         }
-
         function normalizaTexto(s) {
-            return (s || '').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+            return (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
         }
-
         function buscarTemaPorDivision(nombreDiv) {
             const objetivo = normalizaTexto(nombreDiv);
             const encontrado = Object.keys(temaPorDivision).find(k => normalizaTexto(k) === objetivo);
             return encontrado ? temaPorDivision[encontrado] : TEMAS_DIVISION[0];
         }
-
         async function cargarPalmares() {
             const gridRanking = document.getElementById('palmares-ranking-grid');
             const tbody = document.getElementById('table-palmares-body');
-
             try {
                 const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PALMARES`);
                 const text = await res.text();
                 const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
-
                 const getTxt = (r, i) => {
                     if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
                     return r.c[i].v.toString().trim();
                 };
-
                 const ediciones = rows
                     .map(r => ({
                         edicion: getTxt(r, 0),
@@ -1231,15 +1144,12 @@ renderRoundUI(currentRound);
                         tercero: getTxt(r, 3)
                     }))
                     .filter(e => e.edicion && normalizaTexto(e.edicion) !== 'edicion' && normalizaTexto(e.campeon) !== 'campeon' && e.campeon);
-
                 palmaresCargado = true;
-
                 if (ediciones.length === 0) {
                     if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">Todavía no hay ediciones registradas en el palmarés.</p>`;
                     if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">Todavía no hay ediciones registradas.</td></tr>`;
                     return;
                 }
-
                 const stats = {};
                 const sumar = (nombre, campo) => {
                     if (!nombre) return;
@@ -1251,7 +1161,6 @@ renderRoundUI(currentRound);
                     sumar(e.segundo, 'sub');
                     sumar(e.tercero, 'tercero');
                 });
-
                 const ranking = Object.keys(stats).map(nombre => ({ nombre, ...stats[nombre] }));
                 ranking.sort((a, b) => {
                     if (b.titulos !== a.titulos) return b.titulos - a.titulos;
@@ -1259,7 +1168,6 @@ renderRoundUI(currentRound);
                     if (b.tercero !== a.tercero) return b.tercero - a.tercero;
                     return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
                 });
-
                 if (gridRanking) {
                     gridRanking.innerHTML = ranking.map((p, idx) => {
                         let cardStyle = 'bg-white border-stone-300';
@@ -1272,7 +1180,6 @@ renderRoundUI(currentRound);
                         } else if (idx === 2 && p.titulos > 0) {
                             cardStyle = 'bg-gradient-to-br from-orange-50 to-white border-orange-300';
                         }
-
                         return `
                         <div class="p-4 rounded-xl border ${cardStyle} transition flex flex-col gap-2">
                             <div class="flex items-center justify-between gap-2">
@@ -1287,7 +1194,6 @@ renderRoundUI(currentRound);
                         </div>`;
                     }).join('');
                 }
-
                 if (tbody) {
                     const edicionesOrdenadas = [...ediciones].reverse();
                     tbody.innerHTML = edicionesOrdenadas.map(e => `
@@ -1299,20 +1205,222 @@ renderRoundUI(currentRound);
                         </tr>
                     `).join('');
                 }
-
             } catch (errPalmares) {
                 console.error('❌ Error al cargar la pestaña Palmarés:', errPalmares);
                 if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se ha podido cargar el palmarés histórico.</p>`;
                 if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">No se ha podido cargar el palmarés.</td></tr>`;
             }
         }
+        // Nombre a mostrar para un lado del cruce: si está vacío pero ya hay ganador, ese
+        // jugador pasó "exento" (bye); si está vacío y no hay ganador, de verdad no se sabe aún.
+        function nombreLadoCruce(nombre, hayGanador) {
+            return nombre || (hayGanador ? '— (exento)' : 'Por determinar');
+        }
+        function textoResultadoCruce(m) {
+            const hayPuntos = m.puntosJ1 !== '' && m.puntosJ2 !== '';
+            if (hayPuntos) return `${m.puntosJ1} - ${m.puntosJ2}`;
+            return m.ganador ? 'Exento' : '- / -';
+        }
+        // Vista de reserva (lista agrupada por ronda, sin conectar visualmente los cruces).
+        // Se usa solo si a la pestaña COPA le faltan las columnas internas RondaNum/Slot.
+        function renderCopaListaPlana(partidos, contenedor) {
+            const rondasOrden = [];
+            const rondasMap = {};
+            partidos.forEach(m => {
+                if (!rondasMap[m.ronda]) { rondasMap[m.ronda] = []; rondasOrden.push(m.ronda); }
+                rondasMap[m.ronda].push(m);
+            });
+            const bloques = rondasOrden.map(ronda => {
+                const partidosRonda = rondasMap[ronda];
+                const tarjetas = partidosRonda.map(m => {
+                    const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
+                    const p2Nombre = nombreLadoCruce(m.p2, !!m.ganador);
+                    const resultadoTexto = textoResultadoCruce(m);
+                    return `
+                    <div class="p-3 bg-white rounded-lg border border-stone-200 text-sm">
+                        <div class="flex justify-between items-center gap-3">
+                            <div class="space-y-1 font-bold flex-1 min-w-0">
+                                <p class="truncate ${m.ganador && m.ganador === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p1Nombre}</p>
+                                <p class="truncate ${m.ganador && m.ganador === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p2Nombre}</p>
+                            </div>
+                            <div class="text-right font-mono font-bold shrink-0">
+                                <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${resultadoTexto}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+                return `
+                <div class="p-4 bg-stone-100 border border-stone-300 rounded-xl space-y-3">
+                    <h3 class="text-xs font-black text-stone-700 uppercase tracking-wider border-b border-stone-300 pb-1">${ronda}</h3>
+                    ${tarjetas}
+                </div>`;
+            }).join('');
+            contenedor.innerHTML = `<div class="space-y-6">${bloques}</div>`;
+        }
+        // Vista de árbol: dibuja el cuadro como un cuadro deportivo de verdad, con líneas que
+        // conectan cada cruce con el siguiente. Usa RondaNum/Slot para saber la posición exacta
+        // de cada partido dentro del árbol, y calcula a mano las coordenadas en píxeles (más
+        // fiable que intentar cuadrar esto solo con CSS, sobre todo cuando hay exentos de por medio).
+        function renderCopaArbol(partidos, contenedor) {
+            const ANCHO_COL = 176;      // ancho de cada tarjeta de partido
+            const HUECO_COL = 56;       // espacio horizontal reservado para las líneas entre rondas
+            const ALTO_PARTIDO = 56;    // alto de cada tarjeta
+            const HUECO_VERTICAL = 22;  // separación vertical entre partidos de la Ronda 1
+            const ALTO_CABECERA = 46;   // espacio para el nombre de la ronda + su fecha, encima de cada columna
+            const GROSOR_LINEA = 2;
 
+            const porRondaSlot = {};
+            let rondaMaxima = 0;
+            partidos.forEach(m => {
+                porRondaSlot[`${m.rondaNum}_${m.slot}`] = m;
+                if (m.rondaNum > rondaMaxima) rondaMaxima = m.rondaNum;
+            });
+            const numPartidosRonda1 = partidos.filter(m => m.rondaNum === 1).length;
+            const unidad = ALTO_PARTIDO + HUECO_VERTICAL;
+
+            // Centro vertical (en px, sin contar la cabecera) de cada partido, calculado de abajo
+            // arriba: la Ronda 1 se reparte en línea recta, y cada ronda siguiente se centra justo
+            // entre los dos partidos de los que depende.
+            const centros = {}; // centros[`${ronda}_${slot}`] = y en px
+            for (let slot = 0; slot < numPartidosRonda1; slot++) {
+                centros[`1_${slot}`] = slot * unidad + ALTO_PARTIDO / 2;
+            }
+            for (let r = 2; r <= rondaMaxima; r++) {
+                const numSlots = Math.ceil(numPartidosRonda1 / Math.pow(2, r - 1));
+                for (let slot = 0; slot < numSlots; slot++) {
+                    const a = centros[`${r - 1}_${slot * 2}`];
+                    const b = centros[`${r - 1}_${slot * 2 + 1}`];
+                    centros[`${r}_${slot}`] = (a + b) / 2;
+                }
+            }
+
+            const altoTotal = ALTO_CABECERA + (numPartidosRonda1 - 1) * unidad + ALTO_PARTIDO;
+            const anchoTotal = rondaMaxima * ANCHO_COL + (rondaMaxima - 1) * HUECO_COL + (ANCHO_COL + HUECO_COL); // +1 columna para el trofeo final
+
+            let html = '';
+
+            // Cabeceras de ronda + tarjetas de cada partido
+            for (let r = 1; r <= rondaMaxima; r++) {
+                const x = (r - 1) * (ANCHO_COL + HUECO_COL);
+                const partidosRonda = partidos.filter(m => m.rondaNum === r);
+                if (partidosRonda.length > 0) {
+                    // La fecha de la ronda (columnas I/J de la hoja COPA) se coge del primer partido
+                    // de esa ronda que la tenga rellena — se puede escribir en una sola fila de la
+                    // ronda o repetirla en todas, da igual, con que esté en alguna basta.
+                    const conFecha = partidosRonda.find(m => m.fechaInicio || m.fechaFin);
+                    const fechaTexto = conFecha ? [conFecha.fechaInicio, conFecha.fechaFin].filter(Boolean).join(' – ') : '';
+                    html += `<div class="absolute text-center" style="left:${x}px; top:0; width:${ANCHO_COL}px;">
+                        <div class="text-[10px] font-black uppercase tracking-wider text-stone-500">${partidosRonda[0].ronda}</div>
+                        ${fechaTexto ? `<div class="text-[9px] font-bold text-indigo-700 mt-0.5">📅 ${fechaTexto}</div>` : ''}
+                    </div>`;
+                }
+                partidosRonda.forEach(m => {
+                    const y = ALTO_CABECERA + centros[`${r}_${m.slot}`] - ALTO_PARTIDO / 2;
+                    const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
+                    const p2Nombre = nombreLadoCruce(m.p2, !!m.ganador);
+                    const resultadoTexto = textoResultadoCruce(m);
+                    const claseP1 = m.ganador && m.ganador === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800';
+                    const claseP2 = m.ganador && m.ganador === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800';
+                    html += `
+                    <div class="absolute rounded-lg border border-stone-300 bg-white shadow-xs text-[11px] overflow-hidden" style="left:${x}px; top:${y}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">
+                        <div class="px-2 py-1 border-b border-stone-100 flex justify-between items-center gap-1 h-1/2">
+                            <span class="truncate font-bold ${claseP1}" ${m.p1 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p1.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p1 ? 'cursor:pointer;' : ''}">${p1Nombre}</span>
+                        </div>
+                        <div class="px-2 py-1 flex justify-between items-center gap-1 h-1/2">
+                            <span class="truncate font-bold ${claseP2}" ${m.p2 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p2.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p2 ? 'cursor:pointer;' : ''}">${p2Nombre}</span>
+                        </div>
+                        <div class="absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-stone-400 bg-white/90 px-1 rounded" title="${resultadoTexto}">${resultadoTexto !== '- / -' ? resultadoTexto : ''}</div>
+                    </div>`;
+                });
+
+                // Líneas que conectan esta ronda con la siguiente
+                if (r < rondaMaxima) {
+                    const xDerecha = x + ANCHO_COL;
+                    const xMedio = xDerecha + HUECO_COL / 2;
+                    const numSlotsSiguiente = Math.ceil(numPartidosRonda1 / Math.pow(2, r));
+                    for (let slot = 0; slot < numSlotsSiguiente; slot++) {
+                        const yA = ALTO_CABECERA + centros[`${r}_${slot * 2}`];
+                        const yB = ALTO_CABECERA + centros[`${r}_${slot * 2 + 1}`];
+                        const yDestino = ALTO_CABECERA + centros[`${r + 1}_${slot}`];
+                        html += `<div class="absolute bg-stone-300" style="left:${xDerecha}px; top:${yA}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xDerecha}px; top:${yB}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xMedio}px; top:${Math.min(yA, yB)}px; width:${GROSOR_LINEA}px; height:${Math.abs(yB - yA)}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xMedio}px; top:${yDestino}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                    }
+                }
+            }
+
+            // Tarjeta de campeón, a la derecha de la Final (si ya se conoce)
+            const final = partidos.find(m => m.rondaNum === rondaMaxima);
+            const xCampeon = rondaMaxima * (ANCHO_COL + HUECO_COL);
+            const yCampeon = ALTO_CABECERA + centros[`${rondaMaxima}_0`] - ALTO_PARTIDO / 2;
+            if (final) {
+                html += `<div class="absolute text-[10px] font-black uppercase tracking-wider text-amber-600 text-center" style="left:${xCampeon}px; top:0; width:${ANCHO_COL}px;">🏆 Campeón</div>`;
+                if (final.ganador) {
+                    const xLineaFinal = rondaMaxima * ANCHO_COL + (rondaMaxima - 1) * HUECO_COL;
+                    html += `<div class="absolute bg-amber-300" style="left:${xLineaFinal}px; top:${yCampeon + ALTO_PARTIDO / 2 - GROSOR_LINEA / 2}px; width:${HUECO_COL}px; height:${GROSOR_LINEA}px;"></div>`;
+                    html += `<div class="absolute rounded-lg border-2 border-amber-400 bg-amber-50 shadow-sm text-xs flex items-center justify-center px-2 text-center font-black text-amber-900" style="left:${xCampeon}px; top:${yCampeon}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">🏆 ${final.ganador}</div>`;
+                } else {
+                    html += `<div class="absolute rounded-lg border border-dashed border-amber-300 bg-amber-50/50 text-[10px] flex items-center justify-center px-2 text-center text-amber-700 italic" style="left:${xCampeon}px; top:${yCampeon}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">Por determinar</div>`;
+                }
+            }
+
+            contenedor.innerHTML = `<div class="overflow-x-auto pb-4"><div class="relative" style="width:${anchoTotal}px; height:${altoTotal}px; min-width:100%;">${html}</div></div>`;
+        }
+        // Lee la pestaña "COPA" del Excel/Sheets: una fila por partido del cuadro KO.
+        // Columnas esperadas: A=Ronda  B=Jugador1  C=Jugador2  D=PuntosJ1  E=PuntosJ2  F=Ganador
+        // G=RondaNum  H=Slot (opcionales: si están, se dibuja el cuadro como árbol de
+        // enfrentamientos conectado; si no están —p.ej. alguien ha montado la hoja a mano
+        // sin usar el sorteo automático— se muestra como lista agrupada por ronda).
+        // (D y E son NÚMEROS, no texto tipo "4-0" — así Google Sheets no los confunde con una fecha).
+        // Tanto si el cuadro se sorteó entero al principio como si cada ronda se sortea la semana anterior,
+        // el código no cambia: solo hay que ir añadiendo/rellenando filas en esta pestaña.
+        async function cargarCopa() {
+            const contenedor = document.getElementById('copa-container');
+            try {
+                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
+                const text = await res.text();
+                const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
+                const getTxt = (r, i) => {
+                    if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
+                    const cell = r.c[i];
+                    return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
+                };
+                const partidos = rows
+                    .map(r => ({
+                        ronda: getTxt(r, 0),
+                        p1: getTxt(r, 1),
+                        p2: getTxt(r, 2),
+                        puntosJ1: getTxt(r, 3),
+                        puntosJ2: getTxt(r, 4),
+                        ganador: getTxt(r, 5),
+                        rondaNum: parseInt(getTxt(r, 6)),
+                        slot: parseInt(getTxt(r, 7)),
+                        fechaInicio: getTxt(r, 8),
+                        fechaFin: getTxt(r, 9)
+                    }))
+                    .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda' && (m.p1 || m.p2));
+                copaCargado = true;
+                if (partidos.length === 0) {
+                    contenedor.innerHTML = `<p class="text-stone-500 italic text-center py-8">Todavía no se ha generado el cuadro de la Copa. ¡Vuelve pronto! 🏆</p>`;
+                    return;
+                }
+                const tieneEstructuraDeArbol = partidos.every(m => !isNaN(m.rondaNum) && !isNaN(m.slot));
+                if (tieneEstructuraDeArbol) {
+                    renderCopaArbol(partidos, contenedor);
+                } else {
+                    renderCopaListaPlana(partidos, contenedor);
+                }
+            } catch (errCopa) {
+                console.error('❌ Error al cargar la pestaña Copa:', errCopa);
+                copaCargado = false;
+                if (contenedor) contenedor.innerHTML = `<p class="text-stone-500 italic text-center py-8">Todavía no se ha configurado la Copa (falta crear la pestaña "COPA" en el Excel).</p>`;
+            }
+        }
         function formatWhatsappNumber(raw) {
             if (!raw) return '';
             let num = raw.toString().trim();
-
             num = num.replace(/[\s\-\.\(\)]/g, '');
-
             if (num.startsWith('+')) {
                 num = num.substring(1);
             } else if (num.startsWith('00')) {
@@ -1320,95 +1428,70 @@ renderRoundUI(currentRound);
             } else if (num.replace(/[^0-9]/g, '').length <= 9) {
                 num = '34' + num;
             }
-
             return num.replace(/[^0-9]/g, '');
         }
-
         const PUNTOS_ENCUENTRO_GANADO = 2;
         const PUNTOS_ENCUENTRO_EMPATADO = 1;
-
         function _puntosIndividuales(cadena) {
             return parseFloat((cadena || '0').toString().replace(',', '.')) || 0;
         }
-
         function resultadoEnfrentamientoDirecto(nombreA, nombreB, matches) {
             let ptsA = 0, ptsB = 0, encontrado = false;
             const a = (nombreA || '').toLowerCase().trim();
             const b = (nombreB || '').toLowerCase().trim();
-
             matches.forEach(m => {
                 if (m.status !== 'Terminado') return;
                 const p1 = (m.p1 || '').toLowerCase().trim();
                 const p2 = (m.p2 || '').toLowerCase().trim();
                 if (!((p1 === a && p2 === b) || (p1 === b && p2 === a))) return;
-
                 const s1 = _puntosIndividuales(m.s1);
                 const s2 = _puntosIndividuales(m.s2);
                 encontrado = true;
                 if (p1 === a) { ptsA += s1; ptsB += s2; }
                 else { ptsA += s2; ptsB += s1; }
             });
-
             return { ptsA, ptsB, encontrado };
         }
-
         function puntosMiniLiga(nombreJugador, nombresImplicados, matches) {
             const jl = (nombreJugador || '').toLowerCase().trim();
             let pts = 0;
-
             matches.forEach(m => {
                 if (m.status !== 'Terminado') return;
                 const p1 = (m.p1 || '').toLowerCase().trim();
                 const p2 = (m.p2 || '').toLowerCase().trim();
                 if (p1 !== jl && p2 !== jl) return;
-
                 const rival = p1 === jl ? p2 : p1;
                 if (!nombresImplicados.includes(rival)) return;
-
                 const propio = p1 === jl ? _puntosIndividuales(m.s1) : _puntosIndividuales(m.s2);
                 const delRival = p1 === jl ? _puntosIndividuales(m.s2) : _puntosIndividuales(m.s1);
-
                 if (propio > delRival) pts += PUNTOS_ENCUENTRO_GANADO;
                 else if (propio === delRival) pts += PUNTOS_ENCUENTRO_EMPATADO;
             });
-
             return pts;
         }
-
         function ordenarEmpateDoble(grupo, matches) {
             const [x, y] = grupo;
-
             const { ptsA, ptsB, encontrado } = resultadoEnfrentamientoDirecto(x.name, y.name, matches);
             if (encontrado && ptsA !== ptsB) {
                 return ptsA > ptsB ? [x, y] : [y, x];
             }
-
             if (x.ev !== y.ev) return x.ev > y.ev ? [x, y] : [y, x];
-
             if (x.w !== y.w) return x.w > y.w ? [x, y] : [y, x];
-
             return grupo;
         }
-
         function ordenarEmpateTriple(grupo, matches) {
             const nombresImplicados = grupo.map(g => (g.name || '').toLowerCase().trim());
-
             return [...grupo].sort((a, b) => {
                 const pa = puntosMiniLiga(a.name, nombresImplicados, matches);
                 const pb = puntosMiniLiga(b.name, nombresImplicados, matches);
                 if (pa !== pb) return pb - pa;
-
                 if (a.ev !== b.ev) return b.ev - a.ev;
-
                 if (a.w !== b.w) return b.w - a.w;
-
                 return 0;
             });
         }
-
         function aplicarCriteriosDesempate(rows, matches) {
             if (!rows || rows.length === 0) return rows;
-
             const grupos = [];
             rows.forEach(r => {
                 const ultimoGrupo = grupos[grupos.length - 1];
@@ -1418,68 +1501,54 @@ renderRoundUI(currentRound);
                     grupos.push([r]);
                 }
             });
-
             const gruposOrdenados = grupos.map(grupo => {
                 if (grupo.length === 1) return grupo;
                 if (grupo.length === 2) return ordenarEmpateDoble(grupo, matches);
                 return ordenarEmpateTriple(grupo, matches);
             });
-
             const resultado = gruposOrdenados.flat();
             resultado.forEach((r, i) => { r.pos = i + 1; });
             return resultado;
         }
-
         function initReportarUI() {
             const selectRonda = document.getElementById('rep-ronda');
             if (!selectRonda) return;
-
             const rondasDisponibles = [...new Set(allMatches.map(m => m.round))].sort((a, b) => a - b);
             const listaRondas = rondasDisponibles.length ? rondasDisponibles : Array.from({ length: 14 }, (_, i) => i + 1);
-
             const rondaPrevia = selectRonda.value;
             selectRonda.innerHTML = listaRondas.map(r => `<option value="${r}">Jornada ${r}</option>`).join('');
             selectRonda.value = rondaPrevia || currentRound;
             if (!selectRonda.value) selectRonda.selectedIndex = 0;
-
             poblarPartidosReportar();
             selectRonda.onchange = poblarPartidosReportar;
         }
-
         function poblarPartidosReportar() {
             const selectRonda = document.getElementById('rep-ronda');
             const selectPartido = document.getElementById('rep-partido');
             if (!selectRonda || !selectPartido) return;
-
             const ronda = parseInt(selectRonda.value);
             const partidos = allMatches.filter(m => m.round === ronda);
-
             if (partidos.length === 0) {
                 selectPartido.innerHTML = `<option value="">No hay emparejamientos en esta jornada</option>`;
                 return;
             }
-
             selectPartido.innerHTML = partidos.map((m, i) => {
                 const estadoTxt = m.status === 'Terminado' ? ' ✅' : m.status === 'Pendiente' ? ' ⏳' : ` (${m.status})`;
                 return `<option value="${i}">${m.p1} vs ${m.p2}${estadoTxt}</option>`;
             }).join('');
-
             selectPartido.onchange = () => actualizarEtiquetasJugadores(partidos);
             actualizarEtiquetasJugadores(partidos);
         }
-
         function actualizarEtiquetasJugadores(partidos) {
             const selectPartido = document.getElementById('rep-partido');
             const labelP1 = document.getElementById('rep-label-p1');
             const labelP2 = document.getElementById('rep-label-p2');
             if (!selectPartido || !partidos || !partidos.length) return;
-
             const m = partidos[parseInt(selectPartido.value)];
             if (!m) return;
             labelP1.innerText = `Puntos de ${m.p1}`;
             labelP2.innerText = `Puntos de ${m.p2}`;
         }
-
         async function enviarResultado() {
             const mensajeEl = document.getElementById('rep-mensaje');
             const btn = document.getElementById('rep-submit-btn');
@@ -1488,33 +1557,27 @@ renderRoundUI(currentRound);
                 mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
                 mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
             };
-
             if (!RESULTADOS_WEBAPP_URL || RESULTADOS_WEBAPP_URL.includes('PON_AQUI')) {
                 mostrarMensaje('⚠️ Todavía falta configurar la URL del Apps Script en el código (RESULTADOS_WEBAPP_URL).', true);
                 return;
             }
-
             const ronda = parseInt(document.getElementById('rep-ronda').value);
             const partidos = allMatches.filter(m => m.round === ronda);
             const selectPartido = document.getElementById('rep-partido');
             const m = partidos[parseInt(selectPartido.value)];
-
             if (!m) {
                 mostrarMensaje('❌ Selecciona un emparejamiento válido.', true);
                 return;
             }
-
             if (m.status === 'Terminado' || m.status === 'Fuera de tiempo') {
                 mostrarMensaje(`❌ Este partido ya está marcado como "${m.status}" y no se puede sobrescribir desde aquí. Si hay un error, contacta con el administrador de la liga.`, true);
                 return;
             }
-
             const score1 = document.getElementById('rep-score1').value;
             const score2 = document.getElementById('rep-score2').value;
             const tablas = document.getElementById('rep-tablas').value || 0;
             const reportadoPor = document.getElementById('rep-nombre').value.trim();
             const codigo = document.getElementById('rep-codigo').value.trim();
-
             if (score1 === '' || score2 === '') {
                 mostrarMensaje('❌ Rellena los puntos de ambos jugadores.', true);
                 return;
@@ -1527,7 +1590,6 @@ renderRoundUI(currentRound);
                 mostrarMensaje('❌ Falta el código de la liga.', true);
                 return;
             }
-
             const payload = {
                 ronda: `J${ronda}`,
                 jugador1: m.p1,
@@ -1538,47 +1600,38 @@ renderRoundUI(currentRound);
                 reportadoPor: reportadoPor,
                 codigo: codigo
             };
-
             btn.disabled = true;
             btn.innerText = 'Enviando...';
-
             try {
                 const res = await fetch(RESULTADOS_WEBAPP_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payload)
                 });
-
                 let resultado = null;
                 try {
                     resultado = await res.json();
                 } catch (errLectura) {
                     resultado = null;
                 }
-
                 if (resultado && resultado.ok === false) {
                     mostrarMensaje(`❌ ${resultado.error || 'No se ha podido registrar el resultado.'}`, true);
                     return;
                 }
-
                 await loadSheetCore();
-
                 const partidosActualizados = allMatches.filter(mm => mm.round === ronda);
                 const mActualizado = partidosActualizados.find(mm =>
                     (mm.p1 === m.p1 && mm.p2 === m.p2) || (mm.p1 === m.p2 && mm.p2 === m.p1)
                 );
-
                 if (resultado === null && mActualizado && mActualizado.status !== 'Terminado') {
                     mostrarMensaje('⚠️ No se ha podido confirmar el envío. Revisa la clasificación o inténtalo de nuevo; si el problema persiste, avisa al administrador.', true);
                     return;
                 }
-
                 mostrarMensaje('✅ ¡Resultado enviado! Clasificación actualizada.', false);
                 document.getElementById('rep-score1').value = '';
                 document.getElementById('rep-score2').value = '';
                 document.getElementById('rep-tablas').value = 0;
                 document.getElementById('rep-codigo').value = '';
-
                 poblarPartidosReportar();
             } catch (err) {
                 console.error('Error al enviar el resultado:', err);
@@ -1588,7 +1641,6 @@ renderRoundUI(currentRound);
                 btn.innerText = 'Enviar Resultado';
             }
         }
-
         function initCalendarUI() {
             const select = document.getElementById('round-select');
             select.innerHTML = '';
@@ -1603,43 +1655,36 @@ renderRoundUI(currentRound);
             document.getElementById('prev-round').onclick = () => { if(currentRound > 1) { currentRound--; select.value = currentRound; renderRoundUI(currentRound); } };
             document.getElementById('next-round').onclick = () => { if(currentRound < 14) { currentRound++; select.value = currentRound; renderRoundUI(currentRound); } };
         }
-
      function renderRoundUI(rNum) {
     const container = document.getElementById('matches-grid');
     container.innerHTML = '';
-    
+
     const roundInfo = datesMap[`J${rNum}`];
     document.getElementById('calendar-dates').innerText = roundInfo ? `Rango de juego: Del ${roundInfo.start} al ${roundInfo.end}` : 'Sin rango asignado';
-
     const roundMatches = allMatches.filter(m => m.round === rNum);
-
     roundMatches.forEach(m => {
         const isFin = m.status === 'Terminado';
         const temaPartido = buscarTemaPorDivision(m.div);
         const divBadgeClass = temaPartido.calBadge;
-
         const player1Info = infoData.find(p => p.name.toLowerCase().trim() === m.p1.toLowerCase().trim());
         const player2Info = infoData.find(p => p.name.toLowerCase().trim() === m.p2.toLowerCase().trim());
-        
+
         const lichessUser1 = player1Info && player1Info.lichess ? player1Info.lichess.trim() : m.p1.trim();
         const lichessUser2 = player2Info && player2Info.lichess ? player2Info.lichess.trim() : m.p2.trim();
-
         let matchBadgeIndicator = "";
-        
+
         if (isFin) {
             const s1Int = parseInt(m.s1);
             const s2Int = parseInt(m.s2);
-
             if ((s1Int === 4 && s2Int === 0) || (s1Int === 0 && s2Int === 4)) {
                 matchBadgeIndicator = `<span class="text-[10px] font-black bg-amber-50 text-amber-950 px-1.5 py-0.5 rounded border border-amber-300 block text-center mt-1 animate-pulse">🍩 ¡Rosco!</span>`;
-            } 
+            }
             else if (m.tablas && parseInt(m.tablas) > 0) {
                 const numTablas = parseInt(m.tablas);
                 const textoTablas = numTablas === 1 ? 'Tablas' : 'Tablas';
                 matchBadgeIndicator = `<span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded border border-amber-300 block text-center mt-1">🤝 ${numTablas} ${textoTablas}</span>`;
             }
         }
-
         let btnStatusClass = "";
         if (m.status === 'Terminado') {
             btnStatusClass = "bg-stone-800 text-white border-stone-900";
@@ -1650,14 +1695,13 @@ renderRoundUI(currentRound);
         } else {
             btnStatusClass = "bg-stone-100 text-stone-500 border-stone-300";
         }
-
         container.innerHTML += `
             <div class="p-4 rounded-xl bg-white border border-stone-300 flex justify-between items-center shadow-xs">
                 <div class="space-y-1">
                     <span class="text-[9px] uppercase font-black px-2 py-0.5 rounded-md border ${divBadgeClass} inline-block tracking-wider">${m.div}</span>
                     <span class="text-sm font-bold text-stone-900 block pt-1">
-                        <span class="cursor-pointer hover:text-indigo-700 hover:underline transition" onclick="openPlayerModal('${m.p1.replace(/'/g, "\\'")}', '${m.div}')">${m.p1}</span> 
-                        <span class="font-normal text-stone-500">vs</span> 
+                        <span class="cursor-pointer hover:text-indigo-700 hover:underline transition" onclick="openPlayerModal('${m.p1.replace(/'/g, "\\'")}', '${m.div}')">${m.p1}</span>
+                        <span class="font-normal text-stone-500">vs</span>
                         <span class="cursor-pointer hover:text-indigo-700 hover:underline transition" onclick="openPlayerModal('${m.p2.replace(/'/g, "\\'")}', '${m.div}')">${m.p2}</span>
                     </span>
                 </div>
@@ -1665,25 +1709,25 @@ renderRoundUI(currentRound);
                     <span onclick="
                         const p1Name = '${m.p1.replace(/'/g, "\\'")}';
                         const p2Name = '${m.p2.replace(/'/g, "\\'")}';
-                        
+
                         const f1 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p1Name.toLowerCase().trim()) : null;
                         const f2 = typeof infoData !== 'undefined' ? infoData.find(p => (p.name || '').toLowerCase().trim() === p2Name.toLowerCase().trim()) : null;
-                        
+
                         const nick1 = f1 && f1.lichess ? f1.lichess.trim() : p1Name.trim();
                         const nick2 = f2 && f2.lichess ? f2.lichess.trim() : p2Name.trim();
-                        
-                        const url = '${isFin}' === 'true' 
+
+                        const url = '${isFin}' === 'true'
                             ? 'https://lichess.org/games/search?players.a=' + encodeURIComponent(nick1) + '&players.b=' + encodeURIComponent(nick2) + '&sort.field=d&sort.order=desc#results'
                             : 'https://lichess.org/@/' + encodeURIComponent(nick1) + '/tv';
-                            
-                        window.open(url, '_blank'); 
+
+                        window.open(url, '_blank');
                         event.stopPropagation();
-                    " 
+                    "
                           class="font-mono text-xs font-black px-3 py-1.5 rounded-lg border block shadow-xs transition-all cursor-pointer hover:bg-indigo-800 hover:text-white hover:border-indigo-900 hover:scale-105 ${btnStatusClass}"
                           title="${isFin ? 'Ver partidas del duelo' : 'Ver partida en directo o perfil'}">
                        ${
-                            m.status === 'Terminado' 
-                                ? `${m.s1} - ${m.s2}` 
+                            m.status === 'Terminado'
+                                ? `${m.s1} - ${m.s2}`
                                 : m.status === 'Aplazado'
                                     ? 'Aplazado ⏳'
                                     : m.status === 'Fuera de tiempo'
@@ -1693,17 +1737,15 @@ renderRoundUI(currentRound);
                     </span>
                     ${matchBadgeIndicator}
                 </div>
-            </div>     
+            </div>
         `;
     });
-
     const motwContainer = document.getElementById('motw-container');
     if (motwContainer) {
         motwContainer.innerHTML = ordenDivisiones.map(nombreDivision => {
             const rowsDivision = divisionesData[nombreDivision] || [];
             const tema = temaPorDivision[nombreDivision] || TEMAS_DIVISION[0];
             const partidosDivision = roundMatches.filter(m => normalizaTexto(m.div) === normalizaTexto(nombreDivision));
-
             let mejorPartido = null;
             let mejorValor = Infinity;
             partidosDivision.forEach(m => {
@@ -1719,7 +1761,6 @@ renderRoundUI(currentRound);
             });
             if (!mejorPartido) mejorPartido = partidosDivision[0];
             if (!mejorPartido) return '';
-
             const terminado = mejorPartido.status === 'Terminado';
             return `
             <div class="${tema.motwGradient} rounded-2xl p-4 shadow-lg text-white">
@@ -1738,7 +1779,6 @@ renderRoundUI(currentRound);
         function renderPlayoffsUI(rows) {
             const container = document.getElementById('playoffs-container');
             container.innerHTML = '';
-
             let groups = {};
             rows.forEach(r => {
                 if(!r.c || !r.c[0]) return;
@@ -1749,11 +1789,10 @@ renderRoundUI(currentRound);
                     score: r.c[4] ? (r.c[4].f || r.c[4].v.toString()) : '', blitz: r.c[5]?.v || '', winner: r.c[6]?.v || ''
                 });
             });
-
             for(let phase in groups) {
                 let section = `<div class="p-4 bg-stone-100 border border-stone-300 rounded-xl space-y-3">
                     <h3 class="text-xs font-black text-stone-700 uppercase tracking-wider border-b border-stone-300 pb-1">${phase}</h3>`;
-                
+
                 groups[phase].forEach(m => {
                     section += `
                         <div class="p-3 bg-white rounded-lg border border-stone-200 text-xs">
@@ -1776,16 +1815,15 @@ renderRoundUI(currentRound);
             }
             lucide.createIcons();
         }
-
        window.openPlayerModal = function(name, division) {
     try {
         document.getElementById('modal-name').innerText = name || "-";
         document.getElementById('modal-division').innerText = division || "-";
-        
+
         const eloContainer = document.getElementById('modal-elo-container');
         const eloBlitzTxt = document.getElementById('modal-elo-blitz');
         const eloRapidasTxt = document.getElementById('modal-elo-rapidas');
-        
+
         let eloInfo = null;
         if (typeof eloRankingData !== 'undefined' && Array.isArray(eloRankingData)) {
             eloInfo = eloRankingData.find(e => {
@@ -1793,18 +1831,18 @@ renderRoundUI(currentRound);
                 return e.Jugador.toLowerCase().trim() === name.toLowerCase().trim();
             });
         }
-        
+
         if (eloInfo && eloContainer && eloBlitzTxt && eloRapidasTxt) {
             eloBlitzTxt.innerText = eloInfo.Ranking_Blitz || "N/A";
             eloRapidasTxt.innerText = eloInfo.Ranking_Rapidas || "N/A";
-            eloContainer.classList.remove('hidden'); 
+            eloContainer.classList.remove('hidden');
         } else if (eloContainer) {
-            eloContainer.classList.add('hidden'); 
+            eloContainer.classList.add('hidden');
         }
     } catch (errEloGlobal) {
         console.error("Error en la sección de carga de Elo:", errEloGlobal);
     }
-    
+
     const playerInfo = infoData.find(i => i.name && i.name.toLowerCase().trim() === name.toLowerCase().trim());
     const lichessBtn = document.getElementById('modal-lichess-btn');
     if(playerInfo && playerInfo.lichess) {
@@ -1814,7 +1852,6 @@ renderRoundUI(currentRound);
     } else if (lichessBtn) {
         lichessBtn.style.display = 'none';
     }
-
     const btnWhatsapp = document.getElementById('modal-whatsapp-btn');
     if (playerInfo && playerInfo.telefono) {
         const numLimpio = formatWhatsappNumber(playerInfo.telefono);
@@ -1827,14 +1864,12 @@ renderRoundUI(currentRound);
     } else if (btnWhatsapp) {
         btnWhatsapp.style.display = 'none';
     }
-
     const historyContainer = document.getElementById('modal-history');
     if (historyContainer) {
         historyContainer.innerHTML = '';
-        
+
         let playerMatches = allMatches.filter(m => (m.p1 && m.p1.toLowerCase().trim() === name.toLowerCase().trim()) || (m.p2 && m.p2.toLowerCase().trim() === name.toLowerCase().trim()));
         playerMatches.sort((a,b) => a.round - b.round);
-
         let streak = [];
         let formHistory = [];
         if(playerMatches.length === 0) {
@@ -1843,18 +1878,17 @@ renderRoundUI(currentRound);
             playerMatches.forEach(m => {
                 const isP1 = m.p1 && m.p1.toLowerCase().trim() === name.toLowerCase().trim();
                 const opponent = isP1 ? m.p2 : m.p1;
-                
+
                 let badgeHTML = "";
                 let tablasFichaHTML = '';
-
                 if (m.status === 'Terminado') {
                     let myScore = parseFloat(isP1 ? m.s1.replace(',','.') : m.s2.replace(',','.'));
                     let oppScore = parseFloat(isP1 ? m.s2.replace(',','.') : m.s1.replace(',','.'));
-                    
+
                     let outcome = '⚔️ E';
                     let badgeClass = 'bg-amber-100 text-amber-950 border-amber-300';
-                    
-                    if(myScore > oppScore) { 
+
+                    if(myScore > oppScore) {
                         if (myScore === 4 && oppScore === 0) {
                             outcome = '🍩 ¡Rosco!';
                             badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300 animate-pulse';
@@ -1862,10 +1896,10 @@ renderRoundUI(currentRound);
                             outcome = '🔥 V';
                             badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300';
                         }
-                        streak.push('V'); 
+                        streak.push('V');
                         formHistory.push({ round: m.round, result: 'V' });
                     }
-                    else if(myScore < oppScore) { 
+                    else if(myScore < oppScore) {
                         if (myScore === 0 && oppScore === 4) {
                             outcome = '🇯🇵 ¡Samurai!';
                             badgeClass = 'bg-red-100 text-red-950 border-red-300 animate-pulse';
@@ -1873,24 +1907,21 @@ renderRoundUI(currentRound);
                             outcome = '💀 D';
                             badgeClass = 'bg-red-100 text-red-950 border-red-300';
                         }
-                        streak.push('D'); 
+                        streak.push('D');
                         formHistory.push({ round: m.round, result: 'D' });
                     }
-                    else { 
-                        streak.push('T'); 
+                    else {
+                        streak.push('T');
                         formHistory.push({ round: m.round, result: 'T' });
                     }
-
                     badgeHTML = `<span class="px-2 py-0.5 rounded font-black border ${badgeClass}">${outcome} (${myScore}-${oppScore})</span>`;
-
                     if (m.tablas && parseInt(m.tablas) > 0) {
                         tablasFichaHTML = `<span class="text-[10px] text-amber-900 bg-amber-100 border border-amber-300 px-1.5 py-0.5 rounded font-bold ml-1 inline-flex items-center gap-1">🤝 ${m.tablas}</span>`;
                     }
-                } 
+                }
                 else {
                     badgeHTML = `<span class="px-2 py-0.5 rounded font-bold border bg-stone-100 text-stone-500 border-stone-300 inline-flex items-center gap-1">⏳ Pendiente</span>`;
                 }
-
                 historyContainer.innerHTML += `
                     <div class="flex justify-between items-center p-2 bg-stone-50 rounded-lg text-xs border border-stone-200">
                         <span class="text-stone-800 font-bold"><b>J${m.round}</b> vs ${opponent}</span>
@@ -1902,7 +1933,7 @@ renderRoundUI(currentRound);
                 `;
             });
         }
-            
+
        let continuousStreak = 0;
         const streakElem = document.getElementById('modal-streak');
         if (streakElem) {
@@ -1917,7 +1948,6 @@ renderRoundUI(currentRound);
                 streakElem.innerText = 'Sin racha registrada';
             }
         }
-
         const semaforoElem = document.getElementById('modal-semaforo');
         if (semaforoElem) {
             const ultimos5 = formHistory.slice(-5);
@@ -1933,16 +1963,15 @@ renderRoundUI(currentRound);
                 }).join('');
             }
         }
-        
+
         document.getElementById('player-modal').classList.remove('hidden');
         if (typeof lucide !== 'undefined') lucide.createIcons();
         };
     };
-
     document.getElementById('close-modal').onclick = () => {
         document.getElementById('player-modal').classList.add('hidden');
     };
-        
+
     </script>
 </body>
 </html>

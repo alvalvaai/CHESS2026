@@ -258,43 +258,87 @@
             <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
                 📤 Resultados
             </h2>
-            <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
-                    <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
-                    <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
+                <button id="rep-modo-liga-btn" onclick="cambiarModoReportar('liga')" class="rep-modo-btn bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🥇 Liga</button>
+                <button id="rep-modo-copa-btn" onclick="cambiarModoReportar('copa')" class="rep-modo-btn text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🏆 Copa</button>
+            </div>
+            <!-- FORMULARIO LIGA -->
+            <div id="rep-liga-form">
+                <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
+                <div class="space-y-4">
                     <div>
-                        <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
-                        <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
+                        <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                     </div>
                     <div>
-                        <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
-                        <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
+                        <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                     </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                            <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                        <div>
+                            <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                            <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
+                        <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
+                        <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                        <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                        Enviar Resultado
+                    </button>
+                    <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
                 </div>
-                <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
-                    <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+            </div>
+            <!-- FORMULARIO COPA -->
+            <div id="rep-copa-form" class="hidden">
+                <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu cruce de la Copa; el cuadro se actualiza solo y, si hace falta, el ganador pasa automáticamente a la siguiente ronda.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Cruce de la Copa</label>
+                        <select id="rep-copa-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label id="rep-copa-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                            <input id="rep-copa-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                        <div>
+                            <label id="rep-copa-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                            <input id="rep-copa-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
+                    <div id="rep-copa-ganador-container" class="hidden">
+                        <label class="text-xs font-bold text-amber-700 uppercase tracking-wider">Empate a puntos: ¿quién ganó el desempate a tiempos reducidos?</label>
+                        <select id="rep-copa-ganador" class="w-full mt-1 px-3 py-2 rounded-xl border border-amber-300 bg-amber-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
+                        <input id="rep-copa-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                        <input id="rep-copa-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <button id="rep-copa-submit-btn" onclick="enviarResultadoCopa()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                        Enviar Resultado de la Copa
+                    </button>
+                    <p id="rep-copa-mensaje" class="text-sm font-bold text-center hidden"></p>
                 </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
-                    <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
-                    <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
-                </div>
-                <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
-                    Enviar Resultado
-                </button>
-                <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
             </div>
         </div>
     </div>
@@ -520,6 +564,9 @@
         let peonesSearchListenerAttached = false;
         let palmaresCargado = false;
         let copaCargado = false;
+        let copaPartidosData = null;
+        let copaPartidosPendientesReportar = [];
+        let copaReportarListenersAttached = false;
         window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             await fetchPuzzle();
@@ -1375,31 +1422,41 @@ renderRoundUI(currentRound);
         // (D y E son NÚMEROS, no texto tipo "4-0" — así Google Sheets no los confunde con una fecha).
         // Tanto si el cuadro se sorteó entero al principio como si cada ronda se sortea la semana anterior,
         // el código no cambia: solo hay que ir añadiendo/rellenando filas en esta pestaña.
+        //
+        // Separado en dos partes: fetchCopaPartidos() solo trae y parsea los datos (lo reutiliza
+        // también el formulario de "Reportar resultado de la Copa"), y cargarCopa() los pinta en
+        // la pestaña del cuadro. Así no hace falta duplicar el fetch ni el parseo en dos sitios.
+        async function fetchCopaPartidos(forzarRecarga) {
+            if (copaPartidosData && !forzarRecarga) return copaPartidosData;
+            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
+            const text = await res.text();
+            const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
+            const getTxt = (r, i) => {
+                if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
+                const cell = r.c[i];
+                return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
+            };
+            const partidos = rows
+                .map(r => ({
+                    ronda: getTxt(r, 0),
+                    p1: getTxt(r, 1),
+                    p2: getTxt(r, 2),
+                    puntosJ1: getTxt(r, 3),
+                    puntosJ2: getTxt(r, 4),
+                    ganador: getTxt(r, 5),
+                    rondaNum: parseInt(getTxt(r, 6)),
+                    slot: parseInt(getTxt(r, 7)),
+                    fechaInicio: getTxt(r, 8),
+                    fechaFin: getTxt(r, 9)
+                }))
+                .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda' && (m.p1 || m.p2));
+            copaPartidosData = partidos;
+            return partidos;
+        }
         async function cargarCopa() {
             const contenedor = document.getElementById('copa-container');
             try {
-                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
-                const text = await res.text();
-                const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
-                const getTxt = (r, i) => {
-                    if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
-                    const cell = r.c[i];
-                    return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
-                };
-                const partidos = rows
-                    .map(r => ({
-                        ronda: getTxt(r, 0),
-                        p1: getTxt(r, 1),
-                        p2: getTxt(r, 2),
-                        puntosJ1: getTxt(r, 3),
-                        puntosJ2: getTxt(r, 4),
-                        ganador: getTxt(r, 5),
-                        rondaNum: parseInt(getTxt(r, 6)),
-                        slot: parseInt(getTxt(r, 7)),
-                        fechaInicio: getTxt(r, 8),
-                        fechaFin: getTxt(r, 9)
-                    }))
-                    .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda' && (m.p1 || m.p2));
+                const partidos = await fetchCopaPartidos(true);
                 copaCargado = true;
                 if (partidos.length === 0) {
                     contenedor.innerHTML = `<p class="text-stone-500 italic text-center py-8">Todavía no se ha generado el cuadro de la Copa. ¡Vuelve pronto! 🏆</p>`;
@@ -1639,6 +1696,214 @@ renderRoundUI(currentRound);
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Enviar Resultado';
+            }
+        }
+        // --------------------------------------------------------------------------
+        // 🏆 REPORTAR RESULTADO DE LA COPA: mismo espíritu que el formulario de Liga
+        // de arriba, pero los cruces se identifican por RondaNum+Slot (no por
+        // ronda+nombres, porque en un cuadro KO los mismos dos nombres podrían
+        // coincidir en más de una ronda a lo largo de las ediciones) y hay que
+        // resolver el caso de empate a puntos pidiendo quién ganó el desempate a
+        // tiempos reducidos antes de poder enviar.
+        // --------------------------------------------------------------------------
+        function cambiarModoReportar(modo) {
+            const btnLiga = document.getElementById('rep-modo-liga-btn');
+            const btnCopa = document.getElementById('rep-modo-copa-btn');
+            const formLiga = document.getElementById('rep-liga-form');
+            const formCopa = document.getElementById('rep-copa-form');
+            if (!btnLiga || !btnCopa || !formLiga || !formCopa) return;
+            const clasesBase = 'rep-modo-btn px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const clasesActivo = `${clasesBase} bg-indigo-800 text-white`;
+            const clasesInactivo = `${clasesBase} text-stone-600 hover:text-stone-900`;
+            if (modo === 'copa') {
+                formLiga.classList.add('hidden');
+                formCopa.classList.remove('hidden');
+                btnCopa.className = clasesActivo;
+                btnLiga.className = clasesInactivo;
+                initReportarCopaUI();
+            } else {
+                formCopa.classList.add('hidden');
+                formLiga.classList.remove('hidden');
+                btnLiga.className = clasesActivo;
+                btnCopa.className = clasesInactivo;
+            }
+        }
+        function initReportarCopaUI() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            if (!selectPartido) return;
+            if (!copaReportarListenersAttached) {
+                const inputScore1 = document.getElementById('rep-copa-score1');
+                const inputScore2 = document.getElementById('rep-copa-score2');
+                if (inputScore1) inputScore1.addEventListener('input', comprobarEmpateCopa);
+                if (inputScore2) inputScore2.addEventListener('input', comprobarEmpateCopa);
+                copaReportarListenersAttached = true;
+            }
+            selectPartido.innerHTML = `<option value="">Cargando cruces...</option>`;
+            fetchCopaPartidos().then(partidos => {
+                poblarPartidosReportarCopa(partidos);
+            }).catch(errCopaRep => {
+                console.error('❌ Error al cargar los cruces de la Copa para reportar:', errCopaRep);
+                selectPartido.innerHTML = `<option value="">No se ha podido cargar el cuadro de la Copa</option>`;
+            });
+        }
+        function poblarPartidosReportarCopa(partidos) {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            if (!selectPartido) return;
+            // Solo se pueden reportar cruces "reales": con los dos jugadores ya conocidos
+            // (si falta uno, es que todavía depende de un cruce anterior sin decidir) y
+            // sin ganador anotado todavía.
+            copaPartidosPendientesReportar = (partidos || []).filter(m => m.p1 && m.p2 && !m.ganador);
+            if (copaPartidosPendientesReportar.length === 0) {
+                selectPartido.innerHTML = `<option value="">No hay cruces pendientes de resultado ahora mismo</option>`;
+                actualizarEtiquetasJugadoresCopa();
+                return;
+            }
+            selectPartido.innerHTML = copaPartidosPendientesReportar.map((m, i) =>
+                `<option value="${i}">${m.ronda}: ${m.p1} vs ${m.p2}</option>`
+            ).join('');
+            selectPartido.onchange = actualizarEtiquetasJugadoresCopa;
+            actualizarEtiquetasJugadoresCopa();
+        }
+        function actualizarEtiquetasJugadoresCopa() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const labelP1 = document.getElementById('rep-copa-label-p1');
+            const labelP2 = document.getElementById('rep-copa-label-p2');
+            const inputScore1 = document.getElementById('rep-copa-score1');
+            const inputScore2 = document.getElementById('rep-copa-score2');
+            const contenedorGanador = document.getElementById('rep-copa-ganador-container');
+            if (inputScore1) inputScore1.value = '';
+            if (inputScore2) inputScore2.value = '';
+            if (contenedorGanador) contenedorGanador.classList.add('hidden');
+            if (!selectPartido || !copaPartidosPendientesReportar.length) {
+                if (labelP1) labelP1.innerText = 'Puntos Jugador 1';
+                if (labelP2) labelP2.innerText = 'Puntos Jugador 2';
+                return;
+            }
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            if (!m) return;
+            if (labelP1) labelP1.innerText = `Puntos de ${m.p1}`;
+            if (labelP2) labelP2.innerText = `Puntos de ${m.p2}`;
+        }
+        // Cuando los puntos quedan empatados (p.ej. 2-2), hace falta el desempate a
+        // tiempos reducidos: mostramos un selector para indicar quién lo ganó, porque
+        // el Apps Script no puede inventarse un ganador a partir de un empate a puntos.
+        function comprobarEmpateCopa() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const contenedorGanador = document.getElementById('rep-copa-ganador-container');
+            const selectGanador = document.getElementById('rep-copa-ganador');
+            const inputScore1 = document.getElementById('rep-copa-score1');
+            const inputScore2 = document.getElementById('rep-copa-score2');
+            if (!selectPartido || !contenedorGanador || !selectGanador || !inputScore1 || !inputScore2) return;
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            const score1 = inputScore1.value;
+            const score2 = inputScore2.value;
+            if (!m || score1 === '' || score2 === '' || parseFloat(score1) !== parseFloat(score2)) {
+                contenedorGanador.classList.add('hidden');
+                return;
+            }
+            contenedorGanador.classList.remove('hidden');
+            selectGanador.innerHTML = `<option value="${m.p1}">${m.p1}</option><option value="${m.p2}">${m.p2}</option>`;
+        }
+        async function enviarResultadoCopa() {
+            const mensajeEl = document.getElementById('rep-copa-mensaje');
+            const btn = document.getElementById('rep-copa-submit-btn');
+            const mostrarMensaje = (texto, esError) => {
+                mensajeEl.innerText = texto;
+                mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
+                mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
+            };
+            if (!RESULTADOS_WEBAPP_URL || RESULTADOS_WEBAPP_URL.includes('PON_AQUI')) {
+                mostrarMensaje('⚠️ Todavía falta configurar la URL del Apps Script en el código (RESULTADOS_WEBAPP_URL).', true);
+                return;
+            }
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            if (!m) {
+                mostrarMensaje('❌ Selecciona un cruce válido.', true);
+                return;
+            }
+            const score1 = document.getElementById('rep-copa-score1').value;
+            const score2 = document.getElementById('rep-copa-score2').value;
+            const reportadoPor = document.getElementById('rep-copa-nombre').value.trim();
+            const codigo = document.getElementById('rep-copa-codigo').value.trim();
+            if (score1 === '' || score2 === '') {
+                mostrarMensaje('❌ Rellena los puntos de ambos jugadores.', true);
+                return;
+            }
+            let ganadorDesempate = '';
+            if (parseFloat(score1) === parseFloat(score2)) {
+                const selectGanador = document.getElementById('rep-copa-ganador');
+                ganadorDesempate = selectGanador ? selectGanador.value : '';
+                if (!ganadorDesempate) {
+                    mostrarMensaje('❌ Los puntos están empatados: indica quién ganó el desempate a tiempos reducidos.', true);
+                    return;
+                }
+            }
+            if (!reportadoPor) {
+                mostrarMensaje('❌ Escribe tu nombre o nick.', true);
+                return;
+            }
+            if (!codigo) {
+                mostrarMensaje('❌ Falta el código de la liga.', true);
+                return;
+            }
+            const payload = {
+                torneo: 'copa',
+                rondaNum: m.rondaNum,
+                slot: m.slot,
+                jugador1: m.p1,
+                jugador2: m.p2,
+                puntosJ1: parseFloat(score1),
+                puntosJ2: parseFloat(score2),
+                ganador: ganadorDesempate,
+                reportadoPor: reportadoPor,
+                codigo: codigo
+            };
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                let resultado = null;
+                try {
+                    resultado = await res.json();
+                } catch (errLectura) {
+                    resultado = null;
+                }
+                if (resultado && resultado.ok === false) {
+                    mostrarMensaje(`❌ ${resultado.error || 'No se ha podido registrar el resultado.'}`, true);
+                    return;
+                }
+                const partidosActualizados = await fetchCopaPartidos(true);
+                if (copaCargado) {
+                    const contenedor = document.getElementById('copa-container');
+                    if (contenedor) {
+                        const tieneEstructuraDeArbol = partidosActualizados.every(mm => !isNaN(mm.rondaNum) && !isNaN(mm.slot));
+                        if (tieneEstructuraDeArbol) { renderCopaArbol(partidosActualizados, contenedor); } else { renderCopaListaPlana(partidosActualizados, contenedor); }
+                    }
+                }
+                if (resultado === null) {
+                    const mActualizado = partidosActualizados.find(mm => mm.rondaNum === m.rondaNum && mm.slot === m.slot);
+                    if (mActualizado && !mActualizado.ganador) {
+                        mostrarMensaje('⚠️ No se ha podido confirmar el envío. Revisa el cuadro o inténtalo de nuevo; si el problema persiste, avisa al administrador.', true);
+                        return;
+                    }
+                }
+                mostrarMensaje('✅ ¡Resultado enviado! El cuadro se ha actualizado.', false);
+                document.getElementById('rep-copa-score1').value = '';
+                document.getElementById('rep-copa-score2').value = '';
+                document.getElementById('rep-copa-codigo').value = '';
+                document.getElementById('rep-copa-ganador-container').classList.add('hidden');
+                poblarPartidosReportarCopa(partidosActualizados);
+            } catch (err) {
+                console.error('Error al enviar el resultado de la Copa:', err);
+                mostrarMensaje('❌ No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Enviar Resultado de la Copa';
             }
         }
         function initCalendarUI() {

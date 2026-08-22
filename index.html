@@ -1449,7 +1449,13 @@ renderRoundUI(currentRound);
                     fechaInicio: getTxt(r, 8),
                     fechaFin: getTxt(r, 9)
                 }))
-                .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda' && (m.p1 || m.p2));
+                // OJO: antes aquí también se exigía "(m.p1 || m.p2)", así que las filas de rondas
+                // futuras que TODAVÍA no tienen a ningún jugador colocado (p.ej. Cuartos de Final
+                // recién sorteado, sin haberse jugado ni una Semifinal) se descartaban y esa columna
+                // del cuadro no se llegaba ni a dibujar. Quitamos esa condición para que SIEMPRE se
+                // pinten todas las rondas hasta la Final (renderCopaArbol ya sabe mostrar "Por
+                // determinar" cuando un lado del cruce todavía no se conoce, ver nombreLadoCruce).
+                .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda');
             copaPartidosData = partidos;
             return partidos;
         }

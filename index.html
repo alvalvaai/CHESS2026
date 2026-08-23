@@ -80,7 +80,13 @@
                 <ul class="list-disc pl-5 space-y-2 mt-2">
                     <li>Cada enfrentamiento consta de un bloque de <b>4 partidas individuales</b> por jornada.</li>
                     <li><b>Ritmos de juego:</b> 2 partidas a ritmo <b>10'+0</b> y 2 partidas a ritmo <b>3'+2"</b>.</li>
-                    <li><b>Sistema de puntuación:</b> Cada partida individual otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate).</li>
+                    <li><b>Puntuación por partida individual:</b> cada una de las 4 partidas otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate), repartiéndose así un total de <b>4 puntos individuales</b> entre los dos jugadores del enfrentamiento.</li>
+                    <li><b>Puntuación del enfrentamiento (clasificación):</b> según cómo queden repartidos esos 4 puntos individuales, el enfrentamiento otorga a su vez puntos de cara a la clasificación general:
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Si un jugador suma <b>más</b> puntos individuales que su rival (ej. 3-1, 2.5-1.5), gana el enfrentamiento: <b>2 puntos</b> para el ganador y <b>0 puntos</b> para el perdedor.</li>
+                            <li>Si el enfrentamiento termina <b>2-2</b>, se considera empatado: <b>1 punto</b> para cada jugador.</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
           <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
@@ -106,11 +112,11 @@
             </div>
             <div>
                 <p class="font-bold text-lg text-emerald-900 flex items-center gap-1">🔄 Estructura, Ascensos y Descensos</p>
-                <p class="mt-1">El torneo se compone de <b>Chesspions League</b> y <b>Chesscond Division</b>, con <b>12 jugadores</b> cada una, y de una <b>Tercera División</b> con el número de jugadores que resulte de las inscripciones (si son demasiados, se dividirá en varios grupos o un grupo único con un número de jornadas predeterminadas, formato como la Champions League de fútbol). Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
+                <p class="mt-1">El torneo se compone de <b>Primera</b> y <b>Segunda</b>, con <b>12 jugadores</b> cada una, y de una <b>Tercera</b> con el número de jugadores que resulte de las inscripciones (si son demasiados, se dividirá en varios grupos). Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
 
                 <ul class="list-disc pl-5 space-y-3 mt-2">
-                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Chesspions League</span> Los <b>4 primeros clasificados</b> juegan el play-off de la Final Four. Los clasificados <b>5º, 6º y 7º</b> se mantienen en Primera sin más. Los <b>8º, 9º y 10º</b> disputan la promoción para mantenerse en Primera o bajar a Segunda. Los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Segunda.</li>
-                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Chesscond Division</span> Los <b>2 primeros clasificados (1º y 2º)</b> obtienen el ascenso directo a Primera. Los <b>3º, 4º y 5º</b> disputan la promoción de ascenso contra el 8º, 9º y 10º de Primera. Los <b>6º y 7º</b> se mantienen en Segunda sin más. En el otro extremo, los <b>8º, 9º y 10º</b> disputan la promoción de descenso contra el 3º, 4º y 5º de Tercera, y los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Tercera.</li>
+                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Primera División</span> Los <b>4 primeros clasificados</b> juegan el play-off de la Final Four. Los clasificados <b>5º, 6º y 7º</b> se mantienen en Primera sin más. Los <b>8º, 9º y 10º</b> disputan la promoción para mantenerse en Primera o bajar a Segunda. Los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Segunda.</li>
+                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Segunda División</span> Los <b>2 primeros clasificados (1º y 2º)</b> obtienen el ascenso directo a Primera. Los <b>3º, 4º y 5º</b> disputan la promoción de ascenso contra el 8º, 9º y 10º de Primera. Los <b>6º y 7º</b> se mantienen en Segunda sin más. En el otro extremo, los <b>8º, 9º y 10º</b> disputan la promoción de descenso contra el 3º, 4º y 5º de Tercera, y los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Tercera.</li>
                     <li><span class="inline-flex bg-sky-100 text-sky-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Tercera División</span> Los <b>2 primeros clasificados</b> obtienen el ascenso directo a Segunda. Los <b>3º, 4º y 5º</b> disputan la promoción de ascenso contra el 8º, 9º y 10º de Segunda.</li>
                     <li><span class="inline-flex bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Promociones (todas)</span>
                         <ul class="list-circle pl-5 mt-1 text-stone-700">
@@ -157,7 +163,7 @@
                     <p><b>✍️ Formato para anunciar resultados de la Copa:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">COPA Alvarousi 3 - 1 Rafakus</code></p>
                 </div>
                 <ul class="list-disc pl-5 space-y-2 mt-4">
-                    <li><b>📤 Reportar el resultado en la app:</b> Además de anunciarlo en el Chat Tournament, uno de los dos jugadores tiene que entrar en la pestaña <b>"RESULTADOS"</b> de la app y registrarlo ahí directamente — tanto si es un resultado de <b>Liga</b> como de <b>Copa</b> — para que la clasificación y el cuadro se actualicen solos.</li>
+                    <li><b>📤 Reportar el resultado en la app:</b> Además de anunciarlo en el Chat Tournament, uno de los dos jugadores tiene que entrar en la pestaña <b>"Reportar Resultados"</b> de la app y registrarlo ahí directamente — tanto si es un resultado de <b>Liga</b> como de <b>Copa</b> — para que la clasificación y el cuadro se actualicen solos.</li>
                     <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es el estipulado <b>de martes a lunes</b>. Si consultas con <span class="font-bold text-stone-950">Guindiana</span> o con los administradores la imposibilidad de jugar en esas fechas, se puede otorgar un <b>Aplazamiento</b> del partido. Si los dos jugadores no se ponen de acuerdo para jugar y el partido no ha sido aplazado, quedará marcado como <b>"Fuera de Tiempo"</b> y ambos jugadores se quedan con <b>0 puntos</b> en esa jornada. Los martes, nuestro corresponsal Guindiana actualizará los cuadros y clasificaciones oficiales de la app.</li>
                     <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
                 </ul>

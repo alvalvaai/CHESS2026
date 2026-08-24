@@ -836,20 +836,26 @@
                         const claveB = (b.nickGrupo || b.nombre || '').toLowerCase();
                         return claveA.localeCompare(claveB, 'es', { sensitivity: 'base' });
                     });
-                    renderPeones(peonesData);
+                    // Repinta las fichas respetando el texto que haya en el buscador
+                    window.refrescarPeones = function () {
+                        if (!Array.isArray(peonesData) || peonesData.length === 0) return;
+                        const input = document.getElementById('peones-search');
+                        const q = normaliza(input ? input.value : '');
+                        const filtrado = q
+                            ? peonesData.filter(p =>
+                                normaliza(p.nombre).includes(q) ||
+                                normaliza(p.nickGrupo).includes(q) ||
+                                normaliza(p.nickLichess).includes(q) ||
+                                normaliza(p.ciudad).includes(q)
+                            )
+                            : peonesData;
+                        renderPeones(filtrado);
+                    };
+                    window.refrescarPeones();
                     if (!peonesSearchListenerAttached) {
                         const inputBusqueda = document.getElementById('peones-search');
                         if (inputBusqueda) {
-                            inputBusqueda.addEventListener('input', (e) => {
-                                const q = normaliza(e.target.value);
-                                const filtrado = peonesData.filter(p =>
-                                    normaliza(p.nombre).includes(q) ||
-                                    normaliza(p.nickGrupo).includes(q) ||
-                                    normaliza(p.nickLichess).includes(q) ||
-                                    normaliza(p.ciudad).includes(q)
-                                );
-                                renderPeones(filtrado);
-                            });
+                            inputBusqueda.addEventListener('input', () => window.refrescarPeones());
                             peonesSearchListenerAttached = true;
                         }
                     }
@@ -881,6 +887,13 @@
                         };
                     }
                 });
+                // INFO ya está cargada: repintamos Peones para que el cruce
+                // "nombre de clasificación <-> nick de Lichess" encuentre más ELOs
+                try {
+                    if (typeof window.refrescarPeones === 'function') window.refrescarPeones();
+                } catch (errRefrescoPeones) {
+                    console.error("Error al refrescar las fichas de Peones:", errRefrescoPeones);
+                }
 const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
 const resText = await resRes.text();
 const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
@@ -1122,6 +1135,40 @@ renderRoundUI(currentRound);
                 console.error("Fallo crítico: ", e);
             }
         }
+        // Busca el ELO de Lichess de un peón en la hoja ELO_RANKING.
+        // Prueba varias claves (nombre, nick del grupo, nick de Lichess) y cruza
+        // con la hoja INFO para enlazar "nombre de clasificación" <-> "nick de Lichess".
+        function buscarEloPeon(p) {
+            if (typeof eloRankingData === 'undefined' || !Array.isArray(eloRankingData) || eloRankingData.length === 0) return null;
+
+            const claves = new Set();
+            const add = (v) => { const n = normalizaTexto(v); if (n) claves.add(n); };
+
+            add(p.nombre);
+            add(p.nickGrupo);
+            add(p.nickLichess);
+
+            if (typeof infoData !== 'undefined' && Array.isArray(infoData)) {
+                const nickPeon = normalizaTexto(p.nickLichess);
+                infoData.forEach(i => {
+                    const nombreInfo = normalizaTexto(i.name);
+                    const nickInfo = normalizaTexto(i.lichess);
+                    if (!nombreInfo) return;
+                    if (nickPeon && nickInfo && nickInfo === nickPeon) add(i.name);
+                    if (nickInfo && claves.has(nombreInfo)) add(i.lichess);
+                });
+            }
+
+            return eloRankingData.find(e => e && e.Jugador && claves.has(normalizaTexto(e.Jugador))) || null;
+        }
+
+        function esEloValido(v) {
+            const t = (v === null || v === undefined) ? '' : v.toString().trim();
+            if (!t) return false;
+            const n = normalizaTexto(t);
+            return n !== 'n/a' && n !== 'na' && n !== '-' && n !== '0';
+        }
+
         function renderPeones(lista) {
             const grid = document.getElementById('peones-grid');
             if (!grid) return;
@@ -1148,6 +1195,21 @@ renderRoundUI(currentRound);
                 const lichessBtn = p.nickLichess
                     ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
                     : '';
+                const eloInfo = buscarEloPeon(p);
+                const eloBlitz = eloInfo && esEloValido(eloInfo.Ranking_Blitz) ? eloInfo.Ranking_Blitz.toString().trim() : '';
+                const eloRapidas = eloInfo && esEloValido(eloInfo.Ranking_Rapidas) ? eloInfo.Ranking_Rapidas.toString().trim() : '';
+                const eloChips = (eloBlitz || eloRapidas)
+                    ? `<div class="flex flex-wrap gap-2">
+                        ${eloBlitz ? `<div class="bg-sky-100 border border-sky-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-sky-950">⏱️ Blitz:</span>
+                            <span class="text-[11px] font-black text-sky-950">${eloBlitz}</span>
+                        </div>` : ''}
+                        ${eloRapidas ? `<div class="bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-emerald-950">🐢 Ráp.:</span>
+                            <span class="text-[11px] font-black text-emerald-950">${eloRapidas}</span>
+                        </div>` : ''}
+                    </div>`
+                    : '';
                 const whatsappBtn = p.telefono
                     ? (() => {
                         const numLimpio = formatWhatsappNumber(p.telefono);
@@ -1166,6 +1228,7 @@ renderRoundUI(currentRound);
                             </div>
                         </div>
                     </div>
+                    ${eloChips}
                     ${(lichessBtn || whatsappBtn) ? `<div class="flex gap-2">${lichessBtn}${whatsappBtn}</div>` : ''}
                     ${p.estilo ? `<p class="text-xs italic text-stone-800 bg-stone-50 border-l-4 border-amber-600 px-3 py-2 rounded-r-lg">"${p.estilo}"</p>` : ''}
                     <div class="flex flex-wrap gap-1.5">

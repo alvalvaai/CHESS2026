@@ -71,12 +71,22 @@
             <p class="text-base italic text-stone-600 font-semibold border-l-4 border-amber-600 pl-3 bg-stone-50 py-2 rounded-r">
                 ¡Bienvenidos al "XX Torneo"! En nombre de la organización, queremos agradecer a todos los participantes su disposición y sus ganas para esta XX edición. ♟️🔥
             </p>
+            <div class="border-l-4 border-cyan-600 bg-cyan-50/50 p-4 rounded-r-xl">
+                <p class="font-bold text-lg text-cyan-950 flex items-center gap-1">♟️ Plataforma de Competición</p>
+                <p class="mt-1 text-sm text-cyan-900">Las partidas se celebrarán en <b>Lichess.org</b>. Apostamos por esta plataforma sin ánimo de lucro por ser <b>100% gratuita, transparente</b> y no requerir ninguna suscripción de pago para acceder a todas sus funcionalidades.</p>
+            </div>
             <div>
                 <p class="font-bold text-lg text-amber-900 flex items-center gap-1">📌 Formato de Jornada y Puntuación</p>
                 <ul class="list-disc pl-5 space-y-2 mt-2">
                     <li>Cada enfrentamiento consta de un bloque de <b>4 partidas individuales</b> por jornada.</li>
                     <li><b>Ritmos de juego:</b> 2 partidas a ritmo <b>10'+0</b> y 2 partidas a ritmo <b>3'+2"</b>.</li>
-                    <li><b>Sistema de puntuación:</b> Cada partida individual otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate).</li>
+                    <li><b>Puntuación por partida individual:</b> cada una de las 4 partidas otorga <b>1 punto</b> por victoria y <b>0.5 puntos</b> por tablas (empate), repartiéndose así un total de <b>4 puntos individuales</b> entre los dos jugadores del enfrentamiento.</li>
+                    <li><b>Puntuación del enfrentamiento (clasificación):</b> según cómo queden repartidos esos 4 puntos individuales, el enfrentamiento otorga a su vez puntos de cara a la clasificación general:
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Si un jugador suma <b>más</b> puntos individuales que su rival (ej. 3-1, 2.5-1.5), gana el enfrentamiento: <b>2 puntos</b> para el ganador y <b>0 puntos</b> para el perdedor.</li>
+                            <li>Si el enfrentamiento termina <b>2-2</b>, se considera empatado: <b>1 punto</b> para cada jugador.</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
           <div class="bg-stone-50 p-4 rounded-xl border border-stone-200">
@@ -102,17 +112,17 @@
             </div>
             <div>
                 <p class="font-bold text-lg text-emerald-900 flex items-center gap-1">🔄 Estructura, Ascensos y Descensos</p>
-                <p class="mt-1">El torneo se compone de <b>Primera</b> y <b>Segunda</b>, con <b>10 jugadores</b> cada una, y de una <b>Tercera</b> con el número de jugadores que resulte de las inscripciones (si son demasiados, se dividirá en varios grupos). Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
+                <p class="mt-1">El torneo se compone de <b>Primera</b> y <b>Segunda</b>, con <b>12 jugadores</b> cada una, y de una <b>Chesscera</b> con el número de jugadores que resulte de las inscripciones (si son demasiados, se dividirá en varios grupos). Al finalizar la liga regular se aplican los siguientes cambios de categoría:</p>
 
                 <ul class="list-disc pl-5 space-y-3 mt-2">
-                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Primera División</span> Los <b>2 últimos clasificados (9º y 10º)</b> descienden de forma directa a Segunda. Los clasificados <b>7º y 8º</b> disputan una promoción para mantenerse en Primera o bajar a Segunda.</li>
-                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Segunda División</span> Los <b>2 primeros clasificados (1º y 2º)</b> obtienen el ascenso directo a Primera. Los <b>3º y 4º</b> disputan la promoción de ascenso contra el 7º y 8º de Primera. En el otro extremo, los <b>2 últimos (9º y 10º)</b> descienden de forma directa a Tercera, y los clasificados <b>7º y 8º</b> disputan la promoción de descenso contra el 3º y 4º de Tercera.</li>
-                    <li><span class="inline-flex bg-sky-100 text-sky-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Tercera División</span> Los <b>2 primeros clasificados</b> obtienen el ascenso directo a Segunda. Los <b>3º y 4º</b> disputan la promoción de ascenso contra el 7º y 8º de Segunda.</li>
+                    <li><span class="inline-flex bg-red-100 text-red-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Chesspions League</span> Los <b>4 primeros clasificados</b> juegan el play-off de la Final Four. Los clasificados <b>5º, 6º y 7º</b> se mantienen en Primera sin más. Los <b>8º, 9º y 10º</b> disputan la promoción para mantenerse en Primera o bajar a Segunda. Los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Segunda.</li>
+                    <li><span class="inline-flex bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Chesscond Division</span> Los <b>2 primeros clasificados (1º y 2º)</b> obtienen el ascenso directo a Primera. Los <b>3º, 4º y 5º</b> disputan la promoción de ascenso contra el 8º, 9º y 10º de Primera. Los <b>6º y 7º</b> se mantienen en Segunda sin más. En el otro extremo, los <b>8º, 9º y 10º</b> disputan la promoción de descenso contra el 3º, 4º y 5º de Chesscera, y los <b>2 últimos (11º y 12º)</b> descienden de forma directa a Chesscera.</li>
+                    <li><span class="inline-flex bg-sky-100 text-sky-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Chesscera División</span> Los <b>2 primeros clasificados</b> obtienen el ascenso directo a Segunda. Los <b>3º, 4º y 5º</b> disputan la promoción de ascenso contra el 8º, 9º y 10º de Segunda.</li>
                     <li><span class="inline-flex bg-amber-100 text-amber-800 px-2 py-0.5 rounded text-xs font-bold mr-1">Promociones (todas)</span>
                         <ul class="list-circle pl-5 mt-1 text-stone-700">
                             <li>El ganador de cada duelo obtiene/mantiene la plaza en la categoría superior.</li>
                             <li>El formato del match es idéntico al de la liga regular (4 partidas).</li>
-                            <li>En caso de empate en el duelo, se jugará un desempate reduciendo tiempos sin incremento hasta que alguien gane dos partidas seguidas: primero a <b>5’</b>, luego <b>3’</b> y finalmente <b>1’</b>.</li>
+                            <li>En caso de empate a 2-2 tras las 4 partidas, se juega un desempate a <b>dos partidas a 5’ sin incremento</b>. Si tras esas dos partidas todavía no hay ganador, se juegan otras <b>dos partidas a 3’ sin incremento</b>; si el empate persiste, <b>dos partidas a 1’ sin incremento</b> — y si hiciera falta, se van jugando más tandas de dos partidas a 1’ sin incremento hasta que alguien se lleve el desempate.</li>
                         </ul>
                     </li>
                 </ul>
@@ -128,9 +138,9 @@
             <div class="border-l-4 border-purple-600 bg-purple-50/50 p-4 rounded-r-xl">
                 <p class="font-bold text-lg text-purple-950 flex items-center gap-1">🥇 Copa (Torneo KO por Eliminatorias)</p>
                 <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-purple-900">
-                    <li>Torneo paralelo a la liga, de <b>eliminatoria directa</b>: el cuadro completo se sortea <b>una única vez al principio</b> y se juega una ronda cada semana; quien pierde la eliminatoria queda eliminado de la Copa.</li>
+                    <li>Torneo paralelo a la liga, de <b>eliminatoria directa</b>: el cuadro completo se sortea <b>una única vez al principio</b> y se juega una ronda <b>cada 15 días</b>; quien pierde la eliminatoria queda eliminado de la Copa.</li>
                     <li>Cada eliminatoria tiene el <b>mismo formato de enfrentamiento que la liga regular</b>: 4 partidas individuales — 2 a ritmo <b>10'+0</b> y 2 a ritmo <b>3'+2"</b>.</li>
-                    <li>En caso de empate en la eliminatoria, se jugará un desempate reduciendo los tiempos sin incremento hasta que alguien gane dos partidas seguidas: primero dos partidas a <b>5’</b>, después dos partidas a <b>3’</b> y finalmente dos partidas a <b>1’</b>.</li>
+                    <li>En caso de empate a 2-2 tras las 4 partidas, se juega un desempate a <b>dos partidas a 5’ sin incremento</b>. Si tras esas dos partidas todavía no hay ganador, se juegan otras <b>dos partidas a 3’ sin incremento</b>; si el empate persiste, <b>dos partidas a 1’ sin incremento</b> — y si hiciera falta, se van jugando más tandas de dos partidas a 1’ sin incremento hasta que alguien se lleve el desempate.</li>
                 </ul>
             </div>
             <div>
@@ -150,10 +160,45 @@
                 <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl mt-4 text-xs space-y-2">
                     <p><b>✍️ Formato para anunciar enfrentamientos:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">FranHerrera vs Alberzas a las 18'30</code></p>
                     <p><b>✍️ Formato para anunciar resultados:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">J1 Gordeza 0 - 4 Guindiana 🍩</code></p>
+                    <p><b>✍️ Formato para anunciar resultados de la Copa:</b> <code class="bg-amber-100 px-1 py-0.5 rounded font-mono text-amber-900">COPA Alvarousi 3 - 1 Rafakus</code></p>
+                </div>
+
+                <div class="bg-indigo-50/60 border border-indigo-200 p-4 rounded-xl mt-4 space-y-3">
+                    <p class="font-bold text-indigo-950 flex items-center gap-1">🏷️ Identifícate en los chats: nombre y etiqueta de miembro</p>
+                    <p class="text-xs text-stone-700">En WhatsApp cada uno aparece con el nombre de su perfil, y muchas veces no tiene nada que ver con el nick con el que jugamos. Eso hace imposible saber quién es quién a la hora de cuadrar un horario, anunciar un resultado o buscar a alguien en la app. Por eso <b class="text-indigo-900">todos los jugadores están obligados a identificarse</b> de estas dos maneras:</p>
+
+                    <div class="p-3 bg-white rounded-lg border border-indigo-200">
+                        <p class="font-bold text-indigo-900 text-xs mb-1">1️⃣ Cambia tu nombre de perfil de WhatsApp</p>
+                        <p class="text-xs text-stone-600">Es el nombre que ve todo el mundo en cualquier grupo, así que es lo primero que hay que arreglar.</p>
+                        <p class="text-xs text-stone-600 mt-1.5"><b>Cómo se hace:</b> abre WhatsApp → <b>Ajustes</b> (o <b>Configuración</b>) → toca tu <b>foto de perfil</b> arriba del todo → pulsa en <b>Nombre</b> → escríbelo y guarda.</p>
+                        <p class="text-xs text-stone-600 mt-1.5"><b>Qué poner:</b> tu <b>nick de Lichess</b>, o tu nombre real seguido del nick entre paréntesis. Por ejemplo: <code class="bg-indigo-100 px-1 py-0.5 rounded font-mono text-indigo-900">Gordeza</code> o <code class="bg-indigo-100 px-1 py-0.5 rounded font-mono text-indigo-900">Fran (FranHerrera)</code>.</p>
+                        <p class="text-[11px] text-stone-500 italic mt-1.5">⚠️ Ojo: este nombre se ve en <b>todos</b> tus chats de WhatsApp, no sólo en los del torneo.</p>
+                    </div>
+
+                    <div class="p-3 bg-white rounded-lg border border-indigo-200">
+                        <p class="font-bold text-indigo-900 text-xs mb-1">2️⃣ Añade tu etiqueta de miembro dentro del grupo</p>
+                        <p class="text-xs text-stone-600">La etiqueta de miembro es un pequeño distintivo que aparece junto a tu nombre <b>sólo dentro del grupo</b>, sin tocar para nada tu perfil personal. Es la forma limpia de que todos sepamos con qué nick juegas.</p>
+                        <p class="text-xs text-stone-600 mt-1.5"><b>Cómo se hace:</b> entra en el chat → toca el <b>nombre del grupo</b> en la parte de arriba para abrir la información → baja hasta la <b>lista de participantes</b> → tócate a ti mismo → elige <b>Añadir etiqueta</b> y escríbela.</p>
+                        <p class="text-xs text-stone-600 mt-1.5"><b>Qué poner:</b> tu <b>nick de Lichess</b> — exactamente el mismo que tienes registrado en la app. Si quieres, puedes añadir tu división detrás. Por ejemplo: <code class="bg-indigo-100 px-1 py-0.5 rounded font-mono text-indigo-900">Alvarousi</code> o <code class="bg-indigo-100 px-1 py-0.5 rounded font-mono text-indigo-900">Guindiana · Chesspions</code>.</p>
+                        <p class="text-[11px] text-stone-500 italic mt-1.5">💡 Si no te aparece la opción de añadir etiqueta, pídeselo a <b>FranHerrera</b> o a <b>Gordeza</b>: como administradores pueden ponértela ellos.</p>
+                    </div>
+
+                    <p class="text-xs text-stone-700"><b class="text-indigo-900">¿Por qué es tan importante?</b> El nick de Lichess es la llave que une las tres cosas: tu ficha de la pestaña <b>Peones</b>, tu nombre en la <b>Clasificación</b> y tu perfil real en <b>Lichess.org</b>. Si en WhatsApp apareces con un nombre distinto, nadie sabrá a quién retar, a quién escribir por privado ni cómo reportar el resultado.</p>
                 </div>
                 <ul class="list-disc pl-5 space-y-2 mt-4">
-                    <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es <b>IRREVOCABLE de martes a lunes</b>. Los martes, nuestro corresponsal <span class="font-bold text-stone-950">Guindiana</span> actualizará los cuadros y clasificaciones oficiales de la app.</li>
+                    <li><b>📤 Reportar el resultado en la app:</b> Además de anunciarlo en el Chat Tournament, uno de los dos jugadores tiene que entrar en la pestaña <b>"Reportar Resultados"</b> de la app y registrarlo ahí directamente — tanto si es un resultado de <b>Liga</b> como de <b>Copa</b> — para que la clasificación y el cuadro se actualicen solos.</li>
+                    <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es el estipulado <b>de martes a lunes</b>. Si consultas con <span class="font-bold text-stone-950">Guindiana</span> o con los administradores la imposibilidad de jugar en esas fechas <b>POR CAUSA MAYOR JUSTIFICADA</b>, se puede otorgar un <b>Aplazamiento</b> del partido. Si los dos jugadores no se ponen de acuerdo para jugar y el partido no ha sido aplazado, quedará marcado como <b>"Fuera de Tiempo"</b> y ambos jugadores se quedan con <b>0 puntos</b> en esa jornada. Los Lunes a las 23:59, se actualizarán los cuadros y clasificaciones oficiales de la app, si un resultado no está actualizado será <b>Fuera de Tiempo</b>.</li>
                     <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
+                </ul>
+            </div>
+            <div class="border-l-4 border-red-500 bg-red-50/50 p-4 rounded-r-xl">
+                <p class="font-bold text-lg text-red-950 flex items-center gap-1">🎟️ Bajas y Nuevas Incorporaciones: los "Juegos del Hambre"</p>
+                <p class="mt-1 text-sm">Si un jugador de <b>Primera o Segunda</b> no renueva su plaza para la siguiente edición (o decide no participar), esa plaza no se hereda ni se rellena a dedo: se organizan los <b>"Juegos del Hambre"</b>, un torneo rápido de vacantes entre todos los interesados en ocupar ese hueco. Pueden apuntarse tanto jugadores que ya estén en una categoría inferior y quieran intentar subir, como nuevas incorporaciones.</p>
+                <ul class="list-disc pl-5 space-y-1 mt-2 text-sm text-red-900">
+                    <li>Las <b>nuevas incorporaciones</b> entran siempre por defecto en <b>Chesscera División</b>.</li>
+                    <li>La única forma de que una nueva incorporación empiece directamente en Primera o Segunda es ganando los Juegos del Hambre por una plaza libre en esa categoría.</li>
+                    <li>Las vacantes que se produzcan en <b>Chesscera</b> se cubren directamente con las nuevas incorporaciones, sin necesidad de disputar los Juegos del Hambre.</li>
+                    <li>El formato de los Juegos del Hambre (número de participantes, rondas, etc.) se decide y se anuncia según cuántas plazas queden libres antes de cada edición.</li>
                 </ul>
             </div>
         </div>
@@ -182,13 +227,13 @@
     </div>
 </div>
     <!-- TAB: COPA (TORNEO KO POR ELIMINATORIAS) -->
-    <div id="content-copa" class="hidden max-w-4xl mx-auto p-4 md:p-6 space-y-6">
+    <div id="content-copa" class="hidden max-w-7xl mx-auto p-4 md:p-6 space-y-6">
         <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400">
             <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
                 🏆 Copa — Torneo KO por Eliminatorias
             </h2>
-            <p class="text-xs text-stone-500 mb-5">Cuadro de eliminatoria directa. Cada semana se juega una ronda; el perdedor queda eliminado.</p>
-            <div id="copa-container" class="space-y-6">
+            <p class="text-xs text-stone-500 mb-5">Cuadro de eliminatoria directa. Cada 15 días se juega una ronda; el perdedor queda eliminado. Desliza en horizontal para ver el cuadro completo.</p>
+            <div id="copa-container">
                 <p class="text-stone-500 italic text-center py-8">Cargando cuadro de la Copa...</p>
             </div>
         </div>
@@ -258,43 +303,87 @@
             <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
                 📤 Resultados
             </h2>
-            <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
-            <div class="space-y-4">
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
-                    <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
-                    <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
+                <button id="rep-modo-liga-btn" onclick="cambiarModoReportar('liga')" class="rep-modo-btn bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🥇 Liga</button>
+                <button id="rep-modo-copa-btn" onclick="cambiarModoReportar('copa')" class="rep-modo-btn text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🏆 Copa</button>
+            </div>
+            <!-- FORMULARIO LIGA -->
+            <div id="rep-liga-form">
+                <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu partida y se guardará solo en la clasificación.</p>
+                <div class="space-y-4">
                     <div>
-                        <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
-                        <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Jornada</label>
+                        <select id="rep-ronda" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                     </div>
                     <div>
-                        <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
-                        <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Emparejamiento</label>
+                        <select id="rep-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
                     </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label id="rep-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                            <input id="rep-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                        <div>
+                            <label id="rep-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                            <input id="rep-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
+                        <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
+                        <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                        <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                        Enviar Resultado
+                    </button>
+                    <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
                 </div>
-                <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">¿Cuántas de las 4 partidas acabaron en tablas?</label>
-                    <input id="rep-tablas" type="number" step="1" min="0" max="4" value="0" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+            </div>
+            <!-- FORMULARIO COPA -->
+            <div id="rep-copa-form" class="hidden">
+                <p class="text-xs text-stone-500 mb-5">Rellena esto al acabar tu cruce de la Copa; el cuadro se actualiza solo y, si hace falta, el ganador pasa automáticamente a la siguiente ronda.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Cruce de la Copa</label>
+                        <select id="rep-copa-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label id="rep-copa-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                            <input id="rep-copa-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                        <div>
+                            <label id="rep-copa-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                            <input id="rep-copa-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-stone-400 -mt-2">💡 Entre los dos puntos, normalmente deberían sumar 4 (4 partidas jugadas).</p>
+                    <div id="rep-copa-ganador-container" class="hidden">
+                        <label class="text-xs font-bold text-amber-700 uppercase tracking-wider">Empate a puntos: ¿quién ganó el desempate a tiempos reducidos?</label>
+                        <select id="rep-copa-ganador" class="w-full mt-1 px-3 py-2 rounded-xl border border-amber-300 bg-amber-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
+                        <input id="rep-copa-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                        <input id="rep-copa-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <button id="rep-copa-submit-btn" onclick="enviarResultadoCopa()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                        Enviar Resultado de la Copa
+                    </button>
+                    <p id="rep-copa-mensaje" class="text-sm font-bold text-center hidden"></p>
                 </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick (para saber quién lo reportó)</label>
-                    <input id="rep-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
-                    <input id="rep-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
-                </div>
-                <button id="rep-submit-btn" onclick="enviarResultado()" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
-                    Enviar Resultado
-                </button>
-                <p id="rep-mensaje" class="text-sm font-bold text-center hidden"></p>
             </div>
         </div>
     </div>
@@ -413,6 +502,9 @@
                 <a id="modal-whatsapp-btn" target="_blank" class="mt-3 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-xl flex flex-col items-center justify-center p-3 text-center font-bold" style="display: none;">
                     <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Conversación</span> ENVIAR WHATSAPP 💬
                 </a>
+                <a id="modal-chesscom-btn" target="_blank" class="mt-3 bg-[#7fa650] hover:bg-[#6b9243] text-white rounded-xl flex flex-col items-center justify-center p-3 text-center font-bold" style="display: none;">
+                    <span class="text-[9px] font-normal tracking-wider uppercase opacity-90">Perfil Público</span> VER EN CHESS.COM ♟️
+                </a>
             </div>
             <!-- 🚦 SEMÁFORO DE FORMA: ÚLTIMOS 5 ENCUENTROS -->
             <div class="mb-5">
@@ -473,39 +565,42 @@
             }
         ];
         // Zonas de ascenso/descenso según el NIVEL de la división (no según su posición en el orden visual).
-        // Así, si "Tercera" se divide en varios grupos (A, B, ...), todos comparten las mismas zonas automáticamente,
+        // Así, si "Chesscera" se divide en varios grupos (A, B, ...), todos comparten las mismas zonas automáticamente,
         // porque la búsqueda se hace por palabra clave en el nombre de la división, no por índice.
         //
-        // Supuestos actuales de tamaño: Primera = 10 jugadores, Segunda = 10 jugadores, Tercera = variable.
+        // Supuestos actuales de tamaño: Primera = 12 jugadores, Segunda = 12 jugadores, Chesscera = variable.
         // Si cambia el número de jugadores de una división, hay que ajustar aquí los "desde/hasta".
+        // Los que "se mantienen" (5º-7º de Primera, 6º-7º de Segunda) no llevan zona/color: no ascienden ni bajan.
         const ZONAS_POR_NIVEL = {
             primera: [
-                { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },  // Clasifican a la Final Four
-                { desde: 7, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción: se juegan mantenerse o bajar a Segunda
-                { desde: 9, hasta: 10, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Segunda
+                { desde: 1, hasta: 4, rgb: '46, 204, 113', borde: '#2ecc71' },   // Clasifican a la Final Four (play-off)
+                { desde: 8, hasta: 10, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción: se juegan mantenerse o bajar a Segunda
+                { desde: 11, hasta: 12, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Segunda
             ],
             segunda: [
-                { desde: 1, hasta: 2, rgb: '46, 204, 113', borde: '#2ecc71' },  // Ascenso directo a Primera
-                { desde: 3, hasta: 4, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción de ascenso vs 7º-8º de Primera
-                { desde: 7, hasta: 8, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción de descenso vs 3º-4º de Tercera
-                { desde: 9, hasta: 10, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Tercera
+                { desde: 1, hasta: 2, rgb: '46, 204, 113', borde: '#2ecc71' },   // Ascenso directo a Primera
+                { desde: 3, hasta: 5, rgb: '241, 196, 15', borde: '#f1c40f' },   // Promoción de ascenso vs 8º-10º de Primera
+                { desde: 8, hasta: 10, rgb: '241, 196, 15', borde: '#f1c40f' },  // Promoción de descenso vs 3º-5º de Chesscera
+                { desde: 11, hasta: 12, rgb: '231, 76, 60', borde: '#e74c3c' }   // Descenso directo a Chesscera
             ],
-            tercera: [
+            chesscera: [
                 { desde: 1, hasta: 2, rgb: '46, 204, 113', borde: '#2ecc71' },  // Ascenso directo a Segunda
-                { desde: 3, hasta: 4, rgb: '241, 196, 15', borde: '#f1c40f' }   // Promoción de ascenso vs 7º-8º de Segunda
+                { desde: 3, hasta: 5, rgb: '241, 196, 15', borde: '#f1c40f' }   // Promoción de ascenso vs 8º-10º de Segunda
             ]
         };
         function obtenerZonasPorDivision(nombreDivision) {
             const nombreNorm = normalizaTexto(nombreDivision);
             if (nombreNorm.includes('primera') || nombreNorm.includes('chesspions')) return ZONAS_POR_NIVEL.primera;
             if (nombreNorm.includes('segunda') || nombreNorm.includes('chesscond')) return ZONAS_POR_NIVEL.segunda;
-            if (nombreNorm.includes('tercera')) return ZONAS_POR_NIVEL.tercera;
+            // "tercera" se mantiene por compatibilidad con temporadas/hojas antiguas
+            if (nombreNorm.includes('chesscera') || nombreNorm.includes('tercera')) return ZONAS_POR_NIVEL.chesscera;
             return [];
         }
         let temaPorDivision = {};
         const ORDEN_PREFERIDO_DIVISIONES = [
             'Chesspions League',
             'Chesscond Division',
+            'Chesscera División',
             'Tercera División'
         ];
         let currentRound = 1;
@@ -520,6 +615,9 @@
         let peonesSearchListenerAttached = false;
         let palmaresCargado = false;
         let copaCargado = false;
+        let copaPartidosData = null;
+        let copaPartidosPendientesReportar = [];
+        let copaReportarListenersAttached = false;
         window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             await fetchPuzzle();
@@ -763,20 +861,26 @@
                         const claveB = (b.nickGrupo || b.nombre || '').toLowerCase();
                         return claveA.localeCompare(claveB, 'es', { sensitivity: 'base' });
                     });
-                    renderPeones(peonesData);
+                    // Repinta las fichas respetando el texto que haya en el buscador
+                    window.refrescarPeones = function () {
+                        if (!Array.isArray(peonesData) || peonesData.length === 0) return;
+                        const input = document.getElementById('peones-search');
+                        const q = normaliza(input ? input.value : '');
+                        const filtrado = q
+                            ? peonesData.filter(p =>
+                                normaliza(p.nombre).includes(q) ||
+                                normaliza(p.nickGrupo).includes(q) ||
+                                normaliza(p.nickLichess).includes(q) ||
+                                normaliza(p.ciudad).includes(q)
+                            )
+                            : peonesData;
+                        renderPeones(filtrado);
+                    };
+                    window.refrescarPeones();
                     if (!peonesSearchListenerAttached) {
                         const inputBusqueda = document.getElementById('peones-search');
                         if (inputBusqueda) {
-                            inputBusqueda.addEventListener('input', (e) => {
-                                const q = normaliza(e.target.value);
-                                const filtrado = peonesData.filter(p =>
-                                    normaliza(p.nombre).includes(q) ||
-                                    normaliza(p.nickGrupo).includes(q) ||
-                                    normaliza(p.nickLichess).includes(q) ||
-                                    normaliza(p.ciudad).includes(q)
-                                );
-                                renderPeones(filtrado);
-                            });
+                            inputBusqueda.addEventListener('input', () => window.refrescarPeones());
                             peonesSearchListenerAttached = true;
                         }
                     }
@@ -798,6 +902,7 @@
                     infoData.push({
                         name: r.c[1]?.v || '',
                         lichess: r.c[3]?.v || '',
+                        chesscom: r.c[4]?.v || '',
                         telefono: r.c[5]?.v || ''
                     });
                     if (r.c[7] && r.c[8] && r.c[9]) {
@@ -807,6 +912,13 @@
                         };
                     }
                 });
+                // INFO ya está cargada: repintamos Peones para que el cruce
+                // "nombre de clasificación <-> nick de Lichess" encuentre más ELOs
+                try {
+                    if (typeof window.refrescarPeones === 'function') window.refrescarPeones();
+                } catch (errRefrescoPeones) {
+                    console.error("Error al refrescar las fichas de Peones:", errRefrescoPeones);
+                }
 const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
 const resText = await resRes.text();
 const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
@@ -1048,6 +1160,40 @@ renderRoundUI(currentRound);
                 console.error("Fallo crítico: ", e);
             }
         }
+        // Busca el ELO de Lichess de un peón en la hoja ELO_RANKING.
+        // Prueba varias claves (nombre, nick del grupo, nick de Lichess) y cruza
+        // con la hoja INFO para enlazar "nombre de clasificación" <-> "nick de Lichess".
+        function buscarEloPeon(p) {
+            if (typeof eloRankingData === 'undefined' || !Array.isArray(eloRankingData) || eloRankingData.length === 0) return null;
+
+            const claves = new Set();
+            const add = (v) => { const n = normalizaTexto(v); if (n) claves.add(n); };
+
+            add(p.nombre);
+            add(p.nickGrupo);
+            add(p.nickLichess);
+
+            if (typeof infoData !== 'undefined' && Array.isArray(infoData)) {
+                const nickPeon = normalizaTexto(p.nickLichess);
+                infoData.forEach(i => {
+                    const nombreInfo = normalizaTexto(i.name);
+                    const nickInfo = normalizaTexto(i.lichess);
+                    if (!nombreInfo) return;
+                    if (nickPeon && nickInfo && nickInfo === nickPeon) add(i.name);
+                    if (nickInfo && claves.has(nombreInfo)) add(i.lichess);
+                });
+            }
+
+            return eloRankingData.find(e => e && e.Jugador && claves.has(normalizaTexto(e.Jugador))) || null;
+        }
+
+        function esEloValido(v) {
+            const t = (v === null || v === undefined) ? '' : v.toString().trim();
+            if (!t) return false;
+            const n = normalizaTexto(t);
+            return n !== 'n/a' && n !== 'na' && n !== '-' && n !== '0';
+        }
+
         function renderPeones(lista) {
             const grid = document.getElementById('peones-grid');
             if (!grid) return;
@@ -1074,6 +1220,21 @@ renderRoundUI(currentRound);
                 const lichessBtn = p.nickLichess
                     ? `<a href="https://lichess.org/@/${encodeURIComponent(p.nickLichess)}" target="_blank" class="flex-1 text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ ${p.nickLichess}</a>`
                     : '';
+                const eloInfo = buscarEloPeon(p);
+                const eloBlitz = eloInfo && esEloValido(eloInfo.Ranking_Blitz) ? eloInfo.Ranking_Blitz.toString().trim() : '';
+                const eloRapidas = eloInfo && esEloValido(eloInfo.Ranking_Rapidas) ? eloInfo.Ranking_Rapidas.toString().trim() : '';
+                const eloChips = (eloBlitz || eloRapidas)
+                    ? `<div class="flex flex-wrap gap-2">
+                        ${eloBlitz ? `<div class="bg-sky-100 border border-sky-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-sky-950">⏱️ Blitz:</span>
+                            <span class="text-[11px] font-black text-sky-950">${eloBlitz}</span>
+                        </div>` : ''}
+                        ${eloRapidas ? `<div class="bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded flex items-center gap-1">
+                            <span class="text-[10px] font-bold text-emerald-950">🐢 Ráp.:</span>
+                            <span class="text-[11px] font-black text-emerald-950">${eloRapidas}</span>
+                        </div>` : ''}
+                    </div>`
+                    : '';
                 const whatsappBtn = p.telefono
                     ? (() => {
                         const numLimpio = formatWhatsappNumber(p.telefono);
@@ -1092,6 +1253,7 @@ renderRoundUI(currentRound);
                             </div>
                         </div>
                     </div>
+                    ${eloChips}
                     ${(lichessBtn || whatsappBtn) ? `<div class="flex gap-2">${lichessBtn}${whatsappBtn}</div>` : ''}
                     ${p.estilo ? `<p class="text-xs italic text-stone-800 bg-stone-50 border-l-4 border-amber-600 px-3 py-2 rounded-r-lg">"${p.estilo}"</p>` : ''}
                     <div class="flex flex-wrap gap-1.5">
@@ -1211,68 +1373,222 @@ renderRoundUI(currentRound);
                 if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">No se ha podido cargar el palmarés.</td></tr>`;
             }
         }
+        // Nombre a mostrar para un lado del cruce: si está vacío pero ya hay ganador, ese
+        // jugador pasó "exento" (bye); si está vacío y no hay ganador, de verdad no se sabe aún.
+        function nombreLadoCruce(nombre, hayGanador) {
+            return nombre || (hayGanador ? '— (exento)' : 'Por determinar');
+        }
+        function textoResultadoCruce(m) {
+            const hayPuntos = m.puntosJ1 !== '' && m.puntosJ2 !== '';
+            if (hayPuntos) return `${m.puntosJ1} - ${m.puntosJ2}`;
+            return m.ganador ? 'Exento' : '- / -';
+        }
+        // Vista de reserva (lista agrupada por ronda, sin conectar visualmente los cruces).
+        // Se usa solo si a la pestaña COPA le faltan las columnas internas RondaNum/Slot.
+        function renderCopaListaPlana(partidos, contenedor) {
+            const rondasOrden = [];
+            const rondasMap = {};
+            partidos.forEach(m => {
+                if (!rondasMap[m.ronda]) { rondasMap[m.ronda] = []; rondasOrden.push(m.ronda); }
+                rondasMap[m.ronda].push(m);
+            });
+            const bloques = rondasOrden.map(ronda => {
+                const partidosRonda = rondasMap[ronda];
+                const tarjetas = partidosRonda.map(m => {
+                    const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
+                    const p2Nombre = nombreLadoCruce(m.p2, !!m.ganador);
+                    const resultadoTexto = textoResultadoCruce(m);
+                    return `
+                    <div class="p-3 bg-white rounded-lg border border-stone-200 text-sm">
+                        <div class="flex justify-between items-center gap-3">
+                            <div class="space-y-1 font-bold flex-1 min-w-0">
+                                <p class="truncate ${m.ganador && m.ganador === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p1Nombre}</p>
+                                <p class="truncate ${m.ganador && m.ganador === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p2Nombre}</p>
+                            </div>
+                            <div class="text-right font-mono font-bold shrink-0">
+                                <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${resultadoTexto}</p>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+                return `
+                <div class="p-4 bg-stone-100 border border-stone-300 rounded-xl space-y-3">
+                    <h3 class="text-xs font-black text-stone-700 uppercase tracking-wider border-b border-stone-300 pb-1">${ronda}</h3>
+                    ${tarjetas}
+                </div>`;
+            }).join('');
+            contenedor.innerHTML = `<div class="space-y-6">${bloques}</div>`;
+        }
+        // Vista de árbol: dibuja el cuadro como un cuadro deportivo de verdad, con líneas que
+        // conectan cada cruce con el siguiente. Usa RondaNum/Slot para saber la posición exacta
+        // de cada partido dentro del árbol, y calcula a mano las coordenadas en píxeles (más
+        // fiable que intentar cuadrar esto solo con CSS, sobre todo cuando hay exentos de por medio).
+        function renderCopaArbol(partidos, contenedor) {
+            const ANCHO_COL = 176;      // ancho de cada tarjeta de partido
+            const HUECO_COL = 56;       // espacio horizontal reservado para las líneas entre rondas
+            const ALTO_PARTIDO = 56;    // alto de cada tarjeta
+            const HUECO_VERTICAL = 22;  // separación vertical entre partidos de la Ronda 1
+            const ALTO_CABECERA = 46;   // espacio para el nombre de la ronda + su fecha, encima de cada columna
+            const GROSOR_LINEA = 2;
+
+            const porRondaSlot = {};
+            let rondaMaxima = 0;
+            partidos.forEach(m => {
+                porRondaSlot[`${m.rondaNum}_${m.slot}`] = m;
+                if (m.rondaNum > rondaMaxima) rondaMaxima = m.rondaNum;
+            });
+            const numPartidosRonda1 = partidos.filter(m => m.rondaNum === 1).length;
+            const unidad = ALTO_PARTIDO + HUECO_VERTICAL;
+
+            // Centro vertical (en px, sin contar la cabecera) de cada partido, calculado de abajo
+            // arriba: la Ronda 1 se reparte en línea recta, y cada ronda siguiente se centra justo
+            // entre los dos partidos de los que depende.
+            const centros = {}; // centros[`${ronda}_${slot}`] = y en px
+            for (let slot = 0; slot < numPartidosRonda1; slot++) {
+                centros[`1_${slot}`] = slot * unidad + ALTO_PARTIDO / 2;
+            }
+            for (let r = 2; r <= rondaMaxima; r++) {
+                const numSlots = Math.ceil(numPartidosRonda1 / Math.pow(2, r - 1));
+                for (let slot = 0; slot < numSlots; slot++) {
+                    const a = centros[`${r - 1}_${slot * 2}`];
+                    const b = centros[`${r - 1}_${slot * 2 + 1}`];
+                    centros[`${r}_${slot}`] = (a + b) / 2;
+                }
+            }
+
+            const altoTotal = ALTO_CABECERA + (numPartidosRonda1 - 1) * unidad + ALTO_PARTIDO;
+            const anchoTotal = rondaMaxima * ANCHO_COL + (rondaMaxima - 1) * HUECO_COL + (ANCHO_COL + HUECO_COL); // +1 columna para el trofeo final
+
+            let html = '';
+
+            // Cabeceras de ronda + tarjetas de cada partido
+            for (let r = 1; r <= rondaMaxima; r++) {
+                const x = (r - 1) * (ANCHO_COL + HUECO_COL);
+                const partidosRonda = partidos.filter(m => m.rondaNum === r);
+                if (partidosRonda.length > 0) {
+                    // La fecha de la ronda (columnas I/J de la hoja COPA) se coge del primer partido
+                    // de esa ronda que la tenga rellena — se puede escribir en una sola fila de la
+                    // ronda o repetirla en todas, da igual, con que esté en alguna basta.
+                    const conFecha = partidosRonda.find(m => m.fechaInicio || m.fechaFin);
+                    const fechaTexto = conFecha ? [conFecha.fechaInicio, conFecha.fechaFin].filter(Boolean).join(' – ') : '';
+                    html += `<div class="absolute text-center" style="left:${x}px; top:0; width:${ANCHO_COL}px;">
+                        <div class="text-[10px] font-black uppercase tracking-wider text-stone-500">${partidosRonda[0].ronda}</div>
+                        ${fechaTexto ? `<div class="text-[9px] font-bold text-indigo-700 mt-0.5">📅 ${fechaTexto}</div>` : ''}
+                    </div>`;
+                }
+                partidosRonda.forEach(m => {
+                    const y = ALTO_CABECERA + centros[`${r}_${m.slot}`] - ALTO_PARTIDO / 2;
+                    const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
+                    const p2Nombre = nombreLadoCruce(m.p2, !!m.ganador);
+                    const resultadoTexto = textoResultadoCruce(m);
+                    const claseP1 = m.ganador && m.ganador === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800';
+                    const claseP2 = m.ganador && m.ganador === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800';
+                    html += `
+                    <div class="absolute rounded-lg border border-stone-300 bg-white shadow-xs text-[11px] overflow-hidden" style="left:${x}px; top:${y}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">
+                        <div class="px-2 py-1 border-b border-stone-100 flex justify-between items-center gap-1 h-1/2">
+                            <span class="truncate font-bold ${claseP1}" ${m.p1 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p1.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p1 ? 'cursor:pointer;' : ''}">${p1Nombre}</span>
+                        </div>
+                        <div class="px-2 py-1 flex justify-between items-center gap-1 h-1/2">
+                            <span class="truncate font-bold ${claseP2}" ${m.p2 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p2.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p2 ? 'cursor:pointer;' : ''}">${p2Nombre}</span>
+                        </div>
+                        <div class="absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-stone-400 bg-white/90 px-1 rounded" title="${resultadoTexto}">${resultadoTexto !== '- / -' ? resultadoTexto : ''}</div>
+                    </div>`;
+                });
+
+                // Líneas que conectan esta ronda con la siguiente
+                if (r < rondaMaxima) {
+                    const xDerecha = x + ANCHO_COL;
+                    const xMedio = xDerecha + HUECO_COL / 2;
+                    const numSlotsSiguiente = Math.ceil(numPartidosRonda1 / Math.pow(2, r));
+                    for (let slot = 0; slot < numSlotsSiguiente; slot++) {
+                        const yA = ALTO_CABECERA + centros[`${r}_${slot * 2}`];
+                        const yB = ALTO_CABECERA + centros[`${r}_${slot * 2 + 1}`];
+                        const yDestino = ALTO_CABECERA + centros[`${r + 1}_${slot}`];
+                        html += `<div class="absolute bg-stone-300" style="left:${xDerecha}px; top:${yA}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xDerecha}px; top:${yB}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xMedio}px; top:${Math.min(yA, yB)}px; width:${GROSOR_LINEA}px; height:${Math.abs(yB - yA)}px;"></div>`;
+                        html += `<div class="absolute bg-stone-300" style="left:${xMedio}px; top:${yDestino}px; width:${HUECO_COL / 2}px; height:${GROSOR_LINEA}px;"></div>`;
+                    }
+                }
+            }
+
+            // Tarjeta de campeón, a la derecha de la Final (si ya se conoce)
+            const final = partidos.find(m => m.rondaNum === rondaMaxima);
+            const xCampeon = rondaMaxima * (ANCHO_COL + HUECO_COL);
+            const yCampeon = ALTO_CABECERA + centros[`${rondaMaxima}_0`] - ALTO_PARTIDO / 2;
+            if (final) {
+                html += `<div class="absolute text-[10px] font-black uppercase tracking-wider text-amber-600 text-center" style="left:${xCampeon}px; top:0; width:${ANCHO_COL}px;">🏆 Campeón</div>`;
+                if (final.ganador) {
+                    const xLineaFinal = rondaMaxima * ANCHO_COL + (rondaMaxima - 1) * HUECO_COL;
+                    html += `<div class="absolute bg-amber-300" style="left:${xLineaFinal}px; top:${yCampeon + ALTO_PARTIDO / 2 - GROSOR_LINEA / 2}px; width:${HUECO_COL}px; height:${GROSOR_LINEA}px;"></div>`;
+                    html += `<div class="absolute rounded-lg border-2 border-amber-400 bg-amber-50 shadow-sm text-xs flex items-center justify-center px-2 text-center font-black text-amber-900" style="left:${xCampeon}px; top:${yCampeon}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">🏆 ${final.ganador}</div>`;
+                } else {
+                    html += `<div class="absolute rounded-lg border border-dashed border-amber-300 bg-amber-50/50 text-[10px] flex items-center justify-center px-2 text-center text-amber-700 italic" style="left:${xCampeon}px; top:${yCampeon}px; width:${ANCHO_COL}px; height:${ALTO_PARTIDO}px;">Por determinar</div>`;
+                }
+            }
+
+            contenedor.innerHTML = `<div class="overflow-x-auto pb-4"><div class="relative" style="width:${anchoTotal}px; height:${altoTotal}px; min-width:100%;">${html}</div></div>`;
+        }
         // Lee la pestaña "COPA" del Excel/Sheets: una fila por partido del cuadro KO.
-        // Columnas esperadas: A=Ronda  B=Jugador1  C=Jugador2  D=Resultado  E=Desempate(opcional)  F=Ganador
-        // El orden de las filas dentro de cada ronda es el orden en que se muestran (así el admin controla el cuadro).
+        // Columnas esperadas: A=Ronda  B=Jugador1  C=Jugador2  D=PuntosJ1  E=PuntosJ2  F=Ganador
+        // G=RondaNum  H=Slot (opcionales: si están, se dibuja el cuadro como árbol de
+        // enfrentamientos conectado; si no están —p.ej. alguien ha montado la hoja a mano
+        // sin usar el sorteo automático— se muestra como lista agrupada por ronda).
+        // (D y E son NÚMEROS, no texto tipo "4-0" — así Google Sheets no los confunde con una fecha).
         // Tanto si el cuadro se sorteó entero al principio como si cada ronda se sortea la semana anterior,
         // el código no cambia: solo hay que ir añadiendo/rellenando filas en esta pestaña.
+        //
+        // Separado en dos partes: fetchCopaPartidos() solo trae y parsea los datos (lo reutiliza
+        // también el formulario de "Reportar resultado de la Copa"), y cargarCopa() los pinta en
+        // la pestaña del cuadro. Así no hace falta duplicar el fetch ni el parseo en dos sitios.
+        async function fetchCopaPartidos(forzarRecarga) {
+            if (copaPartidosData && !forzarRecarga) return copaPartidosData;
+            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
+            const text = await res.text();
+            const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
+            const getTxt = (r, i) => {
+                if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
+                const cell = r.c[i];
+                return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
+            };
+            const partidos = rows
+                .map(r => ({
+                    ronda: getTxt(r, 0),
+                    p1: getTxt(r, 1),
+                    p2: getTxt(r, 2),
+                    puntosJ1: getTxt(r, 3),
+                    puntosJ2: getTxt(r, 4),
+                    ganador: getTxt(r, 5),
+                    rondaNum: parseInt(getTxt(r, 6)),
+                    slot: parseInt(getTxt(r, 7)),
+                    fechaInicio: getTxt(r, 8),
+                    fechaFin: getTxt(r, 9)
+                }))
+                // OJO: antes aquí también se exigía "(m.p1 || m.p2)", así que las filas de rondas
+                // futuras que TODAVÍA no tienen a ningún jugador colocado (p.ej. Cuartos de Final
+                // recién sorteado, sin haberse jugado ni una Semifinal) se descartaban y esa columna
+                // del cuadro no se llegaba ni a dibujar. Quitamos esa condición para que SIEMPRE se
+                // pinten todas las rondas hasta la Final (renderCopaArbol ya sabe mostrar "Por
+                // determinar" cuando un lado del cruce todavía no se conoce, ver nombreLadoCruce).
+                .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda');
+            copaPartidosData = partidos;
+            return partidos;
+        }
         async function cargarCopa() {
             const contenedor = document.getElementById('copa-container');
             try {
-                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
-                const text = await res.text();
-                const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
-                const getTxt = (r, i) => {
-                    if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
-                    const cell = r.c[i];
-                    return (cell.f !== undefined && cell.f !== null ? cell.f : cell.v.toString()).trim();
-                };
-                const partidos = rows
-                    .map(r => ({
-                        ronda: getTxt(r, 0),
-                        p1: getTxt(r, 1),
-                        p2: getTxt(r, 2),
-                        resultado: getTxt(r, 3),
-                        desempate: getTxt(r, 4),
-                        ganador: getTxt(r, 5)
-                    }))
-                    .filter(m => m.ronda && normalizaTexto(m.ronda) !== 'ronda' && (m.p1 || m.p2));
+                const partidos = await fetchCopaPartidos(true);
                 copaCargado = true;
                 if (partidos.length === 0) {
                     contenedor.innerHTML = `<p class="text-stone-500 italic text-center py-8">Todavía no se ha generado el cuadro de la Copa. ¡Vuelve pronto! 🏆</p>`;
                     return;
                 }
-                const rondasOrden = [];
-                const rondasMap = {};
-                partidos.forEach(m => {
-                    if (!rondasMap[m.ronda]) { rondasMap[m.ronda] = []; rondasOrden.push(m.ronda); }
-                    rondasMap[m.ronda].push(m);
-                });
-                contenedor.innerHTML = rondasOrden.map(ronda => {
-                    const partidosRonda = rondasMap[ronda];
-                    const tarjetas = partidosRonda.map(m => {
-                        const p1Nombre = m.p1 || 'Por determinar';
-                        const p2Nombre = m.p2 || 'Por determinar';
-                        return `
-                        <div class="p-3 bg-white rounded-lg border border-stone-200 text-sm">
-                            <div class="flex justify-between items-center gap-3">
-                                <div class="space-y-1 font-bold flex-1 min-w-0">
-                                    <p class="truncate ${m.ganador && m.ganador === m.p1 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p1Nombre}</p>
-                                    <p class="truncate ${m.ganador && m.ganador === m.p2 ? 'text-emerald-700 font-black' : 'text-stone-800'}">${p2Nombre}</p>
-                                </div>
-                                <div class="text-right font-mono font-bold shrink-0">
-                                    <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${m.resultado || '- / -'}</p>
-                                    ${m.desempate ? `<p class="text-[10px] text-purple-700 mt-0.5 font-bold">⚡ ${m.desempate}</p>` : ''}
-                                </div>
-                            </div>
-                        </div>`;
-                    }).join('');
-                    return `
-                    <div class="p-4 bg-stone-100 border border-stone-300 rounded-xl space-y-3">
-                        <h3 class="text-xs font-black text-stone-700 uppercase tracking-wider border-b border-stone-300 pb-1">${ronda}</h3>
-                        ${tarjetas}
-                    </div>`;
-                }).join('');
+                const tieneEstructuraDeArbol = partidos.every(m => !isNaN(m.rondaNum) && !isNaN(m.slot));
+                if (tieneEstructuraDeArbol) {
+                    renderCopaArbol(partidos, contenedor);
+                } else {
+                    renderCopaListaPlana(partidos, contenedor);
+                }
             } catch (errCopa) {
                 console.error('❌ Error al cargar la pestaña Copa:', errCopa);
                 copaCargado = false;
@@ -1503,6 +1819,214 @@ renderRoundUI(currentRound);
                 btn.innerText = 'Enviar Resultado';
             }
         }
+        // --------------------------------------------------------------------------
+        // 🏆 REPORTAR RESULTADO DE LA COPA: mismo espíritu que el formulario de Liga
+        // de arriba, pero los cruces se identifican por RondaNum+Slot (no por
+        // ronda+nombres, porque en un cuadro KO los mismos dos nombres podrían
+        // coincidir en más de una ronda a lo largo de las ediciones) y hay que
+        // resolver el caso de empate a puntos pidiendo quién ganó el desempate a
+        // tiempos reducidos antes de poder enviar.
+        // --------------------------------------------------------------------------
+        function cambiarModoReportar(modo) {
+            const btnLiga = document.getElementById('rep-modo-liga-btn');
+            const btnCopa = document.getElementById('rep-modo-copa-btn');
+            const formLiga = document.getElementById('rep-liga-form');
+            const formCopa = document.getElementById('rep-copa-form');
+            if (!btnLiga || !btnCopa || !formLiga || !formCopa) return;
+            const clasesBase = 'rep-modo-btn px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const clasesActivo = `${clasesBase} bg-indigo-800 text-white`;
+            const clasesInactivo = `${clasesBase} text-stone-600 hover:text-stone-900`;
+            if (modo === 'copa') {
+                formLiga.classList.add('hidden');
+                formCopa.classList.remove('hidden');
+                btnCopa.className = clasesActivo;
+                btnLiga.className = clasesInactivo;
+                initReportarCopaUI();
+            } else {
+                formCopa.classList.add('hidden');
+                formLiga.classList.remove('hidden');
+                btnLiga.className = clasesActivo;
+                btnCopa.className = clasesInactivo;
+            }
+        }
+        function initReportarCopaUI() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            if (!selectPartido) return;
+            if (!copaReportarListenersAttached) {
+                const inputScore1 = document.getElementById('rep-copa-score1');
+                const inputScore2 = document.getElementById('rep-copa-score2');
+                if (inputScore1) inputScore1.addEventListener('input', comprobarEmpateCopa);
+                if (inputScore2) inputScore2.addEventListener('input', comprobarEmpateCopa);
+                copaReportarListenersAttached = true;
+            }
+            selectPartido.innerHTML = `<option value="">Cargando cruces...</option>`;
+            fetchCopaPartidos().then(partidos => {
+                poblarPartidosReportarCopa(partidos);
+            }).catch(errCopaRep => {
+                console.error('❌ Error al cargar los cruces de la Copa para reportar:', errCopaRep);
+                selectPartido.innerHTML = `<option value="">No se ha podido cargar el cuadro de la Copa</option>`;
+            });
+        }
+        function poblarPartidosReportarCopa(partidos) {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            if (!selectPartido) return;
+            // Solo se pueden reportar cruces "reales": con los dos jugadores ya conocidos
+            // (si falta uno, es que todavía depende de un cruce anterior sin decidir) y
+            // sin ganador anotado todavía.
+            copaPartidosPendientesReportar = (partidos || []).filter(m => m.p1 && m.p2 && !m.ganador);
+            if (copaPartidosPendientesReportar.length === 0) {
+                selectPartido.innerHTML = `<option value="">No hay cruces pendientes de resultado ahora mismo</option>`;
+                actualizarEtiquetasJugadoresCopa();
+                return;
+            }
+            selectPartido.innerHTML = copaPartidosPendientesReportar.map((m, i) =>
+                `<option value="${i}">${m.ronda}: ${m.p1} vs ${m.p2}</option>`
+            ).join('');
+            selectPartido.onchange = actualizarEtiquetasJugadoresCopa;
+            actualizarEtiquetasJugadoresCopa();
+        }
+        function actualizarEtiquetasJugadoresCopa() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const labelP1 = document.getElementById('rep-copa-label-p1');
+            const labelP2 = document.getElementById('rep-copa-label-p2');
+            const inputScore1 = document.getElementById('rep-copa-score1');
+            const inputScore2 = document.getElementById('rep-copa-score2');
+            const contenedorGanador = document.getElementById('rep-copa-ganador-container');
+            if (inputScore1) inputScore1.value = '';
+            if (inputScore2) inputScore2.value = '';
+            if (contenedorGanador) contenedorGanador.classList.add('hidden');
+            if (!selectPartido || !copaPartidosPendientesReportar.length) {
+                if (labelP1) labelP1.innerText = 'Puntos Jugador 1';
+                if (labelP2) labelP2.innerText = 'Puntos Jugador 2';
+                return;
+            }
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            if (!m) return;
+            if (labelP1) labelP1.innerText = `Puntos de ${m.p1}`;
+            if (labelP2) labelP2.innerText = `Puntos de ${m.p2}`;
+        }
+        // Cuando los puntos quedan empatados (p.ej. 2-2), hace falta el desempate a
+        // tiempos reducidos: mostramos un selector para indicar quién lo ganó, porque
+        // el Apps Script no puede inventarse un ganador a partir de un empate a puntos.
+        function comprobarEmpateCopa() {
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const contenedorGanador = document.getElementById('rep-copa-ganador-container');
+            const selectGanador = document.getElementById('rep-copa-ganador');
+            const inputScore1 = document.getElementById('rep-copa-score1');
+            const inputScore2 = document.getElementById('rep-copa-score2');
+            if (!selectPartido || !contenedorGanador || !selectGanador || !inputScore1 || !inputScore2) return;
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            const score1 = inputScore1.value;
+            const score2 = inputScore2.value;
+            if (!m || score1 === '' || score2 === '' || parseFloat(score1) !== parseFloat(score2)) {
+                contenedorGanador.classList.add('hidden');
+                return;
+            }
+            contenedorGanador.classList.remove('hidden');
+            selectGanador.innerHTML = `<option value="${m.p1}">${m.p1}</option><option value="${m.p2}">${m.p2}</option>`;
+        }
+        async function enviarResultadoCopa() {
+            const mensajeEl = document.getElementById('rep-copa-mensaje');
+            const btn = document.getElementById('rep-copa-submit-btn');
+            const mostrarMensaje = (texto, esError) => {
+                mensajeEl.innerText = texto;
+                mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
+                mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
+            };
+            if (!RESULTADOS_WEBAPP_URL || RESULTADOS_WEBAPP_URL.includes('PON_AQUI')) {
+                mostrarMensaje('⚠️ Todavía falta configurar la URL del Apps Script en el código (RESULTADOS_WEBAPP_URL).', true);
+                return;
+            }
+            const selectPartido = document.getElementById('rep-copa-partido');
+            const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
+            if (!m) {
+                mostrarMensaje('❌ Selecciona un cruce válido.', true);
+                return;
+            }
+            const score1 = document.getElementById('rep-copa-score1').value;
+            const score2 = document.getElementById('rep-copa-score2').value;
+            const reportadoPor = document.getElementById('rep-copa-nombre').value.trim();
+            const codigo = document.getElementById('rep-copa-codigo').value.trim();
+            if (score1 === '' || score2 === '') {
+                mostrarMensaje('❌ Rellena los puntos de ambos jugadores.', true);
+                return;
+            }
+            let ganadorDesempate = '';
+            if (parseFloat(score1) === parseFloat(score2)) {
+                const selectGanador = document.getElementById('rep-copa-ganador');
+                ganadorDesempate = selectGanador ? selectGanador.value : '';
+                if (!ganadorDesempate) {
+                    mostrarMensaje('❌ Los puntos están empatados: indica quién ganó el desempate a tiempos reducidos.', true);
+                    return;
+                }
+            }
+            if (!reportadoPor) {
+                mostrarMensaje('❌ Escribe tu nombre o nick.', true);
+                return;
+            }
+            if (!codigo) {
+                mostrarMensaje('❌ Falta el código de la liga.', true);
+                return;
+            }
+            const payload = {
+                torneo: 'copa',
+                rondaNum: m.rondaNum,
+                slot: m.slot,
+                jugador1: m.p1,
+                jugador2: m.p2,
+                puntosJ1: parseFloat(score1),
+                puntosJ2: parseFloat(score2),
+                ganador: ganadorDesempate,
+                reportadoPor: reportadoPor,
+                codigo: codigo
+            };
+            btn.disabled = true;
+            btn.innerText = 'Enviando...';
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                });
+                let resultado = null;
+                try {
+                    resultado = await res.json();
+                } catch (errLectura) {
+                    resultado = null;
+                }
+                if (resultado && resultado.ok === false) {
+                    mostrarMensaje(`❌ ${resultado.error || 'No se ha podido registrar el resultado.'}`, true);
+                    return;
+                }
+                const partidosActualizados = await fetchCopaPartidos(true);
+                if (copaCargado) {
+                    const contenedor = document.getElementById('copa-container');
+                    if (contenedor) {
+                        const tieneEstructuraDeArbol = partidosActualizados.every(mm => !isNaN(mm.rondaNum) && !isNaN(mm.slot));
+                        if (tieneEstructuraDeArbol) { renderCopaArbol(partidosActualizados, contenedor); } else { renderCopaListaPlana(partidosActualizados, contenedor); }
+                    }
+                }
+                if (resultado === null) {
+                    const mActualizado = partidosActualizados.find(mm => mm.rondaNum === m.rondaNum && mm.slot === m.slot);
+                    if (mActualizado && !mActualizado.ganador) {
+                        mostrarMensaje('⚠️ No se ha podido confirmar el envío. Revisa el cuadro o inténtalo de nuevo; si el problema persiste, avisa al administrador.', true);
+                        return;
+                    }
+                }
+                mostrarMensaje('✅ ¡Resultado enviado! El cuadro se ha actualizado.', false);
+                document.getElementById('rep-copa-score1').value = '';
+                document.getElementById('rep-copa-score2').value = '';
+                document.getElementById('rep-copa-codigo').value = '';
+                document.getElementById('rep-copa-ganador-container').classList.add('hidden');
+                poblarPartidosReportarCopa(partidosActualizados);
+            } catch (err) {
+                console.error('Error al enviar el resultado de la Copa:', err);
+                mostrarMensaje('❌ No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Enviar Resultado de la Copa';
+            }
+        }
         function initCalendarUI() {
             const select = document.getElementById('round-select');
             select.innerHTML = '';
@@ -1713,6 +2237,19 @@ renderRoundUI(currentRound);
         lichessBtn.style.display = 'flex';
     } else if (lichessBtn) {
         lichessBtn.style.display = 'none';
+    }
+    const chesscomBtn = document.getElementById('modal-chesscom-btn');
+    if (playerInfo && playerInfo.chesscom) {
+        const nickChesscom = playerInfo.chesscom.trim();
+        // Chess.com no ofrece (a día de hoy) un enlace que abra directamente un reto a un
+        // usuario concreto, como sí hace Lichess con "?user=X...#friend" — sus enlaces de
+        // reto solo se pueden generar desde dentro de la propia web y caducan a los 15
+        // minutos. Por eso este botón lleva al perfil público del jugador, para poder
+        // añadirle de amigo o retarle manualmente desde ahí.
+        chesscomBtn.href = `https://www.chess.com/member/${encodeURIComponent(nickChesscom)}`;
+        chesscomBtn.style.display = 'flex';
+    } else if (chesscomBtn) {
+        chesscomBtn.style.display = 'none';
     }
     const btnWhatsapp = document.getElementById('modal-whatsapp-btn');
     if (playerInfo && playerInfo.telefono) {

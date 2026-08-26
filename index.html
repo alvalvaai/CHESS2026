@@ -30,6 +30,9 @@
 
         /* 👑 Sub-pestañas del Palmarés */
         .pal-btn.active { background-color: #4338ca !important; color: #ffffff !important; }
+        /* Quita la flecha nativa de los desplegables de clasificación (Safari/iOS) */
+        summary::-webkit-details-marker { display: none; }
+        summary::marker { content: ''; }
 
         /* Indicadores de posición */
         .zone-upgrade { border-left: 4px solid #16a34a !important; } /* Sube */
@@ -331,6 +334,8 @@
                         Solo con 50+ partidas
                     </label>
                 </div>
+                <div id="ranking-ambito" class="px-5 py-3 border-b border-stone-300 bg-white flex gap-2 flex-wrap items-center"></div>
+                <p id="ranking-nota" class="px-5 pt-3 text-[11px] text-stone-500 font-medium"></p>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse text-sm whitespace-nowrap">
                         <thead>
@@ -1364,6 +1369,8 @@ renderRoundUI(currentRound);
             jugadorActivo: null,
             rankingCampo: 'pts',
             rankingAsc: false,
+            rankingAmbito: 0,
+            porEdicionDiv: {},
             porJugador: {},
             tempsPorJugador: {},
             porEdicion: {},
@@ -1442,6 +1449,15 @@ renderRoundUI(currentRound);
             datos.campeones.forEach(c => {
                 (PAL.porEdicion[c.ed] = PAL.porEdicion[c.ed] || []).push(c);
             });
+
+            // Clasificación completa de cada división de cada edición.
+            datos.temporadas.forEach(t => {
+                const clave = t.ed + '||' + t.div + '||' + (t.conf || '').toUpperCase();
+                (PAL.porEdicionDiv[clave] = PAL.porEdicionDiv[clave] || []).push(t);
+            });
+            Object.keys(PAL.porEdicionDiv).forEach(k => {
+                PAL.porEdicionDiv[k].sort((a, b) => (a.pos || 99) - (b.pos || 99));
+            });
             Object.keys(PAL.porEdicion).forEach(e => {
                 PAL.porEdicion[e].sort((a, b) => palNivelNum(a.niv) - palNivelNum(b.niv));
             });
@@ -1465,7 +1481,7 @@ renderRoundUI(currentRound);
 
             const sub = document.getElementById('palmares-subtitulo');
             if (sub) {
-                sub.textContent = `${datos.ediciones.length} ediciones · ${datos.jugadores.length} jugadores · ${datos.temporadas.length} participacoines`;
+                sub.textContent = `${datos.ediciones.length} ediciones · ${datos.jugadores.length} jugadores distintos · ${datos.temporadas.length} participaciones`;
             }
 
             // Un único listener: cualquier nombre de jugador de cualquier vista
@@ -1489,6 +1505,7 @@ renderRoundUI(currentRound);
             renderEdiciones();
             renderRecords();
             construirCabeceraRanking();
+            renderBotonesAmbito();
             renderRanking();
         }
 
@@ -1732,7 +1749,7 @@ renderRoundUI(currentRound);
                         ${dato('Partidas', j.pj)}
                         ${dato('Ganadas', j.pg, `${j.pp} perdidas`)}
                         ${dato('Tablas', j.pt)}
-                        ${dato('% victorias', palPct(j.pct))}
+                        ${dato('% victorias', palPct(j.pj ? j.pg / j.pj : 0))}
                         ${dato('Puntos', palNum(j.pts))}
                         ${dato('Pts / edición', palNum(j.ptsEd || 0))}
                     </div>
@@ -1785,7 +1802,7 @@ renderRoundUI(currentRound);
                     ].map(([icono, etiqueta, nombre, clase]) => `
                         <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-lg ${clase}">
                             <span class="text-base shrink-0">${icono}</span>
-                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-stone-500 w-16 sm:w-24 shrink-0">${etiqueta}</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-stone-500 w-20 sm:w-24 shrink-0">${etiqueta}</span>
                             ${palLink(nombre, 'font-black text-sm text-stone-900 hover:text-indigo-700 hover:underline transition text-left break-all')}
                         </div>`).join('');
 
@@ -1799,6 +1816,7 @@ renderRoundUI(currentRound);
                             </div>
                         </div>
                         <div class="space-y-1">${podio}</div>
+                        ${clasificacionHTML(c)}
                         <div class="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold text-stone-600 pt-1">
                             ${ligaAparte ? `<span>🏁 1º de liga regular: ${palLink(c.liga, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
                             ${c.farolillo ? `<span>🔴 Farolillo rojo: ${palLink(c.farolillo, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
@@ -1815,6 +1833,80 @@ renderRoundUI(currentRound);
                     <div class="p-4 grid grid-cols-1 ${divisiones.length > 1 ? 'lg:grid-cols-2' : ''} gap-3">${bloques}</div>
                 </section>`;
             }).join('');
+        }
+
+        // Clasificación completa de una división, dentro de un desplegable.
+        // Desde la edición VIII la liga se ordena por PUNTOS DE ENFRENTAMIENTO
+        // (2 por match ganado, 1 por empatado); antes, por puntos de partida.
+        // Las dos conferencias de la edición II se muestran por separado.
+        function clasificacionHTML(c) {
+            const conf = (c.div.match(/conf\.?\s*([A-Za-z0-9]+)/i) || [])[1] || '';
+            const divBase = c.div.split('·')[0].trim();
+            const filas = PAL.porEdicionDiv[c.ed + '||' + divBase + '||' + conf.toUpperCase()] || [];
+            if (!filas.length) return '';
+
+            const ultimo = filas[filas.length - 1].pos;
+            const hayEnfr = filas.some(t => t.ePts !== null && t.ePts !== undefined);
+            const mandaEnfr = hayEnfr && (c.n || 0) >= 8;
+
+            const cuerpo = filas.map(t => {
+                const medalla = t.pos === 1 ? '🥇' : t.pos === 2 ? '🥈' : t.pos === 3 ? '🥉' : '';
+                const asterisco = (t.posLiga && t.pos !== t.posLiga)
+                    ? `<span class="text-indigo-700 font-black" title="${t.posLiga}º en la liga regular">*</span>`
+                    : '';
+                let fondo = '';
+                if (t.pos <= 3) fondo = 'bg-amber-50/60';
+                else if (t.pos === ultimo) fondo = 'bg-red-50/60';
+                const sinJugar = t.pj === 0
+                    ? '<span class="text-[10px] font-bold uppercase tracking-wider text-stone-400 ml-1.5">no jugó</span>'
+                    : '';
+                const fuerte = 'font-black text-stone-900';
+                const flojo = 'font-semibold text-stone-500';
+                return `
+                <tr class="${fondo}">
+                    <td class="py-1.5 px-2 text-center font-black text-stone-600 whitespace-nowrap">${medalla} ${t.pos}º${asterisco}</td>
+                    <td class="py-1.5 px-2">${palLink(t.j, 'font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left')}${sinJugar}</td>
+                    ${hayEnfr ? `
+                    <td class="py-1.5 px-2 text-right text-stone-600 font-semibold whitespace-nowrap">${t.eV || 0}-${t.eE || 0}-${t.eD || 0}</td>
+                    <td class="py-1.5 px-2 text-right ${mandaEnfr ? fuerte : flojo}">${palNum(t.ePts || 0)}</td>` : ''}
+                    <td class="py-1.5 px-2 text-right text-stone-600 font-semibold whitespace-nowrap">${t.pg}-${t.pt}-${t.pp}</td>
+                    <td class="py-1.5 px-2 text-right ${mandaEnfr ? flojo : fuerte}">${palNum(t.pts)}</td>
+                </tr>`;
+            }).join('');
+
+            const hayAsterisco = filas.some(t => t.posLiga && t.pos !== t.posLiga);
+            const notas = [
+                mandaEnfr
+                    ? 'Ordenada por <b>puntos de enfrentamiento</b> (2 por match ganado, 1 por empatado). Los puntos de partida son informativos.'
+                    : 'Ordenada por <b>puntos de partida</b>. Es el sistema que se usó hasta la edición VII.',
+                hayAsterisco ? 'El <b>*</b> marca a quien terminó en otro puesto en la liga regular: ese cruce lo decidió la Final Four.' : ''
+            ].filter(Boolean);
+
+            return `
+            <details class="group pt-1">
+                <summary class="cursor-pointer list-none inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-indigo-800 hover:text-indigo-600 transition">
+                    <span class="inline-block transition-transform group-open:rotate-90">▶</span>
+                    <span class="group-open:hidden">Ver clasificación completa</span>
+                    <span class="hidden group-open:inline">Ocultar clasificación</span>
+                </summary>
+                <div class="mt-2 overflow-x-auto rounded-xl border border-stone-300 bg-white">
+                    <table class="w-full text-left border-collapse text-xs whitespace-nowrap">
+                        <thead>
+                            <tr class="border-b border-stone-300 bg-stone-100 text-stone-600 font-bold uppercase tracking-wider">
+                                <th class="py-1.5 px-2 text-center">Pos</th>
+                                <th class="py-1.5 px-2">Jugador</th>
+                                ${hayEnfr ? `
+                                <th class="py-1.5 px-2 text-right" title="Enfrentamientos ganados-empatados-perdidos">Enfr. G-E-P</th>
+                                <th class="py-1.5 px-2 text-right ${mandaEnfr ? 'text-stone-900' : ''}">Pts enfr.</th>` : ''}
+                                <th class="py-1.5 px-2 text-right" title="Partidas ganadas-tablas-perdidas">Partidas G-T-P</th>
+                                <th class="py-1.5 px-2 text-right ${mandaEnfr ? '' : 'text-stone-900'}">Pts part.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-200">${cuerpo}</tbody>
+                    </table>
+                </div>
+                <p class="text-[10px] text-stone-500 font-semibold mt-1.5 leading-snug">${notas.join('<br>')}</p>
+            </details>`;
         }
 
         // =============== MÓDULO 4: RÉCORDS ================================
@@ -1858,7 +1950,8 @@ renderRoundUI(currentRound);
             { campo: 'pt', etiqueta: 'T', tipo: 'num' },
             { campo: 'pct', etiqueta: '% Vict.', tipo: 'pct' },
             { campo: 'pts', etiqueta: 'Puntos', tipo: 'num' },
-            { campo: 'ptsEd', etiqueta: 'Pts/Ed.', tipo: 'num' }
+            { campo: 'ptsEd', etiqueta: 'Pts/Ed.', tipo: 'num' },
+            { campo: 'posMedia', etiqueta: 'Puesto medio', tipo: 'dec' }
         ];
 
         function construirCabeceraRanking() {
@@ -1876,8 +1969,55 @@ renderRoundUI(currentRound);
                 PAL.rankingAsc = !PAL.rankingAsc;
             } else {
                 PAL.rankingCampo = campo;
-                PAL.rankingAsc = (campo === 'nombre');
+                PAL.rankingAsc = (campo === 'nombre' || campo === 'posMedia');
             }
+            renderRanking();
+        }
+
+        // Agrega las estadísticas de un jugador a partir de sus temporadas.
+        // nivel = 0 -> todas las divisiones (global). nivel = 1, 2, 3... -> solo esa.
+        // Se ignoran las temporadas sin partidas (inscrito pero no llegó a jugar),
+        // igual que hace el Excel, para que el global coincida con las fichas.
+        function agregarRanking(nivel) {
+            const base = {};
+            (window.PALMARES_DATA.temporadas || []).forEach(t => {
+                if (!t.pj) return;
+                if (nivel && palNivelNum(t.niv) !== nivel) return;
+                const a = base[t.j] || (base[t.j] = {
+                    nombre: t.j, eds: 0, pj: 0, pg: 0, pp: 0, pt: 0, pts: 0, sumaPos: 0, conPos: 0
+                });
+                a.eds++; a.pj += t.pj; a.pg += t.pg; a.pp += t.pp; a.pt += t.pt; a.pts += t.pts;
+                if (t.pos) { a.sumaPos += t.pos; a.conPos++; }
+            });
+            return Object.keys(base).map(n => {
+                const a = base[n];
+                return Object.assign({}, a, {
+                    pts: Math.round(a.pts * 100) / 100,
+                    pct: a.pj ? a.pg / a.pj : 0,
+                    ptsEd: a.eds ? Math.round(a.pts / a.eds * 10) / 10 : 0,
+                    posMedia: a.conPos ? Math.round(a.sumaPos / a.conPos * 10) / 10 : null
+                });
+            });
+        }
+
+        function renderBotonesAmbito() {
+            const caja = document.getElementById('ranking-ambito');
+            if (!caja) return;
+            const opciones = [{ n: 0, txt: '🌍 Global' }].concat(
+                PAL.niveles.map(n => ({ n, txt: `${palTema(n).icono} ${PAL.nombreNivel[n]} · ${palOrdinal(n)}` }))
+            );
+            caja.innerHTML = '<span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 mr-1">Ámbito</span>' +
+                opciones.map(o => {
+                    const activo = o.n === PAL.rankingAmbito;
+                    return `<button type="button" onclick="setRankingAmbito(${o.n})"
+                        class="px-3 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider border transition ${activo ? 'bg-lichess-dark-header text-white border-transparent' : 'bg-white text-stone-500 border-stone-300 hover:border-indigo-400 hover:text-indigo-800'}">
+                        ${palEsc(o.txt)}</button>`;
+                }).join('');
+        }
+
+        function setRankingAmbito(n) {
+            PAL.rankingAmbito = n;
+            renderBotonesAmbito();
             renderRanking();
         }
 
@@ -1885,15 +2025,29 @@ renderRoundUI(currentRound);
             const cuerpo = document.getElementById('ranking-body');
             if (!cuerpo || !window.PALMARES_DATA) return;
 
+            const nivel = PAL.rankingAmbito;
             const soloMin = document.getElementById('ranking-min50');
-            let lista = window.PALMARES_DATA.jugadores.slice();
+            let lista = agregarRanking(nivel);
             if (soloMin && soloMin.checked) lista = lista.filter(j => (j.pj || 0) >= 50);
+
+            const nota = document.getElementById('ranking-nota');
+            if (nota) {
+                nota.textContent = nivel
+                    ? `Solo cuentan las temporadas jugadas en ${PAL.nombreNivel[nivel]} (${palOrdinal(nivel)} división). Los puntos de otras categorías no suman.`
+                    : 'Suma de todas las divisiones. Ojo al comparar: en las categorías inferiores se ganan más partidas, así que se acumulan más puntos.';
+            }
 
             const campo = PAL.rankingCampo;
             const signo = PAL.rankingAsc ? 1 : -1;
             lista.sort((a, b) => {
                 if (campo === 'nombre') {
                     return signo * a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+                }
+                // Los que no tienen puesto medio se van siempre al final.
+                if (campo === 'posMedia') {
+                    if (a.posMedia === null && b.posMedia === null) return 0;
+                    if (a.posMedia === null) return 1;
+                    if (b.posMedia === null) return -1;
                 }
                 const dif = (Number(a[campo]) || 0) - (Number(b[campo]) || 0);
                 return dif !== 0 ? signo * dif : a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
@@ -1904,7 +2058,7 @@ renderRoundUI(currentRound);
             });
 
             if (!lista.length) {
-                cuerpo.innerHTML = '<tr><td colspan="10" class="text-center text-stone-500 italic py-8">Ningún jugador cumple el filtro.</td></tr>';
+                cuerpo.innerHTML = '<tr><td colspan="11" class="text-center text-stone-500 italic py-8">Ningún jugador cumple el filtro.</td></tr>';
                 return;
             }
 
@@ -1913,13 +2067,17 @@ renderRoundUI(currentRound);
                     if (c.campo === 'nombre') {
                         return `<td class="py-2.5 px-3">${palLink(j.nombre, 'font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left')}</td>`;
                     }
-                    const valor = c.tipo === 'pct' ? palPct(j[c.campo]) : palNum(j[c.campo] || 0);
+                    let valor;
+                    if (c.tipo === 'pct') valor = palPct(j[c.campo]);
+                    else if (c.tipo === 'dec') valor = j[c.campo] === null ? '—' : palNum(j[c.campo]) + 'º';
+                    else valor = palNum(j[c.campo] || 0);
                     const fuerte = (c.campo === 'pts' || c.campo === 'pct') ? 'font-black text-stone-900' : 'font-semibold text-stone-700';
                     return `<td class="py-2.5 px-3 text-right ${fuerte}">${valor}</td>`;
                 }).join('');
                 return `<tr class="transition"><td class="py-2.5 px-3 text-center font-black text-stone-400">${i + 1}</td>${celdas}</tr>`;
             }).join('');
         }
+
         // Nombre a mostrar para un lado del cruce: si está vacío pero ya hay ganador, ese
         // jugador pasó "exento" (bye); si está vacío y no hay ganador, de verdad no se sabe aún.
         function nombreLadoCruce(nombre, hayGanador) {

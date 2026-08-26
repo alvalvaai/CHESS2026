@@ -28,6 +28,9 @@
         tr:hover { background-color: #eef1f8 !important; }
        .tab-btn.active { background-color: #4338ca !important; color: #ffffff !important; opacity: 1 !important; }
 
+        /* 👑 Sub-pestañas del Palmarés */
+        .pal-btn.active { background-color: #4338ca !important; color: #ffffff !important; }
+
         /* Indicadores de posición */
         .zone-upgrade { border-left: 4px solid #16a34a !important; } /* Sube */
         .zone-playoff { border-left: 4px solid #ea580c !important; }  /* Promoción */
@@ -249,44 +252,95 @@
         </div>
     </div>
     <!-- TAB: PALMARÉS HISTÓRICO -->
-    <div id="content-palmares" class="hidden max-w-6xl mx-auto p-4 md:p-6 space-y-8">
+    <div id="content-palmares" class="hidden max-w-6xl mx-auto p-4 md:p-6 space-y-6">
+
         <!-- CABECERA -->
         <div class="text-center space-y-2">
             <h2 class="text-2xl md:text-3xl font-black text-stone-900 flex items-center justify-center gap-2">
                 👑 Salón de la Fama del Torneo
             </h2>
-            <p class="text-sm text-stone-600 font-medium">Todos los campeones, subcampeones y terceros clasificados a lo largo de la historia.</p>
+            <p id="palmares-subtitulo" class="text-sm text-stone-600 font-medium">Toda la historia del torneo, jugador a jugador.</p>
         </div>
-        <!-- RANKING HISTÓRICO (PALMARÉS POR JUGADOR) -->
-        <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
-            <div class="p-5 bg-gradient-to-r from-amber-100 via-amber-50 to-stone-100 border-b border-stone-300">
-                <h3 class="text-lg font-black text-amber-900 flex items-center gap-2">🏅 Ranking Histórico de Podios</h3>
-                <p class="text-xs text-stone-600 font-medium mt-0.5">Ordenado por número de títulos conseguidos.</p>
-            </div>
-            <div id="palmares-ranking-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 p-5">
-                <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando palmarés histórico...</p>
-            </div>
-        </section>
-        <!-- TABLA DE EDICIONES -->
-        <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
-            <div class="p-5 bg-gradient-to-r from-stone-200 to-stone-100 border-b border-stone-300">
-                <h3 class="text-lg font-black text-stone-900 flex items-center gap-2">📜 Historial de Ediciones</h3>
-                <p class="text-xs text-stone-600 font-medium mt-0.5">Podio completo de cada una de las ediciones jugadas.</p>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-sm" id="table-palmares">
-                    <thead>
-                        <tr class="border-b border-stone-400 bg-stone-200/60 text-stone-700 font-bold">
-                            <th class="py-3 px-3 text-center w-20">Edición</th>
-                            <th class="py-3 px-4 bg-amber-100 text-amber-950 font-black">🥇 Campeón</th>
-                            <th class="py-3 px-4 bg-stone-200 text-stone-800 font-black">🥈 Segundo</th>
-                            <th class="py-3 px-4 bg-orange-100 text-orange-950 font-black">🥉 Tercero</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-stone-300" id="table-palmares-body"></tbody>
-                </table>
-            </div>
-        </section>
+
+        <!-- SUB-NAVEGACIÓN DEL PALMARÉS -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 bg-lichess-dark-header p-1.5 rounded-2xl border border-indigo-900/40 shadow-sm">
+            <button id="sub-fama" onclick="switchPalmares('fama')" class="pal-btn active text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-[11px] transition uppercase tracking-wider text-center">🏅 Salón de la Fama</button>
+            <button id="sub-jugadores" onclick="switchPalmares('jugadores')" class="pal-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-[11px] transition uppercase tracking-wider text-center">🔎 Jugadores</button>
+            <button id="sub-ediciones" onclick="switchPalmares('ediciones')" class="pal-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-[11px] transition uppercase tracking-wider text-center">📜 Ediciones</button>
+            <button id="sub-records" onclick="switchPalmares('records')" class="pal-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-[11px] transition uppercase tracking-wider text-center">🏆 Récords</button>
+            <button id="sub-ranking" onclick="switchPalmares('ranking')" class="pal-btn text-indigo-300 hover:text-white px-3 py-2 rounded-xl font-bold text-[11px] transition uppercase tracking-wider text-center">📊 Ranking</button>
+        </div>
+
+        <!-- AVISO DE ERROR (solo si falta palmares-data.js) -->
+        <div id="palmares-error" class="hidden bg-red-50 border border-red-300 text-red-900 rounded-2xl p-5 text-sm font-semibold"></div>
+
+        <!-- ================= VISTA 1: SALÓN DE LA FAMA ================= -->
+        <div id="pal-view-fama" class="space-y-5">
+
+            <div id="fama-divisiones" class="flex justify-center gap-2 flex-wrap"></div>
+
+            <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                <div id="fama-cabecera" class="p-5 bg-gradient-to-r from-amber-100 to-amber-50 border-b border-stone-300">
+                    <h3 id="fama-titulo" class="text-lg font-black text-amber-900 flex items-center gap-2">🏅 Ranking de podios</h3>
+                    <p id="fama-sub" class="text-xs text-stone-600 font-medium mt-0.5">Ordenado por títulos conseguidos.</p>
+                </div>
+                <div id="fama-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 p-5">
+                    <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando palmarés histórico...</p>
+                </div>
+            </section>
+
+            <p class="text-[11px] text-stone-500 font-medium leading-relaxed bg-white border border-stone-200 rounded-xl p-3">
+                <b>Nota:</b> desde la edición XVIII el campeón de la primera división es quien gana la <b>Final Four</b>, no el primero de la liga regular.
+                Ganar la liga regular no da título, pero se contabiliza aparte en cada ficha de jugador.
+            </p>
+        </div>
+
+        <!-- ================= VISTA 2: JUGADORES ================= -->
+        <div id="pal-view-jugadores" class="hidden space-y-5">
+
+            <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 p-5 space-y-3">
+                <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Busca un jugador</label>
+                <input id="palmares-buscador" type="text" placeholder="Escribe un nombre..." autocomplete="off"
+                       class="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-600">
+                <div id="palmares-sugerencias" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto"></div>
+            </section>
+
+            <div id="palmares-ficha"></div>
+        </div>
+
+        <!-- ================= VISTA 3: EDICIONES ================= -->
+        <div id="pal-view-ediciones" class="hidden space-y-4">
+            <div id="ediciones-lista" class="space-y-4"></div>
+        </div>
+
+        <!-- ================= VISTA 4: RÉCORDS ================= -->
+        <div id="pal-view-records" class="hidden">
+            <div id="records-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- ================= VISTA 5: RANKING HISTÓRICO ================= -->
+        <div id="pal-view-ranking" class="hidden space-y-4">
+            <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                <div class="p-5 bg-gradient-to-r from-indigo-100 to-indigo-50 border-b border-stone-300 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div>
+                        <h3 class="text-lg font-black text-indigo-900 flex items-center gap-2">📊 Ranking histórico</h3>
+                        <p class="text-xs text-stone-600 font-medium mt-0.5">Pulsa una cabecera para reordenar la tabla.</p>
+                    </div>
+                    <label class="flex items-center gap-2 text-xs font-bold text-stone-700 cursor-pointer select-none">
+                        <input id="ranking-min50" type="checkbox" onchange="renderRanking()" class="w-4 h-4 accent-indigo-700">
+                        Solo con 50+ partidas
+                    </label>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm whitespace-nowrap">
+                        <thead>
+                            <tr id="ranking-cabecera" class="border-b border-stone-400 bg-stone-200/60 text-stone-700 font-bold"></tr>
+                        </thead>
+                        <tbody class="divide-y divide-stone-300" id="ranking-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
     <!-- TAB: REPORTAR RESULTADO -->
     <div id="content-reportar" class="hidden max-w-2xl mx-auto p-4 md:p-6 space-y-6">
@@ -506,6 +560,8 @@
             <div id="modal-history" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
         </div>
     </div>
+    <!-- 👑 Datos del palmarés histórico (generado desde el Excel con generar_json.py) -->
+    <script src="palmares-data.js"></script>
     <script>
         const SHEET_ID = '1_9bVTGafzGQZzxrkV2Yt-sD6QgwIZiCsbL-ZwnsK3Zk';
         const RESULTADOS_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwLwrJYcOB4y-Wrm9Crq9Pnn_e_mLBl0C6AbFHWrKWuU1_H9frfeZQEL8T1GMHC8G9TJw/exec';
@@ -1278,91 +1334,591 @@ renderRoundUI(currentRound);
             const encontrado = Object.keys(temaPorDivision).find(k => normalizaTexto(k) === objetivo);
             return encontrado ? temaPorDivision[encontrado] : TEMAS_DIVISION[0];
         }
-        async function cargarPalmares() {
-            const gridRanking = document.getElementById('palmares-ranking-grid');
-            const tbody = document.getElementById('table-palmares-body');
-            try {
-                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PALMARES`);
-                const text = await res.text();
-                const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
-                const getTxt = (r, i) => {
-                    if (!r.c || !r.c[i] || r.c[i].v === null || r.c[i].v === undefined) return '';
-                    return r.c[i].v.toString().trim();
-                };
-                const ediciones = rows
-                    .map(r => ({
-                        edicion: getTxt(r, 0),
-                        campeon: getTxt(r, 1),
-                        segundo: getTxt(r, 2),
-                        tercero: getTxt(r, 3)
-                    }))
-                    .filter(e => e.edicion && normalizaTexto(e.edicion) !== 'edicion' && normalizaTexto(e.campeon) !== 'campeon' && e.campeon);
-                palmaresCargado = true;
-                if (ediciones.length === 0) {
-                    if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">Todavía no hay ediciones registradas en el palmarés.</p>`;
-                    if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">Todavía no hay ediciones registradas.</td></tr>`;
-                    return;
+        // ==========================================================
+        // 👑 PALMARÉS HISTÓRICO
+        // Los datos vienen del archivo palmares-data.js, que se genera desde
+        // PALMARES_HISTORICO.xlsx con el script generar_json.py.
+        // Cada temporada solo hay que volver a subir ese archivo: este código
+        // no hay que tocarlo.
+        //
+        // Todo el módulo trabaja por NIVEL de división (1ª, 2ª, 3ª, 4ª...), no
+        // por nombre, así que cuando en el histórico aparezcan Chesscera o
+        // Tercera se añaden solas a los interruptores y a las fichas.
+        // ==========================================================
+
+        // Colores por nivel, en el mismo orden que TEMAS_DIVISION de la pestaña
+        // Competición, para que las dos pestañas se vean como la misma app.
+        const PAL_NIVELES = [
+            { icono: '🏆', bloque: 'bg-amber-50 border-amber-400',     chapa: 'bg-amber-100 text-amber-900 border-amber-300',       titulo: 'text-amber-900',   cab: 'from-amber-100 to-amber-50',     fuerte: 'bg-amber-500' },
+            { icono: '🥈', bloque: 'bg-emerald-50 border-emerald-400', chapa: 'bg-emerald-100 text-emerald-900 border-emerald-300', titulo: 'text-emerald-900', cab: 'from-emerald-100 to-emerald-50', fuerte: 'bg-emerald-600' },
+            { icono: '🥉', bloque: 'bg-sky-50 border-sky-400',         chapa: 'bg-sky-100 text-sky-900 border-sky-300',             titulo: 'text-sky-900',     cab: 'from-sky-100 to-sky-50',         fuerte: 'bg-sky-600' },
+            { icono: '🎖️', bloque: 'bg-purple-50 border-purple-400',   chapa: 'bg-purple-100 text-purple-900 border-purple-300',    titulo: 'text-purple-900',  cab: 'from-purple-100 to-purple-50',   fuerte: 'bg-purple-600' }
+        ];
+
+        const PAL = {
+            listo: false,
+            vista: 'fama',
+            nivel: 1,
+            niveles: [],
+            nombreNivel: {},
+            jugadorActivo: null,
+            rankingCampo: 'pts',
+            rankingAsc: false,
+            porJugador: {},
+            tempsPorJugador: {},
+            porEdicion: {},
+            edicionesDesc: [],
+            delegado: false
+        };
+
+        // --- Utilidades ---------------------------------------------------
+
+        function palEsc(s) {
+            return (s === null || s === undefined ? '' : String(s))
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function palPct(x) {
+            return ((Number(x) || 0) * 100).toFixed(1).replace('.', ',') + '%';
+        }
+
+        function palNum(x) {
+            const n = Number(x) || 0;
+            return Number.isInteger(n) ? String(n) : String(n).replace('.', ',');
+        }
+
+        // '1ª' -> 1, '2ª' -> 2, 'Segunda' -> 2...
+        function palNivelNum(niv) {
+            const n = parseInt(String(niv || '').replace(/[^0-9]/g, ''), 10);
+            return Number.isFinite(n) && n > 0 ? n : 1;
+        }
+
+        function palTema(nivel) {
+            return PAL_NIVELES[(palNivelNum(nivel) - 1) % PAL_NIVELES.length];
+        }
+
+        function palOrdinal(n) {
+            return n + 'ª';
+        }
+
+        // Nombre de jugador pulsable: lleva a su ficha.
+        function palLink(nombre, clases) {
+            if (!nombre) return '<span class="text-stone-400">—</span>';
+            return `<button type="button" data-jugador="${palEsc(nombre)}" class="${clases || 'font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left'}">${palEsc(nombre)}</button>`;
+        }
+
+        function palMedallas(oro, plata, bronce) {
+            return `
+                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">🥇 ${oro || 0}</span>
+                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-stone-200 text-stone-800 border border-stone-400">🥈 ${plata || 0}</span>
+                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-orange-100 text-orange-900 border border-orange-300">🥉 ${bronce || 0}</span>`;
+        }
+
+        // --- Carga inicial ------------------------------------------------
+
+        function cargarPalmares() {
+            const aviso = document.getElementById('palmares-error');
+            const datos = window.PALMARES_DATA;
+
+            if (!datos || !datos.jugadores) {
+                if (aviso) {
+                    aviso.classList.remove('hidden');
+                    aviso.innerHTML = 'No se ha podido cargar el palmarés histórico. Falta el archivo <b>palmares-data.js</b> junto al index.html.';
                 }
-                const stats = {};
-                const sumar = (nombre, campo) => {
-                    if (!nombre) return;
-                    if (!stats[nombre]) stats[nombre] = { titulos: 0, sub: 0, tercero: 0 };
-                    stats[nombre][campo]++;
-                };
-                ediciones.forEach(e => {
-                    sumar(e.campeon, 'titulos');
-                    sumar(e.segundo, 'sub');
-                    sumar(e.tercero, 'tercero');
-                });
-                const ranking = Object.keys(stats).map(nombre => ({ nombre, ...stats[nombre] }));
-                ranking.sort((a, b) => {
-                    if (b.titulos !== a.titulos) return b.titulos - a.titulos;
-                    if (b.sub !== a.sub) return b.sub - a.sub;
-                    if (b.tercero !== a.tercero) return b.tercero - a.tercero;
-                    return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
-                });
-                if (gridRanking) {
-                    gridRanking.innerHTML = ranking.map((p, idx) => {
-                        let cardStyle = 'bg-white border-stone-300';
-                        let rankBadge = '';
-                        if (idx === 0 && p.titulos > 0) {
-                            cardStyle = 'bg-gradient-to-br from-amber-100 to-amber-50 border-amber-400 shadow-md scale-[1.02]';
-                            rankBadge = `<span class="text-[10px] font-black uppercase tracking-wider bg-amber-500 text-white px-2 py-0.5 rounded-full">Máximo Campeón</span>`;
-                        } else if (idx === 1 && p.titulos > 0) {
-                            cardStyle = 'bg-gradient-to-br from-stone-100 to-stone-50 border-stone-400';
-                        } else if (idx === 2 && p.titulos > 0) {
-                            cardStyle = 'bg-gradient-to-br from-orange-50 to-white border-orange-300';
-                        }
-                        return `
-                        <div class="p-4 rounded-xl border ${cardStyle} transition flex flex-col gap-2">
-                            <div class="flex items-center justify-between gap-2">
-                                <h4 class="font-black text-stone-900 text-sm truncate">${p.nombre}</h4>
-                                ${rankBadge}
-                            </div>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">🥇 ${p.titulos}</span>
-                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-stone-200 text-stone-800 border border-stone-400">🥈 ${p.sub}</span>
-                                <span class="flex items-center gap-1 text-xs font-black px-2.5 py-1 rounded-full bg-orange-100 text-orange-900 border border-orange-300">🥉 ${p.tercero}</span>
-                            </div>
-                        </div>`;
-                    }).join('');
-                }
-                if (tbody) {
-                    const edicionesOrdenadas = [...ediciones].reverse();
-                    tbody.innerHTML = edicionesOrdenadas.map(e => `
-                        <tr class="transition">
-                            <td class="py-3 px-3 text-center font-black text-stone-600">${e.edicion}</td>
-                            <td class="py-3 px-4 font-black text-amber-900 bg-amber-50/70">🥇 ${e.campeon}</td>
-                            <td class="py-3 px-4 font-bold text-stone-700 bg-stone-100/70">${e.segundo ? `🥈 ${e.segundo}` : '—'}</td>
-                            <td class="py-3 px-4 font-bold text-orange-900 bg-orange-50/70">${e.tercero ? `🥉 ${e.tercero}` : '—'}</td>
-                        </tr>
-                    `).join('');
-                }
-            } catch (errPalmares) {
-                console.error('❌ Error al cargar la pestaña Palmarés:', errPalmares);
-                if (gridRanking) gridRanking.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se ha podido cargar el palmarés histórico.</p>`;
-                if (tbody) tbody.innerHTML = `<tr><td colspan="4" class="text-center text-stone-500 italic py-8">No se ha podido cargar el palmarés.</td></tr>`;
+                return;
             }
+
+            // Índices para no recorrer los arrays una y otra vez.
+            datos.jugadores.forEach(j => { PAL.porJugador[j.nombre] = j; });
+
+            datos.temporadas.forEach(t => {
+                (PAL.tempsPorJugador[t.j] = PAL.tempsPorJugador[t.j] || []).push(t);
+            });
+            Object.keys(PAL.tempsPorJugador).forEach(n => {
+                PAL.tempsPorJugador[n].sort((a, b) => a.n - b.n);
+            });
+
+            datos.campeones.forEach(c => {
+                (PAL.porEdicion[c.ed] = PAL.porEdicion[c.ed] || []).push(c);
+            });
+            Object.keys(PAL.porEdicion).forEach(e => {
+                PAL.porEdicion[e].sort((a, b) => palNivelNum(a.niv) - palNivelNum(b.niv));
+            });
+
+            // Qué niveles de división existen en el histórico y cómo se llama
+            // habitualmente cada uno (el nombre más repetido de ese nivel).
+            const cuenta = {};
+            datos.campeones.forEach(c => {
+                const n = palNivelNum(c.niv);
+                cuenta[n] = cuenta[n] || {};
+                cuenta[n][c.div] = (cuenta[n][c.div] || 0) + 1;
+            });
+            PAL.niveles = Object.keys(cuenta).map(Number).sort((a, b) => a - b);
+            PAL.niveles.forEach(n => {
+                PAL.nombreNivel[n] = Object.keys(cuenta[n])
+                    .sort((a, b) => cuenta[n][b] - cuenta[n][a])[0] || palOrdinal(n);
+            });
+            if (PAL.niveles.indexOf(PAL.nivel) === -1 && PAL.niveles.length) PAL.nivel = PAL.niveles[0];
+
+            PAL.edicionesDesc = (datos.ediciones || []).slice().reverse();
+
+            const sub = document.getElementById('palmares-subtitulo');
+            if (sub) {
+                sub.textContent = `${datos.ediciones.length} ediciones · ${datos.jugadores.length} jugadores · ${datos.temporadas.length} temporadas disputadas`;
+            }
+
+            // Un único listener: cualquier nombre de jugador de cualquier vista
+            // abre su ficha.
+            if (!PAL.delegado) {
+                document.getElementById('content-palmares').addEventListener('click', ev => {
+                    const btn = ev.target.closest('[data-jugador]');
+                    if (btn) verFichaJugador(btn.getAttribute('data-jugador'));
+                });
+                const buscador = document.getElementById('palmares-buscador');
+                if (buscador) buscador.addEventListener('input', renderSugerencias);
+                PAL.delegado = true;
+            }
+
+            PAL.listo = true;
+            palmaresCargado = true;
+
+            renderBotonesDivision();
+            renderFama();
+            renderSugerencias();
+            renderEdiciones();
+            renderRecords();
+            construirCabeceraRanking();
+            renderRanking();
+        }
+
+        // --- Navegación entre los cinco módulos ---------------------------
+
+        function switchPalmares(vista) {
+            PAL.vista = vista;
+            ['fama', 'jugadores', 'ediciones', 'records', 'ranking'].forEach(v => {
+                const boton = document.getElementById('sub-' + v);
+                const panel = document.getElementById('pal-view-' + v);
+                if (boton) boton.classList.toggle('active', v === vista);
+                if (panel) panel.classList.toggle('hidden', v !== vista);
+            });
+            if (vista === 'jugadores') {
+                const buscador = document.getElementById('palmares-buscador');
+                if (buscador && window.matchMedia('(min-width: 768px)').matches) buscador.focus();
+            }
+        }
+
+        // =============== MÓDULO 1: SALÓN DE LA FAMA =======================
+
+        function renderBotonesDivision() {
+            const caja = document.getElementById('fama-divisiones');
+            if (!caja) return;
+            caja.innerHTML = PAL.niveles.map(n => {
+                const tema = palTema(n);
+                const activo = n === PAL.nivel;
+                return `<button type="button" onclick="setPalmaresNivel(${n})"
+                    class="px-4 py-2 rounded-xl font-black text-xs uppercase tracking-wider border transition ${activo ? 'bg-lichess-dark-header text-white border-transparent' : 'bg-white text-stone-500 border-stone-300 hover:border-indigo-400 hover:text-indigo-800'}">
+                    ${tema.icono} ${palEsc(PAL.nombreNivel[n])} · ${palOrdinal(n)}</button>`;
+            }).join('');
+        }
+
+        function setPalmaresNivel(n) {
+            PAL.nivel = n;
+            renderBotonesDivision();
+            renderFama();
+        }
+
+        function renderFama() {
+            const grid = document.getElementById('fama-grid');
+            if (!grid || !window.PALMARES_DATA) return;
+
+            const nivel = PAL.nivel;
+            const tema = palTema(nivel);
+            const filas = window.PALMARES_DATA.campeones.filter(c => palNivelNum(c.niv) === nivel);
+
+            // Contamos podios directamente sobre las ediciones, para que el
+            // interruptor de división sea exacto.
+            const stats = {};
+            const anota = (nombre, campo, edicion) => {
+                if (!nombre) return;
+                if (!stats[nombre]) stats[nombre] = { titulos: 0, sub: 0, tercero: 0, eds: [] };
+                stats[nombre][campo]++;
+                if (campo === 'titulos') stats[nombre].eds.push(edicion);
+            };
+            filas.forEach(c => {
+                anota(c.oro, 'titulos', c.ed);
+                anota(c.plata, 'sub', c.ed);
+                anota(c.bronce, 'tercero', c.ed);
+            });
+
+            const ranking = Object.keys(stats).map(nombre => ({ nombre, ...stats[nombre] }));
+            ranking.sort((a, b) =>
+                (b.titulos - a.titulos) || (b.sub - a.sub) || (b.tercero - a.tercero) ||
+                a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' })
+            );
+
+            const cabecera = document.getElementById('fama-cabecera');
+            const titulo = document.getElementById('fama-titulo');
+            const subtit = document.getElementById('fama-sub');
+            if (cabecera) cabecera.className = `p-5 bg-gradient-to-r ${tema.cab} border-b border-stone-300`;
+            if (titulo) {
+                titulo.className = `text-lg font-black ${tema.titulo} flex items-center gap-2`;
+                titulo.innerHTML = `${tema.icono} Palmarés de ${palEsc(PAL.nombreNivel[nivel])} (${palOrdinal(nivel)} división)`;
+            }
+            if (subtit) {
+                // Los sufijos de conferencia («· Conf. A») no cuentan como divisiones distintas.
+                const nombres = [...new Set(filas.map(c => c.div.split('·')[0].trim()))];
+                subtit.textContent = nombres.length > 1
+                    ? `Podios de esta categoría. Incluye ${nombres.join(', ')}.`
+                    : 'Podios de esta categoría, ordenados por títulos.';
+            }
+
+            if (!ranking.length) {
+                grid.innerHTML = '<p class="text-stone-500 italic text-center py-8 col-span-full">Todavía no hay podios registrados.</p>';
+                return;
+            }
+
+            grid.innerHTML = ranking.map((p, idx) => {
+                let estilo = 'bg-white border-stone-300';
+                let chapa = '';
+                if (p.titulos > 0 && idx === 0) {
+                    estilo = `${tema.bloque} shadow-md`;
+                    chapa = `<span class="text-[10px] font-black uppercase tracking-wider ${tema.fuerte} text-white px-2 py-0.5 rounded-full shrink-0">Máximo campeón</span>`;
+                } else if (p.titulos > 0 && idx === 1) {
+                    estilo = 'bg-stone-50 border-stone-400';
+                } else if (p.titulos > 0 && idx === 2) {
+                    estilo = 'bg-stone-50/60 border-stone-300';
+                }
+
+                const listaEds = p.eds.length
+                    ? `<p class="text-[11px] text-stone-500 font-semibold leading-snug">Campeón en ${palEsc(p.eds.join(', '))}</p>`
+                    : '';
+
+                return `
+                <div class="p-4 rounded-xl border ${estilo} transition flex flex-col gap-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <h4 class="font-black text-stone-900 text-sm truncate">${palLink(p.nombre, 'font-black text-stone-900 text-sm truncate hover:text-indigo-700 hover:underline transition text-left')}</h4>
+                        ${chapa}
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">${palMedallas(p.titulos, p.sub, p.tercero)}</div>
+                    ${listaEds}
+                </div>`;
+            }).join('');
+        }
+
+        // =============== MÓDULO 2: BUSCADOR Y FICHA DE JUGADOR ============
+
+        function renderSugerencias() {
+            const caja = document.getElementById('palmares-sugerencias');
+            const buscador = document.getElementById('palmares-buscador');
+            if (!caja || !window.PALMARES_DATA) return;
+
+            const q = normalizaTexto(buscador ? buscador.value : '');
+            const lista = window.PALMARES_DATA.jugadores
+                .filter(j => !q || normalizaTexto(j.nombre).indexOf(q) !== -1)
+                .slice()
+                .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+
+            if (!lista.length) {
+                caja.innerHTML = '<p class="text-xs text-stone-500 italic py-2">Ningún jugador con ese nombre.</p>';
+                return;
+            }
+
+            caja.innerHTML = lista.map(j => {
+                const activo = j.nombre === PAL.jugadorActivo;
+                const estilo = activo
+                    ? 'bg-indigo-700 text-white border-indigo-700'
+                    : 'bg-white text-stone-700 border-stone-300 hover:border-indigo-400 hover:text-indigo-800';
+                return `<button type="button" data-jugador="${palEsc(j.nombre)}" class="text-[11px] font-bold px-2.5 py-1 rounded-lg border transition ${estilo}">${palEsc(j.nombre)}</button>`;
+            }).join('');
+
+            // Si solo queda uno al filtrar, lo abrimos directamente.
+            if (lista.length === 1 && q && lista[0].nombre !== PAL.jugadorActivo) {
+                verFichaJugador(lista[0].nombre, true);
+            }
+        }
+
+        function verFichaJugador(nombre, sinCambiarVista) {
+            const j = PAL.porJugador[nombre];
+            const caja = document.getElementById('palmares-ficha');
+            if (!j || !caja) return;
+
+            PAL.jugadorActivo = nombre;
+            if (!sinCambiarVista) switchPalmares('jugadores');
+
+            const temps = PAL.tempsPorJugador[nombre] || [];
+            const campeones = window.PALMARES_DATA.campeones;
+
+            // --- Tarjetitas de estadística
+            const dato = (etiqueta, valor, extra) => `
+                <div class="bg-white border border-stone-300 rounded-xl p-3 text-center">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-stone-500">${etiqueta}</p>
+                    <p class="text-lg font-black text-stone-900 leading-tight mt-0.5">${valor}</p>
+                    ${extra ? `<p class="text-[10px] text-stone-500 font-semibold">${extra}</p>` : ''}
+                </div>`;
+
+            // --- Medallero por nivel, calculado sobre los podios reales.
+            const nivelesJugados = [...new Set(temps.map(t => palNivelNum(t.niv)))].sort((a, b) => a - b);
+            let totalTitulos = 0;
+
+            const bloques = nivelesJugados.map(n => {
+                const tema = palTema(n);
+                const propias = temps.filter(t => palNivelNum(t.niv) === n);
+                const podios = campeones.filter(c => palNivelNum(c.niv) === n);
+                const oro = podios.filter(c => c.oro === nombre).length;
+                const plata = podios.filter(c => c.plata === nombre).length;
+                const bronce = podios.filter(c => c.bronce === nombre).length;
+                totalTitulos += oro;
+
+                const conPuesto = propias.filter(t => t.pos);
+                const mejor = conPuesto.length ? Math.min(...conPuesto.map(t => t.pos)) : null;
+                const mejorEds = conPuesto.filter(t => t.pos === mejor).map(t => t.ed);
+
+                return `
+                <div class="${tema.bloque} border-l-[5px] rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                        <h5 class="font-black text-sm text-stone-900">${tema.icono} ${palEsc(PAL.nombreNivel[n] || palOrdinal(n))} · ${palOrdinal(n)}</h5>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500">${propias.length} ${propias.length === 1 ? 'temporada' : 'temporadas'}</span>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">${palMedallas(oro, plata, bronce)}</div>
+                    <p class="text-[11px] text-stone-600 font-semibold">Mejor puesto: <b class="text-stone-900">${mejor ? mejor + 'º' : '—'}</b>${mejorEds.length ? ` <span class="text-stone-500">(${palEsc(mejorEds.join(', '))})</span>` : ''}</p>
+                </div>`;
+            }).join('');
+
+            const chapas = [];
+            if (totalTitulos) chapas.push(`<span class="text-[11px] font-black uppercase tracking-wider bg-amber-500 text-white px-2.5 py-1 rounded-full">${totalTitulos} ${totalTitulos === 1 ? 'título' : 'títulos'}</span>`);
+            if (j.ligas) chapas.push(`<span class="text-[11px] font-black uppercase tracking-wider bg-indigo-500 text-white px-2.5 py-1 rounded-full">${j.ligas} ${j.ligas === 1 ? 'liga regular 1ª' : 'ligas regulares 1ª'}</span>`);
+
+            // --- Trayectoria temporada a temporada
+            const filasTray = temps.map(t => {
+                const tema = palTema(t.niv);
+                const medalla = t.pos === 1 ? '🥇' : t.pos === 2 ? '🥈' : t.pos === 3 ? '🥉' : '';
+                const asterisco = (t.posLiga && t.pos !== t.posLiga)
+                    ? `<span class="text-indigo-700 font-black" title="Quedó ${t.posLiga}º en la liga regular; el puesto final lo decidió la Final Four">*</span>`
+                    : '';
+                const puesto = t.pos ? `${medalla} ${t.pos}º${asterisco}` : '—';
+                return `
+                <tr class="transition">
+                    <td class="py-2 px-3 font-black text-stone-600 text-center">${palEsc(t.ed)}</td>
+                    <td class="py-2 px-3">
+                        <span class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${tema.chapa}">${palEsc(t.div)}</span>
+                    </td>
+                    <td class="py-2 px-3 font-black text-stone-900 whitespace-nowrap">${puesto}<span class="text-stone-400 font-semibold text-xs"> / ${t.part || '?'}</span></td>
+                    <td class="py-2 px-3 text-stone-700 font-semibold whitespace-nowrap">${t.pg}-${t.pp}-${t.pt}</td>
+                    <td class="py-2 px-3 text-stone-900 font-black text-right">${palNum(t.pts)}</td>
+                </tr>`;
+            }).join('');
+
+            const hayAsterisco = temps.some(t => t.posLiga && t.pos !== t.posLiga);
+
+            caja.innerHTML = `
+            <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+
+                <div class="p-5 bg-lichess-dark-header">
+                    <div class="flex items-center justify-between gap-3 flex-wrap">
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-black">${palEsc(j.nombre)}</h3>
+                            <p class="text-xs text-indigo-300 font-semibold mt-0.5">
+                                ${j.eds} ${j.eds === 1 ? 'edición' : 'ediciones'} · de la ${palEsc(j.debut)} a la ${palEsc(j.ultima)}
+                            </p>
+                        </div>
+                        <div class="flex gap-2 flex-wrap">${chapas.join('')}</div>
+                    </div>
+                </div>
+
+                <div class="p-5 space-y-5">
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+                        ${dato('Partidas', j.pj)}
+                        ${dato('Ganadas', j.pg, `${j.pp} perdidas`)}
+                        ${dato('Tablas', j.pt)}
+                        ${dato('% victorias', palPct(j.pct))}
+                        ${dato('Puntos', palNum(j.pts))}
+                        ${dato('Pts / edición', palNum(j.ptsEd || 0))}
+                    </div>
+
+                    ${bloques ? `<div class="grid grid-cols-1 md:grid-cols-2 gap-3">${bloques}</div>` : ''}
+
+                    <div>
+                        <h4 class="text-xs font-bold uppercase text-stone-500 tracking-wider mb-2">Trayectoria</h4>
+                        ${temps.length ? `
+                        <div class="overflow-x-auto border border-stone-300 rounded-xl">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-stone-300 bg-stone-200/60 text-stone-700 font-bold text-xs uppercase tracking-wider">
+                                        <th class="py-2 px-3 text-center">Ed.</th>
+                                        <th class="py-2 px-3">División</th>
+                                        <th class="py-2 px-3">Puesto</th>
+                                        <th class="py-2 px-3">G-P-T</th>
+                                        <th class="py-2 px-3 text-right">Pts</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-stone-200">${filasTray}</tbody>
+                            </table>
+                        </div>
+                        ${hayAsterisco ? '<p class="text-[11px] text-stone-500 font-semibold mt-2">* El puesto final lo decidió la Final Four, no la liga regular.</p>' : ''}
+                        ` : '<p class="text-sm text-stone-500 italic">Sin temporadas registradas.</p>'}
+                    </div>
+                </div>
+            </section>`;
+
+            renderSugerencias();
+        }
+
+        // =============== MÓDULO 3: HISTORIAL DE EDICIONES =================
+
+        function renderEdiciones() {
+            const caja = document.getElementById('ediciones-lista');
+            if (!caja || !window.PALMARES_DATA) return;
+
+            caja.innerHTML = PAL.edicionesDesc.map(ed => {
+                const divisiones = PAL.porEdicion[ed] || [];
+                const bloques = divisiones.map(c => {
+                    const tema = palTema(c.niv);
+                    const finalFour = normalizaTexto(c.modo).indexOf('final four') !== -1;
+                    const ligaAparte = finalFour && c.liga && c.liga !== c.oro;
+
+                    const podio = [
+                        ['🥇', 'Campeón', c.oro, 'bg-amber-50/80'],
+                        ['🥈', 'Subcampeón', c.plata, 'bg-stone-100/80'],
+                        ['🥉', 'Tercero', c.bronce, 'bg-orange-50/80']
+                    ].map(([icono, etiqueta, nombre, clase]) => `
+                        <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-lg ${clase}">
+                            <span class="text-base shrink-0">${icono}</span>
+                            <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-stone-500 w-16 sm:w-24 shrink-0">${etiqueta}</span>
+                            ${palLink(nombre, 'font-black text-sm text-stone-900 hover:text-indigo-700 hover:underline transition text-left break-all')}
+                        </div>`).join('');
+
+                    return `
+                    <div class="${tema.bloque} border-l-[5px] rounded-xl p-4 space-y-3">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                            <h4 class="font-black text-sm text-stone-900">${tema.icono} ${palEsc(c.div)}</h4>
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span class="text-[10px] font-bold uppercase tracking-wider bg-white/80 border border-stone-300 text-stone-600 px-2 py-0.5 rounded-full">${c.part || '?'} jugadores</span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider ${finalFour ? 'bg-indigo-700 text-white' : 'bg-white/80 border border-stone-300 text-stone-600'} px-2 py-0.5 rounded-full">${palEsc(c.modo)}</span>
+                            </div>
+                        </div>
+                        <div class="space-y-1">${podio}</div>
+                        <div class="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold text-stone-600 pt-1">
+                            ${ligaAparte ? `<span>🏁 1º de liga regular: ${palLink(c.liga, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
+                            ${c.farolillo ? `<span>🔴 Farolillo rojo: ${palLink(c.farolillo, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
+                        </div>
+                    </div>`;
+                }).join('');
+
+                return `
+                <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                    <div class="px-5 py-3 bg-lichess-dark-header flex items-center justify-between gap-3">
+                        <h3 class="text-base font-black tracking-wide">Edición ${palEsc(ed)}</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-indigo-300">${divisiones.length} ${divisiones.length === 1 ? 'división' : 'divisiones'}</span>
+                    </div>
+                    <div class="p-4 grid grid-cols-1 ${divisiones.length > 1 ? 'lg:grid-cols-2' : ''} gap-3">${bloques}</div>
+                </section>`;
+            }).join('');
+        }
+
+        // =============== MÓDULO 4: RÉCORDS ================================
+
+        function renderRecords() {
+            const caja = document.getElementById('records-grid');
+            if (!caja || !window.PALMARES_DATA) return;
+
+            caja.innerHTML = (window.PALMARES_DATA.records || []).map(r => {
+                const filas = r.top.map((e, i) => {
+                    const destaque = i === 0 ? 'bg-amber-50 border-amber-300' : 'bg-white border-stone-200';
+                    return `
+                    <li class="flex items-center gap-3 px-3 py-2 rounded-lg border ${destaque}">
+                        <span class="text-[11px] font-black w-5 h-5 flex items-center justify-center rounded-full shrink-0 ${i === 0 ? 'bg-amber-500 text-white' : 'bg-stone-200 text-stone-600'}">${i + 1}</span>
+                        <div class="min-w-0 flex-1">
+                            ${palLink(e.jugador, 'font-black text-sm text-stone-900 hover:text-indigo-700 hover:underline transition text-left truncate block w-full')}
+                            ${e.detalle ? `<p class="text-[10px] text-stone-500 font-semibold truncate">${palEsc(e.detalle)}</p>` : ''}
+                        </div>
+                        <span class="font-black text-sm text-stone-900 shrink-0">${palEsc(e.marca)}</span>
+                    </li>`;
+                }).join('');
+
+                return `
+                <section class="bg-lichess-card rounded-2xl shadow-sm border border-stone-300 overflow-hidden">
+                    <div class="px-5 py-3 bg-gradient-to-r from-indigo-100 to-indigo-50 border-b border-stone-300">
+                        <h3 class="text-sm font-black text-indigo-900">🏆 ${palEsc(r.titulo)}</h3>
+                    </div>
+                    <ul class="p-3 space-y-1.5">${filas}</ul>
+                </section>`;
+            }).join('');
+        }
+
+        // =============== MÓDULO 5: RANKING HISTÓRICO ======================
+
+        const RANKING_COLUMNAS = [
+            { campo: 'nombre', etiqueta: 'Jugador', tipo: 'txt' },
+            { campo: 'eds', etiqueta: 'Eds.', tipo: 'num' },
+            { campo: 'pj', etiqueta: 'PJ', tipo: 'num' },
+            { campo: 'pg', etiqueta: 'G', tipo: 'num' },
+            { campo: 'pp', etiqueta: 'P', tipo: 'num' },
+            { campo: 'pt', etiqueta: 'T', tipo: 'num' },
+            { campo: 'pct', etiqueta: '% Vict.', tipo: 'pct' },
+            { campo: 'pts', etiqueta: 'Puntos', tipo: 'num' },
+            { campo: 'ptsEd', etiqueta: 'Pts/Ed.', tipo: 'num' }
+        ];
+
+        function construirCabeceraRanking() {
+            const fila = document.getElementById('ranking-cabecera');
+            if (!fila) return;
+            fila.innerHTML = '<th class="py-3 px-3 text-center w-10">#</th>' + RANKING_COLUMNAS.map(c => `
+                <th onclick="ordenarRanking('${c.campo}')"
+                    class="py-3 px-3 cursor-pointer select-none hover:text-indigo-700 transition ${c.campo === 'nombre' ? '' : 'text-right'}">
+                    ${c.etiqueta}<span class="ranking-flecha" data-campo="${c.campo}"></span>
+                </th>`).join('');
+        }
+
+        function ordenarRanking(campo) {
+            if (PAL.rankingCampo === campo) {
+                PAL.rankingAsc = !PAL.rankingAsc;
+            } else {
+                PAL.rankingCampo = campo;
+                PAL.rankingAsc = (campo === 'nombre');
+            }
+            renderRanking();
+        }
+
+        function renderRanking() {
+            const cuerpo = document.getElementById('ranking-body');
+            if (!cuerpo || !window.PALMARES_DATA) return;
+
+            const soloMin = document.getElementById('ranking-min50');
+            let lista = window.PALMARES_DATA.jugadores.slice();
+            if (soloMin && soloMin.checked) lista = lista.filter(j => (j.pj || 0) >= 50);
+
+            const campo = PAL.rankingCampo;
+            const signo = PAL.rankingAsc ? 1 : -1;
+            lista.sort((a, b) => {
+                if (campo === 'nombre') {
+                    return signo * a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+                }
+                const dif = (Number(a[campo]) || 0) - (Number(b[campo]) || 0);
+                return dif !== 0 ? signo * dif : a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+            });
+
+            document.querySelectorAll('.ranking-flecha').forEach(el => {
+                el.textContent = el.getAttribute('data-campo') === campo ? (PAL.rankingAsc ? ' ▲' : ' ▼') : '';
+            });
+
+            if (!lista.length) {
+                cuerpo.innerHTML = '<tr><td colspan="10" class="text-center text-stone-500 italic py-8">Ningún jugador cumple el filtro.</td></tr>';
+                return;
+            }
+
+            cuerpo.innerHTML = lista.map((j, i) => {
+                const celdas = RANKING_COLUMNAS.map(c => {
+                    if (c.campo === 'nombre') {
+                        return `<td class="py-2.5 px-3">${palLink(j.nombre, 'font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left')}</td>`;
+                    }
+                    const valor = c.tipo === 'pct' ? palPct(j[c.campo]) : palNum(j[c.campo] || 0);
+                    const fuerte = (c.campo === 'pts' || c.campo === 'pct') ? 'font-black text-stone-900' : 'font-semibold text-stone-700';
+                    return `<td class="py-2.5 px-3 text-right ${fuerte}">${valor}</td>`;
+                }).join('');
+                return `<tr class="transition"><td class="py-2.5 px-3 text-center font-black text-stone-400">${i + 1}</td>${celdas}</tr>`;
+            }).join('');
         }
         // Nombre a mostrar para un lado del cruce: si está vacío pero ya hay ganador, ese
         // jugador pasó "exento" (bye); si está vacío y no hay ganador, de verdad no se sabe aún.

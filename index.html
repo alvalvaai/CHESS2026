@@ -1371,6 +1371,7 @@ renderRoundUI(currentRound);
             rankingAsc: false,
             rankingAmbito: 0,
             porEdicionDiv: {},
+            porEdicionDivTodo: {},
             porJugador: {},
             tempsPorJugador: {},
             porEdicion: {},
@@ -1454,9 +1455,15 @@ renderRoundUI(currentRound);
             datos.temporadas.forEach(t => {
                 const clave = t.ed + '||' + t.div + '||' + (t.conf || '').toUpperCase();
                 (PAL.porEdicionDiv[clave] = PAL.porEdicionDiv[clave] || []).push(t);
+                // Segundo índice sin conferencia: lo usan las ediciones en las
+                // que una Final Four unificó varios grupos en una sola tabla.
+                const global = t.ed + '||' + t.div;
+                (PAL.porEdicionDivTodo[global] = PAL.porEdicionDivTodo[global] || []).push(t);
             });
-            Object.keys(PAL.porEdicionDiv).forEach(k => {
-                PAL.porEdicionDiv[k].sort((a, b) => (a.pos || 99) - (b.pos || 99));
+            [PAL.porEdicionDiv, PAL.porEdicionDivTodo].forEach(indice => {
+                Object.keys(indice).forEach(k => {
+                    indice[k].sort((a, b) => (a.pos || 99) - (b.pos || 99));
+                });
             });
             Object.keys(PAL.porEdicion).forEach(e => {
                 PAL.porEdicion[e].sort((a, b) => palNivelNum(a.niv) - palNivelNum(b.niv));
@@ -1818,7 +1825,7 @@ renderRoundUI(currentRound);
                         <div class="space-y-1">${podio}</div>
                         ${clasificacionHTML(c)}
                         <div class="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-semibold text-stone-600 pt-1">
-                            ${ligaAparte ? `<span>🏁 1º de liga regular: ${palLink(c.liga, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
+                            ${ligaAparte ? `<span>🏁 1º de liga regular: ${c.liga.split(',').map(x => palLink(x.trim(), 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')).join(' · ')}</span>` : ''}
                             ${c.farolillo ? `<span>🔴 Farolillo rojo: ${palLink(c.farolillo, 'font-black text-stone-800 hover:text-indigo-700 hover:underline transition inline')}</span>` : ''}
                         </div>
                     </div>`;
@@ -1842,8 +1849,14 @@ renderRoundUI(currentRound);
         function clasificacionHTML(c) {
             const conf = (c.div.match(/conf\.?\s*([A-Za-z0-9]+)/i) || [])[1] || '';
             const divBase = c.div.split('·')[0].trim();
-            const filas = PAL.porEdicionDiv[c.ed + '||' + divBase + '||' + conf.toUpperCase()] || [];
+            const filas = PAL.porEdicionDiv[c.ed + '||' + divBase + '||' + conf.toUpperCase()]
+                       || PAL.porEdicionDivTodo[c.ed + '||' + divBase]
+                       || [];
             if (!filas.length) return '';
+            // Si la tabla mezcla varios grupos (una Final Four que unió las
+            // conferencias), se añade una columna para saber de dónde salía cada uno.
+            const grupos = [...new Set(filas.map(t => t.conf).filter(Boolean))];
+            const mixta = grupos.length > 1;
 
             const ultimo = filas[filas.length - 1].pos;
             const hayEnfr = filas.some(t => t.ePts !== null && t.ePts !== undefined);
@@ -1866,6 +1879,7 @@ renderRoundUI(currentRound);
                 <tr class="${fondo}">
                     <td class="py-1.5 px-2 text-center font-black text-stone-600 whitespace-nowrap">${medalla} ${t.pos}º${asterisco}</td>
                     <td class="py-1.5 px-2">${palLink(t.j, 'font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left')}${sinJugar}</td>
+                    ${mixta ? `<td class="py-1.5 px-2"><span class="text-[10px] font-bold uppercase tracking-wider bg-stone-100 border border-stone-300 text-stone-600 px-1.5 py-0.5 rounded">${palEsc(t.conf)}</span></td>` : ''}
                     ${hayEnfr ? `
                     <td class="py-1.5 px-2 text-right text-stone-600 font-semibold whitespace-nowrap">${t.eV || 0}-${t.eE || 0}-${t.eD || 0}</td>
                     <td class="py-1.5 px-2 text-right ${mandaEnfr ? fuerte : flojo}">${palNum(t.ePts || 0)}</td>` : ''}
@@ -1875,10 +1889,15 @@ renderRoundUI(currentRound);
             }).join('');
 
             const hayAsterisco = filas.some(t => t.posLiga && t.pos !== t.posLiga);
+            const decidida = normalizaTexto(c.modo).indexOf('final four') !== -1;
+            const criterio = mandaEnfr
+                ? '<b>puntos de enfrentamiento</b> (2 por match ganado, 1 por empatado)'
+                : '<b>puntos de partida</b>';
             const notas = [
-                mandaEnfr
-                    ? 'Ordenada por <b>puntos de enfrentamiento</b> (2 por match ganado, 1 por empatado). Los puntos de partida son informativos.'
-                    : 'Ordenada por <b>puntos de partida</b>. Es el sistema que se usó hasta la edición VII.',
+                decidida
+                    ? `El podio lo decidió la <b>Final Four</b>. El resto conserva su orden de liga regular, por ${criterio}.`
+                    : `Ordenada por ${criterio}.`,
+                mixta ? `Esa temporada se jugó a ${grupos.length} grupos (${palEsc(grupos.join(', '))}) y la Final Four los unió en una única clasificación.` : '',
                 hayAsterisco ? 'El <b>*</b> marca a quien terminó en otro puesto en la liga regular: ese cruce lo decidió la Final Four.' : ''
             ].filter(Boolean);
 
@@ -1895,6 +1914,7 @@ renderRoundUI(currentRound);
                             <tr class="border-b border-stone-300 bg-stone-100 text-stone-600 font-bold uppercase tracking-wider">
                                 <th class="py-1.5 px-2 text-center">Pos</th>
                                 <th class="py-1.5 px-2">Jugador</th>
+                                ${mixta ? '<th class="py-1.5 px-2">Grupo</th>' : ''}
                                 ${hayEnfr ? `
                                 <th class="py-1.5 px-2 text-right" title="Enfrentamientos ganados-empatados-perdidos">Enfr. G-E-P</th>
                                 <th class="py-1.5 px-2 text-right ${mandaEnfr ? 'text-stone-900' : ''}">Pts enfr.</th>` : ''}

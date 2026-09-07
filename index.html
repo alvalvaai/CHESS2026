@@ -738,12 +738,10 @@
         let copaPartidosData = null;
         let copaPartidosPendientesReportar = [];
         let copaReportarListenersAttached = false;
+        // ⚠️ OJO: aquí había DOS listeners 'DOMContentLoaded' idénticos, así que la app
+        // cargaba la hoja DOS VECES en cada arranque (el doble de peticiones a Google, y
+        // infoData se quedaba con todos los jugadores duplicados). Ahora solo uno.
         window.addEventListener('DOMContentLoaded', async () => {
-            lucide.createIcons();
-            await fetchPuzzle();
-            await loadSheetCore();
-        });
-          window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             await fetchPuzzle();
             await loadSheetCore();
@@ -849,11 +847,15 @@
             }
         }
         async function loadSheetCore() {
+            // Reiniciamos los acumuladores: si no, al recargar tras reportar un resultado
+            // infoData y datesMap se van llenando de duplicados una y otra vez.
+            infoData = [];
+            datesMap = {};
             try {
 
                 try {
                     console.log("🔍 [1/4] Solicitando pestaña RESUMEN_IA...");
-                    const resumenRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESUMEN_IA`);
+                    const resumenRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0&sheet=RESUMEN_IA`);
                     const resumenText = await resumenRes.text();
                     const resumenRows = JSON.parse(resumenText.substring(47).slice(0, -2)).table.rows;
 
@@ -895,7 +897,7 @@
                 }
                 try {
                     console.log("🔍 Solicitando pestaña MUNDO_CHESS...");
-                    const noticiasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=MUNDO_CHESS`);
+                    const noticiasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0&sheet=MUNDO_CHESS`);
                     const noticiasText = await noticiasRes.text();
                     const noticiasRows = JSON.parse(noticiasText.substring(47).slice(0, -2)).table.rows;
 
@@ -936,7 +938,7 @@
                     console.error("❌ Error procesando la pestaña Mundo Chess:", errMundoChess);
                 }
                 try {
-                    const eloRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=ELO_RANKING`);
+                    const eloRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=ELO_RANKING`);
                     const eloText = await eloRes.text();
                     const eloRows = JSON.parse(eloText.substring(47).slice(0, -2)).table.rows;
 
@@ -952,7 +954,7 @@
                     console.error("Error al cargar la pestaña ELO_RANKING:", errElo);
                 }
                 try {
-                    const peonesRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Peones`);
+                    const peonesRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=Peones`);
                     const peonesText = await peonesRes.text();
                     const peonesJson = JSON.parse(peonesText.substring(47).slice(0, -2));
                     const peonesCols = peonesJson.table.cols || [];
@@ -1043,7 +1045,7 @@
                         gridPeones.innerHTML = `<p class="text-stone-500 italic text-center py-8 col-span-full">No se han podido cargar las fichas de los participantes.</p>`;
                     }
                 }
-                const infoRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=INFO`);
+                const infoRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=INFO`);
                 const infoText = await infoRes.text();
                 const infoRows = JSON.parse(infoText.substring(47).slice(0, -2)).table.rows;
 
@@ -1070,11 +1072,20 @@
                 } catch (errRefrescoPeones) {
                     console.error("Error al refrescar las fichas de Peones:", errRefrescoPeones);
                 }
-const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RESULTADOS`);
+const resRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=RESULTADOS`);
 const resText = await resRes.text();
 const resRows = JSON.parse(resText.substring(47).slice(0, -2)).table.rows;
 allMatches = [];
 const todayStr = new Date();
+// Lector de celdas a prueba de balas: Google a veces manda la celda como null,
+// como undefined (fila recortada) o con el valor dentro de .f en vez de .v.
+const celdaTexto = (r, i) => {
+  const c = r.c ? r.c[i] : null;
+  if (c === null || c === undefined) return '';
+  if (c.f !== null && c.f !== undefined && c.f !== '') return c.f.toString();
+  if (c.v === null || c.v === undefined) return '';
+  return c.v.toString();
+};
 resRows.forEach((r, idx) => {
   if (!r.c || !r.c[2]) return;
 
@@ -1082,8 +1093,8 @@ resRows.forEach((r, idx) => {
   let division = r.c[1]?.v || '';
   let player1 = r.c[2]?.v || '';
   let player2 = r.c[3]?.v || '';
-  let score1 = r.c[4] !== null ? (r.c[4].f || r.c[4].v.toString()) : '';
-  let score2 = r.c[5] !== null ? (r.c[5].f || r.c[5].v.toString()) : '';
+  let score1 = celdaTexto(r, 4);
+  let score2 = celdaTexto(r, 5);
 
   let numTablasCol = r.c[6] !== null && r.c[6] !== undefined && r.c[6].v !== null && r.c[6].v !== undefined
     ? parseInt(r.c[6].v.toString().replace(',', '.')) || 0
@@ -1100,7 +1111,8 @@ resRows.forEach((r, idx) => {
     matchStatus = 'Fuera de tiempo';
   }
   let individualDraws = 0;
-  if (score1.includes('.5') || score2.includes('.5')) {
+  // Google devuelve los medios puntos con coma en español ("2,5"), así que hay que mirar las dos formas
+  if (/[.,]5/.test(score1) || /[.,]5/.test(score2)) {
     individualDraws = 1;
   }
   allMatches.push({
@@ -1108,7 +1120,7 @@ resRows.forEach((r, idx) => {
     s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
   });
 });
-const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=CLASIFICACION`);
+const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=CLASIFICACION`);
 const clasText = await clasRes.text();
 const clasRows = JSON.parse(clasText.substring(47).slice(0, -2)).table.rows;
 divisionesData = {};
@@ -1303,7 +1315,7 @@ for(let key in datesMap) {
 }
 initCalendarUI();
 renderRoundUI(currentRound);
-                const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=PLAYOFFS`);
+                const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0&sheet=PLAYOFFS`);
                 const playText = await playRes.text();
                 const playRows = JSON.parse(playText.substring(47).slice(0, -2)).table.rows.slice(1);
                 renderPlayoffsUI(playRows);
@@ -2367,7 +2379,7 @@ renderRoundUI(currentRound);
         // la pestaña del cuadro. Así no hace falta duplicar el fetch ni el parseo en dos sitios.
         async function fetchCopaPartidos(forzarRecarga) {
             if (copaPartidosData && !forzarRecarga) return copaPartidosData;
-            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=COPA`);
+            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=COPA`);
             const text = await res.text();
             const rows = JSON.parse(text.substring(47).slice(0, -2)).table.rows || [];
             const getTxt = (r, i) => {
@@ -2851,19 +2863,25 @@ renderRoundUI(currentRound);
                 btn.innerText = 'Enviar Resultado de la Copa';
             }
         }
+        let calendarListenersAttached = false;
         function initCalendarUI() {
             const select = document.getElementById('round-select');
-            select.innerHTML = '';
-            for(let i=1; i<=14; i++) {
-                select.innerHTML += `<option value="${i}">Jornada ${i}</option>`;
-            }
+            // El número de jornadas sale de la propia hoja (11 esta temporada), no de un 14 fijo
+            const rondas = [...new Set(allMatches.map(m => m.round))].filter(n => !isNaN(n)).sort((a,b) => a-b);
+            const lista = rondas.length ? rondas : Array.from({length: 11}, (_, i) => i + 1);
+            const maxRonda = lista[lista.length - 1];
+            select.innerHTML = lista.map(i => `<option value="${i}">Jornada ${i}</option>`).join('');
             select.value = currentRound;
-            select.addEventListener('change', (e) => {
-                currentRound = parseInt(e.target.value);
-                renderRoundUI(currentRound);
-            });
-            document.getElementById('prev-round').onclick = () => { if(currentRound > 1) { currentRound--; select.value = currentRound; renderRoundUI(currentRound); } };
-            document.getElementById('next-round').onclick = () => { if(currentRound < 14) { currentRound++; select.value = currentRound; renderRoundUI(currentRound); } };
+            if (!select.value) select.selectedIndex = 0;
+            if (!calendarListenersAttached) {
+                select.addEventListener('change', (e) => {
+                    currentRound = parseInt(e.target.value);
+                    renderRoundUI(currentRound);
+                });
+                calendarListenersAttached = true;
+            }
+            document.getElementById('prev-round').onclick = () => { if(currentRound > lista[0]) { currentRound--; select.value = currentRound; renderRoundUI(currentRound); } };
+            document.getElementById('next-round').onclick = () => { if(currentRound < maxRonda) { currentRound++; select.value = currentRound; renderRoundUI(currentRound); } };
         }
      function renderRoundUI(rNum) {
     const container = document.getElementById('matches-grid');
@@ -2872,6 +2890,22 @@ renderRoundUI(currentRound);
     const roundInfo = datesMap[`J${rNum}`];
     document.getElementById('calendar-dates').innerText = roundInfo ? `Rango de juego: Del ${roundInfo.start} al ${roundInfo.end}` : 'Sin rango asignado';
     const roundMatches = allMatches.filter(m => m.round === rNum);
+
+    // 🚨 RED DE SEGURIDAD: si una división que SÍ aparece en la clasificación no tiene
+    // ningún partido en esta jornada, es que algo ha ido mal leyendo la hoja RESULTADOS
+    // (esto es justo lo que pasó cuando Google se comió las filas de la Chesspions).
+    // Antes fallaba en silencio; ahora se ve en pantalla y en la consola.
+    const divsSinPartidos = ordenDivisiones.filter(nd =>
+        !roundMatches.some(m => normalizaTexto(m.div) === normalizaTexto(nd))
+    );
+    if (divsSinPartidos.length > 0 && ordenDivisiones.length > 0) {
+        console.warn(`⚠️ Sin partidos en J${rNum} para: ${divsSinPartidos.join(', ')}`);
+        container.innerHTML += `
+            <div class="p-4 rounded-xl bg-red-50 border-2 border-red-300 text-red-900 text-xs font-bold sm:col-span-2">
+                ⚠️ No se han encontrado partidos de <b>${divsSinPartidos.join(', ')}</b> en la jornada ${rNum}.
+                Revisa la pestaña RESULTADOS de la hoja de cálculo.
+            </div>`;
+    }
     roundMatches.forEach(m => {
         const isFin = m.status === 'Terminado';
         const temaPartido = buscarTemaPorDivision(m.div);

@@ -170,16 +170,18 @@
                         <span class="font-bold text-amber-800">Empate entre 2 jugadores:</span>
                         <ol class="list-decimal pl-5 mt-1 space-y-1 text-stone-800">
                             <li>Enfrentamiento particular directo entre ambos.</li>
-                            <li>En caso de haber quedado 2-2, se mirará quién ha ganado <b>más jornadas globales</b>.</li>
+                            <li>Si quedaron 2-2 o todavía no se han enfrentado, se mirará quién ha ganado <b>más jornadas globales</b>.</li>
                             <li>Si persiste el empate, se clasificará quien tenga <b>más partidas individuales ganadas</b>.</li>
+                            <li>Si aún persiste el empate, se clasificará quien tenga <b>menos partidas individuales perdidas</b>.</li>
                         </ol>
                     </div>
                     <div>
                         <span class="font-bold text-amber-800">Empate entre más de 2 jugadores (Triple empate o más):</span>
                         <ol class="list-decimal pl-5 mt-1 space-y-1 text-stone-800">
-                            <li><b>Puntos en Mini-Liga particular:</b> Puntos sumados <u>exclusivamente</u> en los partidos jugados entre los implicados.</li>
+                            <li><b>Puntos en Mini-Liga particular:</b> Puntos sumados <u>exclusivamente</u> en los partidos jugados entre los implicados. Solo se aplica cuando <b>todos</b> los enfrentamientos entre ellos se han disputado; mientras falte alguno, se pasa directamente al siguiente criterio.</li>
                             <li>En caso de persistir el empate, se mirará quien haya ganado <b>más jornadas globales</b> en el torneo.</li>
                             <li>Si aún persiste el empate, se clasificará quien tenga <b>más partidas individuales ganadas</b> en el torneo.</li>
+                            <li>Si aún persiste el empate, se clasificará quien tenga <b>menos partidas individuales perdidas</b> en el torneo.</li>
                         </ol>
                     </div>
                 </div>
@@ -2483,31 +2485,66 @@ renderRoundUI(currentRound);
             });
             return pts;
         }
+        // ¿Se han jugado ya TODOS los partidos entre los jugadores implicados?
+        // Cada pareja debe tener al menos un partido terminado y ninguno pendiente.
+        function enfrentamientosCompletos(nombresImplicados, matches) {
+            for (let i = 0; i < nombresImplicados.length; i++) {
+                for (let j = i + 1; j < nombresImplicados.length; j++) {
+                    const a = nombresImplicados[i], b = nombresImplicados[j];
+                    let terminados = 0, pendientes = 0;
+                    matches.forEach(m => {
+                        const p1 = (m.p1 || '').toLowerCase().trim();
+                        const p2 = (m.p2 || '').toLowerCase().trim();
+                        if (!((p1 === a && p2 === b) || (p1 === b && p2 === a))) return;
+                        if (m.status === 'Terminado') terminados++; else pendientes++;
+                    });
+                    if (terminados === 0 || pendientes > 0) return false;
+                }
+            }
+            return true;
+        }
+        // Criterios comunes cuando el enfrentamiento directo / mini-liga no decide
+        // (o todavía no se puede aplicar porque faltan partidos entre los implicados):
+        // 1) más jornadas ganadas, 2) más partidas ganadas, 3) menos partidas perdidas
+        function compararCriteriosGlobales(a, b) {
+            const evA = Number(a.ev) || 0, evB = Number(b.ev) || 0;
+            if (evA !== evB) return evB - evA;
+            const wA = Number(a.w) || 0, wB = Number(b.w) || 0;
+            if (wA !== wB) return wB - wA;
+            const lA = Number(a.l) || 0, lB = Number(b.l) || 0;
+            if (lA !== lB) return lA - lB;
+            return 0;
+        }
         function ordenarEmpateDoble(grupo, matches) {
             const [x, y] = grupo;
-            const { ptsA, ptsB, encontrado } = resultadoEnfrentamientoDirecto(x.name, y.name, matches);
-            if (encontrado && ptsA !== ptsB) {
-                return ptsA > ptsB ? [x, y] : [y, x];
+            const implicados = [x, y].map(g => (g.name || '').toLowerCase().trim());
+            if (enfrentamientosCompletos(implicados, matches)) {
+                const { ptsA, ptsB } = resultadoEnfrentamientoDirecto(x.name, y.name, matches);
+                if (ptsA !== ptsB) return ptsA > ptsB ? [x, y] : [y, x];
             }
-            if (x.ev !== y.ev) return x.ev > y.ev ? [x, y] : [y, x];
-            if (x.w !== y.w) return x.w > y.w ? [x, y] : [y, x];
-            return grupo;
+            return compararCriteriosGlobales(x, y) <= 0 ? [x, y] : [y, x];
         }
         function ordenarEmpateTriple(grupo, matches) {
             const nombresImplicados = grupo.map(g => (g.name || '').toLowerCase().trim());
+            // La mini-liga solo cuenta cuando todos los cruces entre los implicados se han jugado;
+            // si no, un jugador podría ir por delante solo por haber jugado antes.
+            const usarMiniLiga = enfrentamientosCompletos(nombresImplicados, matches);
             return [...grupo].sort((a, b) => {
-                const pa = puntosMiniLiga(a.name, nombresImplicados, matches);
-                const pb = puntosMiniLiga(b.name, nombresImplicados, matches);
-                if (pa !== pb) return pb - pa;
-                if (a.ev !== b.ev) return b.ev - a.ev;
-                if (a.w !== b.w) return b.w - a.w;
-                return 0;
+                if (usarMiniLiga) {
+                    const pa = puntosMiniLiga(a.name, nombresImplicados, matches);
+                    const pb = puntosMiniLiga(b.name, nombresImplicados, matches);
+                    if (pa !== pb) return pb - pa;
+                }
+                return compararCriteriosGlobales(a, b);
             });
         }
         function aplicarCriteriosDesempate(rows, matches) {
             if (!rows || rows.length === 0) return rows;
+            // Se ordena por puntos aquí mismo para no depender del orden de la hoja
+            // (sort estable: a igualdad de puntos se respeta el orden original).
+            const ordenadas = [...rows].sort((a, b) => (Number(b.pts) || 0) - (Number(a.pts) || 0));
             const grupos = [];
-            rows.forEach(r => {
+            ordenadas.forEach(r => {
                 const ultimoGrupo = grupos[grupos.length - 1];
                 if (ultimoGrupo && ultimoGrupo[0].pts === r.pts) {
                     ultimoGrupo.push(r);

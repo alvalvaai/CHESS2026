@@ -3090,6 +3090,28 @@ renderRoundUI(currentRound);
         // por enfrentamiento) para no saturar a Lichess, y se guarda en memoria.
         // ==========================================================================
         const cacheAnalisis = {};
+        const pgnPorPartida = {};
+
+        // Abre Chesskit con la partida. El enlace ?lichessGameId= hace que Chesskit descargue la
+        // partida de Lichess por su cuenta, pero esa descarga (partida suelta) Lichess la bloquea
+        // desde otras webs en partidas que ya no son recientes, y Chesskit se queda en blanco.
+        // Por eso, además, le ENVIAMOS nosotros el PGN con postMessage (Chesskit lo admite
+        // oficialmente). Se reenvía unos segundos porque no sabemos cuándo termina de cargar;
+        // si llega dos veces no pasa nada, Chesskit ignora una partida que ya tiene cargada.
+        function abrirEnChesskit(ev, id) {
+            const pgn = pgnPorPartida[id];
+            if (!pgn) return true; // sin PGN: que el enlace normal haga lo que pueda
+            const w = window.open(`https://chesskit.org/?lichessGameId=${encodeURIComponent(id)}`, '_blank');
+            if (!w) return true;   // ventana bloqueada: dejamos actuar al enlace normal
+            ev.preventDefault();
+            let intentos = 0;
+            const timer = setInterval(() => {
+                intentos++;
+                if (w.closed || intentos > 25) { clearInterval(timer); return; }
+                try { w.postMessage({ pgn: pgn, orientation: 'white' }, 'https://chesskit.org'); } catch (e) {}
+            }, 800);
+            return false;
+        }
 
         function nickLichessDe(nombre) {
             const f = (typeof infoData !== 'undefined')
@@ -3115,7 +3137,9 @@ renderRoundUI(currentRound);
         }
 
         async function pedirPartidasLichess(nickA, nickB, opciones) {
-            const params = new URLSearchParams({ vs: nickB, max: String(opciones.max || 10), sort: opciones.orden || 'dateAsc', moves: 'false' });
+            // pgnInJson: nos traemos ya el PGN de cada partida para poder pasárselo a Chesskit
+            // (ver abrirEnChesskit: la descarga de partida suelta que usa Chesskit falla a veces).
+            const params = new URLSearchParams({ vs: nickB, max: String(opciones.max || 10), sort: opciones.orden || 'dateAsc', pgnInJson: 'true', clocks: 'true' });
             if (opciones.desde) params.set('since', String(opciones.desde.getTime()));
             if (opciones.hasta) params.set('until', String(opciones.hasta.getTime()));
             const res = await fetch(`https://lichess.org/api/games/user/${encodeURIComponent(nickA)}?${params}`, {
@@ -3155,6 +3179,7 @@ renderRoundUI(currentRound);
                 partidas = (await pedirPartidasLichess(nick1, nick2, { orden: 'dateDesc', max: esperadas || 4 })).reverse();
             }
 
+            partidas.forEach(g => { if (g.pgn) pgnPorPartida[g.id] = g.pgn; });
             const resultado = { partidas, ampliada, sinFechas: !ini, nick1, nick2 };
             cacheAnalisis[clave] = resultado;
             return resultado;
@@ -3216,7 +3241,7 @@ renderRoundUI(currentRound);
                     </div>
                     <p class="text-sm font-bold text-stone-900">⚪ ${palEsc(blancas)} <span class="font-normal text-stone-400">vs</span> ⚫ ${palEsc(negras)}</p>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="https://chesskit.org/?lichessGameId=${encodeURIComponent(g.id)}" target="_blank" rel="noopener"
+                        <a href="https://chesskit.org/?lichessGameId=${encodeURIComponent(g.id)}" target="_blank" onclick="return abrirEnChesskit(event, '${encodeURIComponent(g.id)}')"
                            class="text-center bg-teal-700 hover:bg-teal-800 text-white rounded-lg py-1.5 text-[11px] font-bold transition">📊 Chesskit</a>
                         <a href="https://lichess.org/${encodeURIComponent(g.id)}" target="_blank" rel="noopener"
                            class="text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ Lichess</a>

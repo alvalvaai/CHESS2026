@@ -635,6 +635,17 @@
             <div id="modal-history" class="space-y-2 max-h-56 overflow-y-auto pr-1"></div>
         </div>
     </div>
+    <!-- 📊 VENTANA MODAL: PARTIDAS DE UN ENFRENTAMIENTO, CON ENLACES DE ANÁLISIS -->
+    <div id="analisis-modal" class="hidden fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-[80]" onclick="if(event.target === this) cerrarAnalisisModal()">
+        <div class="bg-lichess-card max-w-md w-full rounded-2xl shadow-2xl overflow-hidden relative border border-stone-400 max-h-[90vh] flex flex-col">
+            <div class="p-5 bg-lichess-dark-header">
+                <button onclick="cerrarAnalisisModal()" class="absolute top-4 right-4 p-1 rounded-lg text-stone-300 hover:bg-white/10 text-lg leading-none">✕</button>
+                <p class="text-[10px] uppercase tracking-wider font-bold text-indigo-300" id="analisis-subtitulo">Análisis de partidas</p>
+                <h3 class="text-lg font-black text-white mt-0.5 pr-8" id="analisis-titulo">-</h3>
+            </div>
+            <div id="analisis-cuerpo" class="p-5 space-y-3 overflow-y-auto"></div>
+        </div>
+    </div>
     <!-- 👑 Datos del palmarés histórico (generado desde el Excel con generar_json.py) -->
     <script src="palmares-data.js"></script>
     <script>
@@ -773,7 +784,7 @@
         window.scrollTo({ top: 0, behavior: 'instant' });
     }
     // Cerrar el menú con la tecla Escape
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); if (typeof cerrarAnalisisModal === 'function') cerrarAnalisisModal(); } });
     // Estado inicial de la navegación móvil
     window.addEventListener('DOMContentLoaded', () => syncMobileNav('liga'));
 
@@ -2232,6 +2243,7 @@ renderRoundUI(currentRound);
             });
             const bloques = rondasOrden.map(ronda => {
                 const partidosRonda = rondasMap[ronda];
+                const conFechaR = partidosRonda.find(m => m.fechaInicio || m.fechaFin);
                 const tarjetas = partidosRonda.map(m => {
                     const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
                     const p2Nombre = nombreLadoCruce(m.p2, !!m.ganador);
@@ -2245,6 +2257,9 @@ renderRoundUI(currentRound);
                             </div>
                             <div class="text-right font-mono font-bold shrink-0">
                                 <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${resultadoTexto}</p>
+                                ${(m.ganador && m.p1 && m.p2) ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
+                                    sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
+                                    'mt-1 text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                             </div>
                         </div>
                     </div>`;
@@ -2314,6 +2329,7 @@ renderRoundUI(currentRound);
                         ${fechaTexto ? `<div class="text-[9px] font-bold text-indigo-700 mt-0.5">📅 ${fechaTexto}</div>` : ''}
                     </div>`;
                 }
+                const conFechaR = partidosRonda.find(m => m.fechaInicio || m.fechaFin);
                 partidosRonda.forEach(m => {
                     const y = ALTO_CABECERA + centros[`${r}_${m.slot}`] - ALTO_PARTIDO / 2;
                     const p1Nombre = nombreLadoCruce(m.p1, !!m.ganador);
@@ -2329,7 +2345,12 @@ renderRoundUI(currentRound);
                         <div class="px-2 py-1 flex justify-between items-center gap-1 h-1/2">
                             <span class="truncate font-bold ${claseP2}" ${m.p2 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p2.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p2 ? 'cursor:pointer;' : ''}">${p2Nombre}</span>
                         </div>
-                        <div class="absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-stone-400 bg-white/90 px-1 rounded" title="${resultadoTexto}">${resultadoTexto !== '- / -' ? resultadoTexto : ''}</div>
+                        ${(m.ganador && m.p1 && m.p2)
+                            ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
+                                sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
+                                'absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-teal-800 bg-teal-50 border border-teal-300 px-1 rounded hover:bg-teal-700 hover:text-white transition',
+                                `📊 ${resultadoTexto}`)
+                            : `<div class="absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-stone-400 bg-white/90 px-1 rounded" title="${resultadoTexto}">${resultadoTexto !== '- / -' ? resultadoTexto : ''}</div>`}
                     </div>`;
                 });
 
@@ -3017,6 +3038,9 @@ renderRoundUI(currentRound);
                         }
                     </span>
                     ${matchBadgeIndicator}
+                    ${isFin ? botonAnalisisHTML(m.p1, m.p2, roundInfo ? roundInfo.start : '', roundInfo ? roundInfo.end : '',
+                        sumaPuntos(m.s1, m.s2), `Jornada ${rNum} · ${m.div}`,
+                        'mt-1 block w-full text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                 </div>
             </div>
         `;
@@ -3057,6 +3081,198 @@ renderRoundUI(currentRound);
         }).join('');
     }
 }
+        // ==========================================================================
+        // 📊 ANÁLISIS DE PARTIDAS: busca en Lichess las partidas de un enfrentamiento
+        // (Liga o Copa) y ofrece abrir cada una en Chesskit o en el análisis de Lichess.
+        // No hace falta que nadie pegue enlaces: con el nick de Lichess de la pestaña
+        // INFO y las fechas de la jornada, la propia API pública de Lichess nos da las
+        // partidas jugadas entre los dos. Se pide solo al pulsar el botón (una consulta
+        // por enfrentamiento) para no saturar a Lichess, y se guarda en memoria.
+        // ==========================================================================
+        const cacheAnalisis = {};
+        const pgnPorPartida = {};
+
+        // Abre Chesskit con la partida. El enlace ?lichessGameId= hace que Chesskit descargue la
+        // partida de Lichess por su cuenta, pero esa descarga (partida suelta) Lichess la bloquea
+        // desde otras webs en partidas que ya no son recientes, y Chesskit se queda en blanco.
+        // Por eso, además, le ENVIAMOS nosotros el PGN con postMessage (Chesskit lo admite
+        // oficialmente). Se reenvía unos segundos porque no sabemos cuándo termina de cargar;
+        // si llega dos veces no pasa nada, Chesskit ignora una partida que ya tiene cargada.
+        function abrirEnChesskit(ev, id) {
+            const pgn = pgnPorPartida[id];
+            if (!pgn) return true; // sin PGN: que el enlace normal haga lo que pueda
+            const w = window.open(`https://chesskit.org/?lichessGameId=${encodeURIComponent(id)}`, '_blank');
+            if (!w) return true;   // ventana bloqueada: dejamos actuar al enlace normal
+            ev.preventDefault();
+            let intentos = 0;
+            const timer = setInterval(() => {
+                intentos++;
+                if (w.closed || intentos > 25) { clearInterval(timer); return; }
+                try { w.postMessage({ pgn: pgn, orientation: 'white' }, 'https://chesskit.org'); } catch (e) {}
+            }, 800);
+            return false;
+        }
+
+        function nickLichessDe(nombre) {
+            const f = (typeof infoData !== 'undefined')
+                ? infoData.find(p => (p.name || '').toLowerCase().trim() === (nombre || '').toLowerCase().trim())
+                : null;
+            return (f && f.lichess ? f.lichess : nombre || '').toString().trim();
+        }
+
+        // Acepta "dd/mm", "dd/mm/aaaa" o "aaaa-mm-dd". Sin año, usa el actual (igual que el calendario).
+        function parseFechaApp(txt, finDeDia) {
+            if (!txt) return null;
+            const s = txt.toString().trim();
+            let d, m, a;
+            let r = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+            if (r) { a = +r[1]; m = +r[2]; d = +r[3]; }
+            else {
+                r = s.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/);
+                if (!r) return null;
+                d = +r[1]; m = +r[2]; a = r[3] ? +r[3] : new Date().getFullYear();
+                if (a < 100) a += 2000;
+            }
+            return finDeDia ? new Date(a, m - 1, d, 23, 59, 59) : new Date(a, m - 1, d, 0, 0, 0);
+        }
+
+        async function pedirPartidasLichess(nickA, nickB, opciones) {
+            // pgnInJson: nos traemos ya el PGN de cada partida para poder pasárselo a Chesskit
+            // (ver abrirEnChesskit: la descarga de partida suelta que usa Chesskit falla a veces).
+            const params = new URLSearchParams({ vs: nickB, max: String(opciones.max || 10), sort: opciones.orden || 'dateAsc', pgnInJson: 'true', clocks: 'true' });
+            if (opciones.desde) params.set('since', String(opciones.desde.getTime()));
+            if (opciones.hasta) params.set('until', String(opciones.hasta.getTime()));
+            const res = await fetch(`https://lichess.org/api/games/user/${encodeURIComponent(nickA)}?${params}`, {
+                headers: { 'Accept': 'application/x-ndjson' }
+            });
+            if (res.status === 429) throw new Error('Lichess pide un respiro (demasiadas consultas). Prueba en un minuto.');
+            if (res.status === 404) throw new Error(`Lichess no encuentra al usuario "${nickA}". Revisa su nick en la pestaña INFO.`);
+            if (!res.ok) throw new Error('Lichess no ha respondido bien (código ' + res.status + ').');
+            const texto = await res.text();
+            return texto.split('\n').filter(l => l.trim()).map(l => JSON.parse(l))
+                .filter(g => g.variant === 'standard' && g.status !== 'aborted' && g.status !== 'noStart');
+        }
+
+        // Ventana de búsqueda: desde 1 día antes del inicio de la jornada hasta 2 días después
+        // del final. Si ahí no aparece nada (partido aplazado y jugado más tarde), se amplía
+        // hasta hoy. Sin fechas, se cogen las últimas partidas entre los dos.
+        async function buscarPartidasEnfrentamiento(p1, p2, fechaIni, fechaFin, esperadas) {
+            const nick1 = nickLichessDe(p1), nick2 = nickLichessDe(p2);
+            const clave = [nick1, nick2, fechaIni, fechaFin].join('|').toLowerCase();
+            if (cacheAnalisis[clave]) return cacheAnalisis[clave];
+
+            const ini = parseFechaApp(fechaIni, false);
+            const fin = parseFechaApp(fechaFin, true);
+            const UN_DIA = 24 * 3600 * 1000;
+            let partidas = [];
+            let ampliada = false;
+
+            if (ini) {
+                const desde = new Date(ini.getTime() - UN_DIA);
+                const hasta = fin ? new Date(fin.getTime() + 2 * UN_DIA) : null;
+                partidas = await pedirPartidasLichess(nick1, nick2, { desde, hasta, max: 10 });
+                if (partidas.length === 0 && hasta) {
+                    partidas = await pedirPartidasLichess(nick1, nick2, { desde, max: esperadas || 4 });
+                    ampliada = partidas.length > 0;
+                }
+            } else {
+                partidas = (await pedirPartidasLichess(nick1, nick2, { orden: 'dateDesc', max: esperadas || 4 })).reverse();
+            }
+
+            partidas.forEach(g => { if (g.pgn) pgnPorPartida[g.id] = g.pgn; });
+            const resultado = { partidas, ampliada, sinFechas: !ini, nick1, nick2 };
+            cacheAnalisis[clave] = resultado;
+            return resultado;
+        }
+
+        function abrirAnalisisDesdeBoton(el) {
+            const d = el.dataset;
+            abrirAnalisisModal(d.p1, d.p2, d.ini, d.fin, parseInt(d.esperadas) || 0, d.titulo);
+        }
+
+        async function abrirAnalisisModal(p1, p2, fechaIni, fechaFin, esperadas, subtitulo) {
+            const modal = document.getElementById('analisis-modal');
+            const cuerpo = document.getElementById('analisis-cuerpo');
+            document.getElementById('analisis-titulo').textContent = `${p1} vs ${p2}`;
+            document.getElementById('analisis-subtitulo').textContent = subtitulo || 'Análisis de partidas';
+            cuerpo.innerHTML = `<p class="text-sm text-stone-500 text-center py-6 animate-pulse">♞ Buscando las partidas en Lichess…</p>`;
+            modal.classList.remove('hidden');
+
+            const enlaceBusqueda = 'https://lichess.org/games/search?players.a=' + encodeURIComponent(nickLichessDe(p1))
+                + '&players.b=' + encodeURIComponent(nickLichessDe(p2)) + '&sort.field=d&sort.order=desc#results';
+
+            let datos;
+            try {
+                datos = await buscarPartidasEnfrentamiento(p1, p2, fechaIni, fechaFin, esperadas);
+            } catch (err) {
+                console.error('Error buscando partidas en Lichess:', err);
+                cuerpo.innerHTML = `
+                    <div class="p-4 rounded-xl bg-red-50 border border-red-300 text-red-900 text-xs font-bold">⚠️ ${palEsc(err.message || err)}</div>
+                    <a href="${enlaceBusqueda}" target="_blank" class="block text-center text-xs font-bold text-indigo-800 underline">Buscar las partidas a mano en Lichess</a>`;
+                return;
+            }
+
+            if (datos.partidas.length === 0) {
+                cuerpo.innerHTML = `
+                    <p class="text-sm text-stone-700">No he encontrado partidas en Lichess entre <b>${palEsc(datos.nick1)}</b> y <b>${palEsc(datos.nick2)}</b> en las fechas de esta ronda.</p>
+                    <p class="text-xs text-stone-500">Puede que se jugaran con otra cuenta, en otra web, o que el nick de alguno no esté bien en la pestaña INFO.</p>
+                    <a href="${enlaceBusqueda}" target="_blank" class="block text-center text-xs font-bold text-indigo-800 underline">Buscar las partidas a mano en Lichess</a>`;
+                return;
+            }
+
+            const avisos = [];
+            if (datos.ampliada) avisos.push('Fuera de las fechas de la ronda no había nada, así que he buscado las jugadas después (partido aplazado).');
+            if (datos.sinFechas) avisos.push('Esta ronda no tiene fechas en la hoja: muestro las últimas partidas entre los dos.');
+            if (esperadas && datos.partidas.length !== esperadas) {
+                avisos.push(`El marcador suma ${esperadas} partidas y en Lichess aparecen ${datos.partidas.length}${datos.partidas.length > esperadas ? ' (puede haber alguna amistosa o de desempate)' : ''}.`);
+            }
+
+            const tarjetas = datos.partidas.map((g, i) => {
+                const blancas = g.players?.white?.user?.name || '?';
+                const negras = g.players?.black?.user?.name || '?';
+                const res = g.winner === 'white' ? '1-0' : g.winner === 'black' ? '0-1' : '½-½';
+                const fecha = new Date(g.createdAt).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+                const ritmo = g.clock ? `${Math.round(g.clock.initial / 60)}+${g.clock.increment}` : (g.speed || '');
+                return `
+                <div class="p-3 bg-white rounded-xl border border-stone-300 space-y-2">
+                    <div class="flex justify-between items-center gap-2">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-stone-500">Partida ${i + 1} · ${fecha}${ritmo ? ' · ' + ritmo : ''}</span>
+                        <span class="font-mono text-xs font-black bg-stone-800 text-white px-2 py-0.5 rounded">${res}</span>
+                    </div>
+                    <p class="text-sm font-bold text-stone-900">⚪ ${palEsc(blancas)} <span class="font-normal text-stone-400">vs</span> ⚫ ${palEsc(negras)}</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="https://chesskit.org/?lichessGameId=${encodeURIComponent(g.id)}" target="_blank" onclick="return abrirEnChesskit(event, '${encodeURIComponent(g.id)}')"
+                           class="text-center bg-teal-700 hover:bg-teal-800 text-white rounded-lg py-1.5 text-[11px] font-bold transition">📊 Chesskit</a>
+                        <a href="https://lichess.org/${encodeURIComponent(g.id)}" target="_blank" rel="noopener"
+                           class="text-center bg-indigo-800 hover:bg-indigo-900 text-white rounded-lg py-1.5 text-[11px] font-bold transition">♞ Lichess</a>
+                    </div>
+                </div>`;
+            }).join('');
+
+            cuerpo.innerHTML = `
+                ${avisos.map(a => `<p class="text-[11px] text-amber-900 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">${palEsc(a)}</p>`).join('')}
+                ${tarjetas}
+                <p class="text-[10px] text-stone-500 text-center">Chesskit analiza la partida solo al abrirla (tarda unos segundos, sobre todo en el móvil). En Lichess, el análisis por ordenador se pide desde la propia partida.</p>`;
+        }
+
+        function cerrarAnalisisModal() {
+            document.getElementById('analisis-modal').classList.add('hidden');
+        }
+
+        // Botoncito "📊" listo para meter en una tarjeta de partido. Devuelve '' si no procede.
+        function botonAnalisisHTML(p1, p2, fechaIni, fechaFin, esperadas, titulo, clases, etiqueta) {
+            if (!p1 || !p2) return '';
+            return `<button type="button" onclick="event.stopPropagation(); abrirAnalisisDesdeBoton(this)"
+                data-p1="${palEsc(p1)}" data-p2="${palEsc(p2)}" data-ini="${palEsc(fechaIni || '')}" data-fin="${palEsc(fechaFin || '')}"
+                data-esperadas="${esperadas || 0}" data-titulo="${palEsc(titulo || '')}"
+                title="Ver y analizar las partidas" class="${clases}">${etiqueta || '📊 Análisis'}</button>`;
+        }
+        function sumaPuntos(a, b) {
+            const n = v => parseFloat((v || '').toString().replace(',', '.'));
+            const s = n(a) + n(b);
+            return isNaN(s) ? 0 : Math.round(s);
+        }
+
         function renderPlayoffsUI(rows) {
             const container = document.getElementById('playoffs-container');
             container.innerHTML = '';

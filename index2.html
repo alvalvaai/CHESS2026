@@ -314,13 +314,42 @@
                 </h2>
                 <input id="peones-search" type="text" placeholder="🔍 Buscar por nombre o nick..." class="w-full sm:w-72 px-4 py-2 rounded-xl border border-stone-300 bg-white text-sm text-stone-800 focus:outline-none focus:ring-2 focus:ring-indigo-700">
             </div>
-            <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
-            <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
-                <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
-                <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
-            </a>
-            <div id="peones-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando fichas de los participantes...</p>
+            <!-- Interruptor: Fichas / Ranking ELO -->
+            <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300 max-w-md">
+                <button id="peones-vista-fichas-btn" type="button" onclick="cambiarVistaPeones('fichas')" class="bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">📇 Fichas</button>
+                <button id="peones-vista-ranking-btn" type="button" onclick="cambiarVistaPeones('ranking')" class="text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">⚡ Ranking ELO</button>
+            </div>
+            <!-- VISTA: FICHAS -->
+            <div id="peones-vista-fichas">
+                <p class="text-xs text-stone-500 mb-5">Así se han presentado los jugadores en el cuestionario de bienvenida de la liga.</p>
+                <a href="https://forms.gle/fEHX1GCnm2n2fkn67" target="_blank" class="flex items-center justify-between gap-3 bg-indigo-800 hover:bg-indigo-900 text-white rounded-xl px-4 py-3 mb-5 transition shadow-sm">
+                    <span class="text-sm font-bold">📝 ¿Aún no tienes tu ficha? Rellena el cuestionario aquí</span>
+                    <span class="text-xs font-bold bg-white/20 px-3 py-1.5 rounded-lg whitespace-nowrap">Abrir formulario ↗</span>
+                </a>
+                <div id="peones-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    <p class="text-stone-500 italic text-center py-8 col-span-full">Cargando fichas de los participantes...</p>
+                </div>
+            </div>
+            <!-- VISTA: RANKING ELO (Lichess) -->
+            <div id="peones-vista-ranking" class="hidden space-y-4">
+                <p class="text-xs text-stone-500">ELO de Lichess de cada jugador. La <b>media</b> combina Blitz y Rápidas, igual que cada enfrentamiento (2 partidas de cada ritmo). Pulsa un nombre para abrir su ficha.</p>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 mr-1">Ritmo</span>
+                    <div id="elo-ritmos" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-stone-500 mr-1">Ámbito</span>
+                    <div id="elo-ambitos" class="flex flex-wrap gap-2"></div>
+                </div>
+                <div class="overflow-x-auto rounded-xl border border-stone-300 bg-white">
+                    <table class="w-full text-left border-collapse text-sm whitespace-nowrap">
+                        <thead id="elo-cabecera"></thead>
+                        <tbody id="elo-cuerpo" class="divide-y divide-stone-200">
+                            <tr><td class="text-center text-stone-500 italic py-8">Cargando ranking ELO...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p id="elo-nota" class="text-[11px] text-stone-500 font-medium leading-relaxed"></p>
             </div>
         </div>
     </div>
@@ -552,6 +581,11 @@
                         <div class="flex items-center gap-1.5"><span>🍩</span> <span class="font-bold text-amber-900">Rey del Rosco (Más 4-0)</span></div>
                         <div class="flex items-center gap-1.5"><span>🇯🇵</span> <span class="font-bold text-red-900">Samurái (Más 0-4)</span></div>
                     </div>
+                    <p class="pt-2 border-t border-stone-200 text-[11px] font-medium leading-snug">
+                        <span class="font-black text-emerald-700">▲</span><span class="font-black text-red-700">▼</span>
+                        <b class="text-stone-950">Rendimiento vs ELO:</b> puestos que va por encima (▲) o por debajo (▼) de lo que le tocaría por su ELO medio de Lichess dentro de su división.
+                        <button type="button" onclick="irARankingElo('', '')" class="font-bold text-indigo-800 underline">Ver ranking ELO</button>
+                    </p>
                 </div>
                 <div class="p-4 bg-lichess-card rounded-xl border border-stone-300 space-y-2">
                     <p class="text-stone-900 uppercase tracking-wider font-black text-[10px]">ESTRUCTURA DE LA TABLA Y COLORES:</p>
@@ -1239,8 +1273,21 @@ const buildTableHTML = (rows, tema, nombreDivision) => {
             maxRoscosRecibidosEnDivision = countRecibidos;
         }
     });
+// ▲▼ Rendimiento frente al ELO medio dentro de la división. Solo se enseña
+// cuando ya se ha jugado algo (en la J0 todos van "empatados" y no dice nada).
+const hayPartidasEnDivision = rows.some(r => (Number(r.j) || 0) > 0);
+const difEloDivision = hayPartidasEnDivision ? calcularDifElo(rows, 'media') : {};
 rows.forEach((r, index) => {
     let badge = '';
+    const infoDif = difEloDivision[normalizaTexto(r.name)];
+    let flechaElo = '';
+    if (infoDif && infoDif.dif !== 0) {
+        const sube = infoDif.dif > 0;
+        flechaElo = `<button type="button" onclick="event.stopPropagation(); irARankingEloDesde(this)"
+            data-elo-div="${palEsc(nombreDivision)}" data-elo-jugador="${palEsc(r.name)}"
+            title="${infoDif.eloRank}º por ELO medio en la división · ${infoDif.ligaRank}º en la liga. Toca para ver el ranking ELO"
+            class="ml-1.5 align-middle text-[10px] font-black px-1.5 py-0.5 rounded border transition ${sube ? 'text-emerald-800 bg-emerald-50 border-emerald-300 hover:bg-emerald-700' : 'text-red-800 bg-red-50 border-red-300 hover:bg-red-700'} hover:text-white">${sube ? '▲' : '▼'}${Math.abs(infoDif.dif)}</button>`;
+    }
     if(r.t === limits.maxT && r.t > 0) badge += ' 🤝';
     if(r.w === limits.maxW && r.w > 0) badge += ' 👑';
     if(r.l === limits.minL) badge += ' 🛡️';
@@ -1263,7 +1310,7 @@ rows.forEach((r, index) => {
         }
                         html += `<tr style="${estiloFila}" class="border-b border-stone-300 cursor-pointer transition ${rowStyle} ${textStyle}" onclick="openPlayerModal('${r.name.replace(/'/g, "\\'")}', '${r.div}')">
                             <td class="py-3 px-3 font-black text-center text-stone-600">${r.pos}</td>
-                            <td class="py-3 px-3 font-bold text-stone-900">${r.name}${badge}</td>
+                            <td class="py-3 px-3 font-bold text-stone-900">${r.name}${badge}${flechaElo}</td>
                             <td class="py-3 px-4 text-center ${tema.puntosCelda} font-black text-stone-950 text-base border-l border-r border-stone-300">${r.pts}</td>
                             <td class="py-3 px-2 text-center text-indigo-900 font-bold">${r.ev}</td>
                             <td class="py-3 px-2 text-center text-rose-700">${r.ed}</td>
@@ -1328,6 +1375,8 @@ for(let key in datesMap) {
 }
 initCalendarUI();
 renderRoundUI(currentRound);
+// Si el ranking ELO está abierto (p.ej. tras reportar un resultado), lo repintamos con los datos nuevos
+if (ELO.vista === 'ranking') renderRankingElo();
                 const playRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0&sheet=PLAYOFFS`);
                 const playText = await playRes.text();
                 const playRows = JSON.parse(playText.substring(47).slice(0, -2)).table.rows.slice(1);
@@ -1457,6 +1506,230 @@ renderRoundUI(currentRound);
         }
         function normalizaTexto(s) {
             return (s || '').toString().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim();
+        }
+
+        // ==========================================================
+        // ⚡ RANKING ELO (pestaña Peones) + flechitas ▲▼ de la Liga
+        // ----------------------------------------------------------
+        // Lee la hoja ELO_RANKING tal como la escribe actualizarEloLichess()
+        // en Code.gs: "(3) 1743" o "N/A". De ahí se queda solo con el número
+        // y recalcula los puestos (global o por división), así que el script
+        // de Lichess no hay que tocarlo.
+        // La MEDIA es la de Blitz y Rápidas, porque cada enfrentamiento son
+        // 2 partidas a 10'+0 (rápidas en Lichess) y 2 a 3'+2" (blitz). Si
+        // alguien solo tiene uno de los dos, se usa ese.
+        // ==========================================================
+        const ELO = { vista: 'fichas', ritmo: 'media', ambito: '', resaltar: '' };
+        const ELO_RITMOS = [
+            { id: 'media',   txt: '⚖️ Media' },
+            { id: 'blitz',   txt: '⏱️ Blitz' },
+            { id: 'rapidas', txt: '🐢 Rápidas' }
+        ];
+
+        // "(3) 1743" -> 1743 ; "N/A" -> null
+        function parseEloTexto(v) {
+            if (v === null || v === undefined) return null;
+            const limpio = v.toString().replace(/\(\s*\d+\s*\)/g, '').trim();
+            const n = parseInt(limpio.replace(/[^0-9]/g, ''), 10);
+            return Number.isFinite(n) && n > 0 ? n : null;
+        }
+
+        function eloDeJugador(nombre) {
+            const clave = normalizaTexto(nombre);
+            const e = (Array.isArray(eloRankingData) ? eloRankingData : [])
+                .find(x => x && x.Jugador && normalizaTexto(x.Jugador) === clave);
+            const blitz = e ? parseEloTexto(e.Ranking_Blitz) : null;
+            const rapidas = e ? parseEloTexto(e.Ranking_Rapidas) : null;
+            let media = null;
+            if (blitz && rapidas) media = Math.round((blitz + rapidas) / 2);
+            else media = blitz || rapidas || null;
+            return { blitz, rapidas, media };
+        }
+
+        // Compara, dentro de una división, el puesto por ELO con el puesto en la liga.
+        // Las dos posiciones se cuentan SOLO entre los jugadores que tienen ELO en ese
+        // ritmo, para que un jugador sin ELO no descuadre la comparación del resto.
+        // rows = clasificación de la división, ya ordenada (la de aplicarCriteriosDesempate).
+        // Devuelve { nombreNormalizado: { eloRank, ligaRank, dif } }, dif > 0 = rinde por encima.
+        function calcularDifElo(rows, ritmo) {
+            const conElo = (rows || [])
+                .map(r => ({ r, elo: eloDeJugador(r.name)[ritmo] }))
+                .filter(x => x.elo);
+            const porLiga = conElo.slice().sort((a, b) => (Number(a.r.pos) || 99) - (Number(b.r.pos) || 99));
+            const porElo = conElo.slice().sort((a, b) => b.elo - a.elo);
+            const salida = {};
+            porLiga.forEach((x, i) => {
+                const eloRank = porElo.indexOf(x) + 1;
+                const ligaRank = i + 1;
+                salida[normalizaTexto(x.r.name)] = { eloRank, ligaRank, dif: eloRank - ligaRank };
+            });
+            return salida;
+        }
+
+        // Lista de jugadores para el ranking: todos los de la clasificación (con su
+        // división) más cualquiera que esté en ELO_RANKING y no aparezca en ella.
+        function construirListaElo() {
+            const lista = [];
+            const vistos = new Set();
+            (ordenDivisiones || []).forEach(div => {
+                (divisionesData[div] || []).forEach(r => {
+                    const k = normalizaTexto(r.name);
+                    if (vistos.has(k)) return;
+                    vistos.add(k);
+                    lista.push(Object.assign({ nombre: r.name, div, posLiga: r.pos }, eloDeJugador(r.name)));
+                });
+            });
+            (Array.isArray(eloRankingData) ? eloRankingData : []).forEach(e => {
+                if (!e || !e.Jugador) return;
+                const k = normalizaTexto(e.Jugador);
+                if (vistos.has(k)) return;
+                vistos.add(k);
+                lista.push(Object.assign({ nombre: e.Jugador.toString(), div: '', posLiga: null }, eloDeJugador(e.Jugador)));
+            });
+            return lista;
+        }
+
+        function cambiarVistaPeones(vista) {
+            ELO.vista = vista;
+            const esRanking = vista === 'ranking';
+            const activo = 'bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const inactivo = 'text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const bF = document.getElementById('peones-vista-fichas-btn');
+            const bR = document.getElementById('peones-vista-ranking-btn');
+            if (bF) bF.className = esRanking ? inactivo : activo;
+            if (bR) bR.className = esRanking ? activo : inactivo;
+            document.getElementById('peones-vista-fichas').classList.toggle('hidden', esRanking);
+            document.getElementById('peones-vista-ranking').classList.toggle('hidden', !esRanking);
+            // El buscador de fichas no pinta nada en el ranking
+            const buscador = document.getElementById('peones-search');
+            if (buscador) buscador.classList.toggle('hidden', esRanking);
+            if (esRanking) renderRankingElo();
+        }
+
+        function setEloRitmo(r) { ELO.ritmo = r; ELO.resaltar = ''; renderRankingElo(); }
+        function setEloAmbito(a) { ELO.ambito = a; ELO.resaltar = ''; renderRankingElo(); }
+        function setEloAmbitoDesde(el) { setEloAmbito(el.getAttribute('data-ambito') || ''); }
+
+        // Llamado desde las flechitas ▲▼ de la clasificación (y desde la leyenda).
+        function irARankingEloDesde(el) {
+            irARankingElo(el.getAttribute('data-elo-div') || '', el.getAttribute('data-elo-jugador') || '');
+        }
+        function irARankingElo(division, jugador) {
+            ELO.ambito = division || '';
+            ELO.ritmo = 'media';
+            ELO.resaltar = jugador || '';
+            switchTab('peones');
+            cambiarVistaPeones('ranking');
+            if (jugador) {
+                requestAnimationFrame(() => {
+                    const fila = document.querySelector('#elo-cuerpo tr[data-resaltado="1"]');
+                    if (fila) fila.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            }
+        }
+
+        function renderRankingElo() {
+            const cuerpo = document.getElementById('elo-cuerpo');
+            const cabecera = document.getElementById('elo-cabecera');
+            if (!cuerpo || !cabecera) return;
+
+            // Si la división elegida ya no existe (nueva temporada, etc.), volvemos a Global
+            if (ELO.ambito && !(ordenDivisiones || []).includes(ELO.ambito)) ELO.ambito = '';
+
+            const btn = (activo) => `px-3 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider border transition ${activo ? 'bg-lichess-dark-header text-white border-transparent' : 'bg-white text-stone-500 border-stone-300 hover:border-indigo-400 hover:text-indigo-800'}`;
+            document.getElementById('elo-ritmos').innerHTML = ELO_RITMOS.map(r =>
+                `<button type="button" onclick="setEloRitmo('${r.id}')" class="${btn(ELO.ritmo === r.id)}">${r.txt}</button>`
+            ).join('');
+            const ambitos = [{ id: '', txt: '🌍 Global' }].concat((ordenDivisiones || []).map(d => ({
+                id: d, txt: `${(temaPorDivision[d] || TEMAS_DIVISION[0]).icono} ${d}`
+            })));
+            document.getElementById('elo-ambitos').innerHTML = ambitos.map(a =>
+                `<button type="button" data-ambito="${palEsc(a.id)}" onclick="setEloAmbitoDesde(this)" class="${btn(ELO.ambito === a.id)}">${palEsc(a.txt)}</button>`
+            ).join('');
+
+            const ritmo = ELO.ritmo;
+            const enDivision = !!ELO.ambito;
+            let lista = construirListaElo();
+            if (enDivision) lista = lista.filter(j => j.div === ELO.ambito);
+
+            // Con ELO primero (de mayor a menor), sin ELO al final por orden alfabético
+            lista.sort((a, b) => {
+                if (a[ritmo] && b[ritmo]) return b[ritmo] - a[ritmo];
+                if (a[ritmo]) return -1;
+                if (b[ritmo]) return 1;
+                return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+            });
+
+            const difs = enDivision ? calcularDifElo(divisionesData[ELO.ambito] || [], ritmo) : {};
+            const hayPartidas = enDivision && (divisionesData[ELO.ambito] || []).some(r => (Number(r.j) || 0) > 0);
+
+            const th = (txt, col, extra) => `<th class="py-2.5 px-3 ${extra || ''} ${col && col === ritmo ? 'text-indigo-800' : ''}">${txt}</th>`;
+            cabecera.innerHTML = `<tr class="border-b border-stone-300 bg-stone-200/60 text-stone-700 font-bold text-xs uppercase tracking-wider">
+                ${th('#', null, 'text-center w-10')}
+                ${th('Jugador')}
+                ${enDivision ? '' : th('División')}
+                ${th('⏱️ Blitz', 'blitz', 'text-right')}
+                ${th('🐢 Ráp.', 'rapidas', 'text-right')}
+                ${th('⚖️ Media', 'media', 'text-right')}
+                ${enDivision && hayPartidas ? th('Liga', null, 'text-center') + th('vs ELO', null, 'text-center') : ''}
+            </tr>`;
+
+            if (!lista.length) {
+                cuerpo.innerHTML = `<tr><td colspan="8" class="text-center text-stone-500 italic py-8">Todavía no hay datos de ELO. Ejecuta "Actualizar ELO" en el menú de la hoja.</td></tr>`;
+                return;
+            }
+
+            let puesto = 0;
+            cuerpo.innerHTML = lista.map(j => {
+                const tieneValor = !!j[ritmo];
+                if (tieneValor) puesto++;
+                const resaltado = ELO.resaltar && normalizaTexto(ELO.resaltar) === normalizaTexto(j.nombre);
+                const medalla = tieneValor ? (puesto === 1 ? '🥇' : puesto === 2 ? '🥈' : puesto === 3 ? '🥉' : '') : '';
+                const celdaElo = (col) => {
+                    const v = j[col];
+                    const fuerte = col === ritmo ? 'font-black text-stone-900' : 'font-semibold text-stone-500';
+                    return `<td class="py-2 px-3 text-right ${fuerte}">${v ? v : '<span class="text-stone-300">—</span>'}</td>`;
+                };
+                const tema = j.div ? (temaPorDivision[j.div] || TEMAS_DIVISION[0]) : null;
+                const chapaDiv = j.div
+                    ? `<span class="text-[9px] uppercase font-black px-2 py-0.5 rounded-md border ${tema.calBadge} tracking-wider">${palEsc(j.div)}</span>`
+                    : '<span class="text-[10px] text-stone-400 font-semibold">Sin división</span>';
+
+                let colsLiga = '';
+                if (enDivision && hayPartidas) {
+                    const d = difs[normalizaTexto(j.nombre)];
+                    let flecha = '<span class="text-stone-300">—</span>';
+                    if (d) {
+                        flecha = d.dif > 0 ? `<span class="font-black text-emerald-700">▲${d.dif}</span>`
+                               : d.dif < 0 ? `<span class="font-black text-red-700">▼${Math.abs(d.dif)}</span>`
+                               : '<span class="font-bold text-stone-400">=</span>';
+                    }
+                    colsLiga = `<td class="py-2 px-3 text-center font-bold text-stone-700">${j.posLiga ? j.posLiga + 'º' : '—'}</td>
+                                <td class="py-2 px-3 text-center">${flecha}</td>`;
+                }
+
+                return `<tr data-resaltado="${resaltado ? 1 : 0}" class="transition ${resaltado ? 'bg-amber-100 ring-2 ring-inset ring-amber-400' : ''}">
+                    <td class="py-2 px-3 text-center font-black text-stone-500">${tieneValor ? `${medalla} ${puesto}` : ''}</td>
+                    <td class="py-2 px-3"><button type="button" data-jugador-elo="${palEsc(j.nombre)}" data-div-elo="${palEsc(j.div || '')}"
+                        onclick="openPlayerModal(this.getAttribute('data-jugador-elo'), this.getAttribute('data-div-elo'))"
+                        class="font-black text-stone-900 hover:text-indigo-700 hover:underline transition text-left">${palEsc(j.nombre)}</button></td>
+                    ${enDivision ? '' : `<td class="py-2 px-3">${chapaDiv}</td>`}
+                    ${celdaElo('blitz')}${celdaElo('rapidas')}${celdaElo('media')}
+                    ${colsLiga}
+                </tr>`;
+            }).join('');
+
+            const nota = document.getElementById('elo-nota');
+            if (nota) {
+                const partes = [];
+                partes.push('Datos de la hoja ELO_RANKING (se refrescan con "Actualizar ELO"). Quien no tiene partidas valoradas en Lichess a ese ritmo sale con — y al final de la tabla.');
+                if (enDivision && hayPartidas) {
+                    partes.push('<b>vs ELO</b>: puestos que va por encima (▲) o por debajo (▼) en la liga respecto a su puesto por ELO en esta división. Se cuenta solo entre los que tienen ELO a este ritmo.');
+                } else if (enDivision) {
+                    partes.push('La comparación con la liga aparecerá en cuanto se juegue la primera jornada.');
+                }
+                nota.innerHTML = partes.join('<br>');
+            }
         }
         function buscarTemaPorDivision(nombreDiv) {
             const objetivo = normalizaTexto(nombreDiv);

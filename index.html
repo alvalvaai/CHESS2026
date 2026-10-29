@@ -4076,6 +4076,37 @@ if (ELO.vista === 'ranking') renderRankingElo();
   <div class="aviso-caja">
     <div class="aviso-icono">♞</div>
     <h1 id="aviso-titulo">Antes de entrar…</h1>
+
+    <!-- 🆕 NOVEDADES: cuando ya no hagan falta, borra desde aquí hasta "FIN NOVEDADES" -->
+    <div class="aviso-novedades">
+      <p class="aviso-novedades-titulo">🆕 Novedades en la app</p>
+      <ul class="aviso-lista">
+        <li>
+          <span>📊</span>
+          <div><b>Analiza tus partidas.</b> En los resultados de cada jornada (y en
+          la Copa), los partidos terminados tienen un botón <i>📊 Análisis</i> para
+          abrirlas en Chesskit o en Lichess.</div>
+        </li>
+        <li>
+          <span>⚡</span>
+          <div><b>Ranking ELO de Lichess</b> en <i>Peones → Ranking ELO</i>: Blitz,
+          Rápidas o la media, global o por división.</div>
+        </li>
+        <li>
+          <span>🚀</span>
+          <div><b>Revelación 🚀 y Pinchazo 🧊</b> en la clasificación: quién va más
+          por encima o por debajo de lo que le toca por su ELO. Tócalos para ver el ranking.</div>
+        </li>
+        <li>
+          <span>🔗</span>
+          <div><b>Recursos</b> en <i>Mundo Chess</i>: webs para jugar, entrenar,
+          preparar aperturas y canales que seguir. ¿Echas algo en falta?
+          ¡Sugiérelo desde ahí!</div>
+        </li>
+      </ul>
+    </div>
+    <!-- FIN NOVEDADES -->
+
     <p class="aviso-sub">Tres cosas que todo jugador tiene que tener claras</p>
 
     <ul class="aviso-lista">
@@ -4137,6 +4168,11 @@ if (ELO.vista === 'ranking') renderRankingElo();
   }
   .aviso-lista li > span{ font-size:1.4rem; line-height:1.2; flex-shrink:0; }
   .aviso-lista b{ color:#fff; }
+  .aviso-novedades{
+    background:rgba(245,185,66,.12); border:1px solid rgba(245,185,66,.45);
+    border-radius:12px; padding:12px 14px 2px; margin:0 0 18px;
+  }
+  .aviso-novedades-titulo{ margin:0 0 8px; font-weight:800; color:#f5b942; font-size:.95rem; }
 
   #aviso-aceptar{
     width:100%; padding:14px; border:0; border-radius:12px;
@@ -4149,7 +4185,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
 <script>
 (function () {
   var MODO = 'semanal';        // 'semanal' o 'siempre'
-  var AVISO_VERSION = '1';     // súbelo si cambias el texto del aviso
+  var AVISO_VERSION = '2';     // súbelo si cambias el texto del aviso ('2' = novedades Análisis + ELO + Recursos)
   var CLAVE = 'chess_aviso_aceptado';
 
   var aviso = document.getElementById('aviso-inicio');

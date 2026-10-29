@@ -286,10 +286,58 @@
 <div id="content-mundo-chess" class="hidden space-y-4">
     <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400 max-w-2xl mx-auto">
         <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
-            🌍 Noticias Mundiales de Ajedrez
+            🌍 Mundo Chess
         </h2>
-        <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
-            <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
+        <!-- Interruptor: Noticias / Recursos -->
+        <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
+            <button id="mundo-vista-noticias-btn" type="button" onclick="cambiarVistaMundo('noticias')" class="bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">📰 Noticias</button>
+            <button id="mundo-vista-recursos-btn" type="button" onclick="cambiarVistaMundo('recursos')" class="text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🔗 Recursos</button>
+        </div>
+        <!-- VISTA: NOTICIAS -->
+        <div id="mundo-vista-noticias">
+            <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
+                <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
+            </div>
+        </div>
+        <!-- VISTA: RECURSOS (webs, apps y canales recomendados) -->
+        <div id="mundo-vista-recursos" class="hidden space-y-5">
+            <p class="text-xs text-stone-500">Webs, apps y canales que usamos o recomendamos en la liga. ¿Echas algo en falta? Sugiérelo al final.</p>
+            <div id="recursos-filtros" class="flex flex-wrap gap-2"></div>
+            <div id="recursos-lista" class="space-y-6">
+                <p class="text-stone-500 italic text-center py-4">Cargando recursos...</p>
+            </div>
+            <!-- Sugerir un recurso -->
+            <details id="recursos-sugerir" class="bg-white border border-stone-300 rounded-xl group">
+                <summary class="cursor-pointer list-none px-4 py-3 flex items-center justify-between gap-3">
+                    <span class="text-sm font-black text-stone-900">💡 ¿Conoces algo que merezca estar aquí?</span>
+                    <span class="text-xs font-bold bg-indigo-800 text-white px-3 py-1.5 rounded-lg whitespace-nowrap group-open:hidden">Sugerir</span>
+                </summary>
+                <form id="form-sugerir-recurso" class="px-4 pb-4 space-y-3 border-t border-stone-200 pt-3" onsubmit="enviarSugerenciaRecurso(event)">
+                    <p class="text-[11px] text-stone-500">Una web, una app, un canal de YouTube, una cuenta de Instagram o Twitch… Lo revisa la organización antes de que salga publicado.</p>
+                    <label class="block text-xs font-bold text-stone-700">Nombre del sitio o canal
+                        <input id="sug-nombre" type="text" required maxlength="80" placeholder="Ej.: Ajedrez con Fulanito" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">Enlace
+                        <input id="sug-url" type="text" required maxlength="300" placeholder="https://..." class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">Tipo
+                        <select id="sug-categoria" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">¿Por qué lo recomiendas? <span class="font-medium text-stone-400">(opcional)</span>
+                        <input id="sug-descripcion" type="text" maxlength="160" placeholder="Ej.: explica las aperturas muy fácil" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="block text-xs font-bold text-stone-700">Tu nombre o nick
+                            <input id="sug-autor" type="text" required maxlength="40" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </label>
+                        <label class="block text-xs font-bold text-stone-700">Código de la liga
+                            <input id="sug-codigo" type="password" required placeholder="El del grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </label>
+                    </div>
+                    <button id="sug-enviar" type="submit" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black text-sm py-2.5 rounded-xl transition">Enviar sugerencia</button>
+                    <p id="sug-mensaje" class="hidden text-xs font-bold text-center"></p>
+                </form>
+            </details>
         </div>
     </div>
 </div>
@@ -1654,6 +1702,204 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         class="font-bold text-indigo-800 underline">Ver ranking ELO de ${palEsc(division)} →</button>
                 </div>`;
             caja.classList.remove('hidden');
+        }
+
+        // ==========================================================
+        // 🔗 RECURSOS (pestaña Mundo Chess → Recursos)
+        // ----------------------------------------------------------
+        // Se leen de la pestaña ENLACES de la hoja, columnas:
+        //   A Categoria | B Nombre | C URL | D Descripcion | E Recomendado_por | F Visible
+        // Visible vacío o "Sí" = se ve. "No" o "Pendiente" = oculto.
+        // Las sugerencias que manda la gente desde la app entran ahí como
+        // "Pendiente": para publicarlas basta con cambiarlo a "Sí".
+        // Si la pestaña ENLACES aún no existe, se usa la lista de abajo.
+        // ==========================================================
+        const RECURSOS_CATEGORIAS = [
+            { id: 'Jugar',              icono: '♟️' },
+            { id: 'Analizar partidas',  icono: '🔬' },
+            { id: 'Aperturas',          icono: '📖' },
+            { id: 'Entrenar',           icono: '🧩' },
+            { id: 'Vídeos y redes',     icono: '🎥' },
+            { id: 'Noticias y lectura', icono: '📰' }
+        ];
+        const RECURSOS_POR_DEFECTO = [
+            ['Jugar', 'Lichess', 'https://lichess.org', 'Gratis, sin anuncios y de código abierto. De aquí sale el ELO del ranking.'],
+            ['Jugar', 'Chess.com', 'https://www.chess.com/es', 'La plataforma más grande: partidas, lecciones y problemas.'],
+            ['Analizar partidas', 'Chessigma', 'https://chessigma.com', 'Análisis gratis de tus partidas, al estilo del "Game Review" de Chess.com.'],
+            ['Analizar partidas', 'Chesskit', 'https://chesskit.org', 'Análisis gratuito y de código abierto con Stockfish. Importa partidas de Lichess y Chess.com.'],
+            ['Analizar partidas', 'Tablero de análisis de Lichess', 'https://lichess.org/analysis', 'Pega un PGN y analízalo con Stockfish directamente en el navegador.'],
+            ['Aperturas', 'OpeningTree', 'https://www.openingtree.com', 'Árbol de aperturas a partir de las partidas de cualquier usuario. Ideal para preparar a tu rival de la jornada.'],
+            ['Entrenar', 'Problemas de Lichess', 'https://lichess.org/training', 'Táctica gratis e ilimitada, adaptada a tu nivel.'],
+            ['Vídeos y redes', 'Pepe Cuenca', 'https://www.youtube.com/results?search_query=Pepe+Cuenca+ajedrez', 'Gran Maestro y divulgador. Partidas comentadas en español.'],
+            ['Vídeos y redes', 'El Divis', 'https://www.youtube.com/results?search_query=El+Divis+ajedrez', 'Gran Maestro (David Martínez). Directos y vídeos en español.'],
+            ['Vídeos y redes', 'GothamChess', 'https://www.youtube.com/@GothamChess', 'Levy Rozman, en inglés: aperturas, errores típicos y actualidad.'],
+            ['Noticias y lectura', 'Europe Échecs', 'https://www.europe-echecs.com', 'Revista francesa de ajedrez: noticias, torneos y partidas.']
+        ].map(([categoria, nombre, url, descripcion]) => ({ categoria, nombre, url, descripcion, recomendadoPor: '' }));
+
+        const RECURSOS = { datos: null, filtro: '', cargando: false };
+
+        function iconoCategoriaRecurso(cat) {
+            const c = RECURSOS_CATEGORIAS.find(x => normalizaTexto(x.id) === normalizaTexto(cat));
+            return c ? c.icono : '🔗';
+        }
+        function urlSegura(u) {
+            let s = (u || '').toString().trim();
+            if (!s) return '';
+            if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+            try { const p = new URL(s); return (p.protocol === 'http:' || p.protocol === 'https:') ? p.href : ''; }
+            catch (e) { return ''; }
+        }
+        function dominioDe(u) {
+            try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
+        }
+
+        function cambiarVistaMundo(vista) {
+            const esRecursos = vista === 'recursos';
+            const activo = 'bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const inactivo = 'text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            document.getElementById('mundo-vista-noticias-btn').className = esRecursos ? inactivo : activo;
+            document.getElementById('mundo-vista-recursos-btn').className = esRecursos ? activo : inactivo;
+            document.getElementById('mundo-vista-noticias').classList.toggle('hidden', esRecursos);
+            document.getElementById('mundo-vista-recursos').classList.toggle('hidden', !esRecursos);
+            if (esRecursos) cargarRecursos();
+        }
+
+        // Se carga la primera vez que alguien abre Recursos, para no retrasar el arranque de la app
+        async function cargarRecursos(forzar) {
+            if (RECURSOS.cargando || (RECURSOS.datos && !forzar)) { renderRecursos(); return; }
+            RECURSOS.cargando = true;
+            let lista = null;
+            try {
+                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=ENLACES`);
+                const texto = await res.text();
+                const tabla = JSON.parse(texto.substring(47).slice(0, -2)).table;
+                // Si la pestaña no existe, Google devuelve otra hoja: lo comprobamos por la cabecera
+                const etiquetas = (tabla.cols || []).map(c => normalizaTexto(c.label));
+                if (etiquetas.includes('url') && etiquetas.includes('nombre')) {
+                    const col = (n) => etiquetas.indexOf(n);
+                    const val = (r, n) => { const i = col(n); return i >= 0 && r.c[i] && r.c[i].v !== null ? String(r.c[i].v).trim() : ''; };
+                    lista = (tabla.rows || []).map(r => ({
+                        categoria: val(r, 'categoria'),
+                        nombre: val(r, 'nombre'),
+                        url: val(r, 'url'),
+                        descripcion: val(r, 'descripcion'),
+                        recomendadoPor: val(r, 'recomendado_por'),
+                        visible: normalizaTexto(val(r, 'visible'))
+                    })).filter(x => x.nombre && x.url && (x.visible === '' || x.visible === 'si' || x.visible === 'sí'));
+                }
+            } catch (errRecursos) {
+                console.warn('No se ha podido leer la pestaña ENLACES, uso la lista por defecto:', errRecursos);
+            }
+            RECURSOS.datos = (lista && lista.length) ? lista : RECURSOS_POR_DEFECTO;
+            RECURSOS.cargando = false;
+            renderRecursos();
+        }
+
+        function setFiltroRecursos(el) { RECURSOS.filtro = el.getAttribute('data-cat') || ''; renderRecursos(); }
+
+        function renderRecursos() {
+            const cont = document.getElementById('recursos-lista');
+            const filtros = document.getElementById('recursos-filtros');
+            if (!cont || !RECURSOS.datos) return;
+
+            // Categorías en el orden fijo de arriba; las nuevas que se inventen en la hoja van al final
+            const presentes = [];
+            RECURSOS_CATEGORIAS.forEach(c => { if (RECURSOS.datos.some(r => normalizaTexto(r.categoria) === normalizaTexto(c.id))) presentes.push(c.id); });
+            RECURSOS.datos.forEach(r => {
+                const cat = r.categoria || 'Otros';
+                if (!presentes.some(p => normalizaTexto(p) === normalizaTexto(cat))) presentes.push(cat);
+            });
+            if (RECURSOS.filtro && !presentes.some(p => normalizaTexto(p) === normalizaTexto(RECURSOS.filtro))) RECURSOS.filtro = '';
+
+            const chip = (activo) => `px-3 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider border transition ${activo ? 'bg-lichess-dark-header text-white border-transparent' : 'bg-white text-stone-500 border-stone-300 hover:border-indigo-400 hover:text-indigo-800'}`;
+            filtros.innerHTML = [`<button type="button" data-cat="" onclick="setFiltroRecursos(this)" class="${chip(!RECURSOS.filtro)}">Todo</button>`]
+                .concat(presentes.map(p => `<button type="button" data-cat="${palEsc(p)}" onclick="setFiltroRecursos(this)" class="${chip(normalizaTexto(RECURSOS.filtro) === normalizaTexto(p))}">${iconoCategoriaRecurso(p)} ${palEsc(p)}</button>`))
+                .join('');
+
+            const secciones = presentes.filter(p => !RECURSOS.filtro || normalizaTexto(p) === normalizaTexto(RECURSOS.filtro));
+            cont.innerHTML = secciones.map(cat => {
+                const items = RECURSOS.datos.filter(r => normalizaTexto(r.categoria || 'Otros') === normalizaTexto(cat));
+                const tarjetas = items.map(r => {
+                    const url = urlSegura(r.url);
+                    if (!url) return '';
+                    const dom = dominioDe(url);
+                    return `<a href="${palEsc(url)}" target="_blank" rel="noopener noreferrer"
+                        class="flex items-start gap-3 bg-white hover:bg-indigo-50 border border-stone-300 hover:border-indigo-400 rounded-xl p-3 transition shadow-sm">
+                        <img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(dom)}&sz=64" alt="" loading="lazy"
+                            class="w-8 h-8 rounded-md shrink-0 bg-stone-100" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'w-8 h-8 shrink-0 text-xl text-center',textContent:'🔗'}))">
+                        <span class="min-w-0 flex-1">
+                            <span class="flex items-center justify-between gap-2">
+                                <span class="font-black text-sm text-stone-900 truncate">${palEsc(r.nombre)}</span>
+                                <span class="text-stone-400 text-xs shrink-0">↗</span>
+                            </span>
+                            ${r.descripcion ? `<span class="block text-xs text-stone-600 leading-snug mt-0.5">${palEsc(r.descripcion)}</span>` : ''}
+                            <span class="block text-[10px] text-stone-400 font-semibold mt-1 truncate">${palEsc(dom)}${r.recomendadoPor ? ` · 💬 Recomendado por <b class="text-stone-600">${palEsc(r.recomendadoPor)}</b>` : ''}</span>
+                        </span>
+                    </a>`;
+                }).join('');
+                return `<section>
+                    <h3 class="text-xs font-black uppercase tracking-wider text-stone-600 mb-2">${iconoCategoriaRecurso(cat)} ${palEsc(cat)}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${tarjetas}</div>
+                </section>`;
+            }).join('') || '<p class="text-stone-500 italic text-center py-4">Todavía no hay recursos.</p>';
+
+            // Desplegable del formulario de sugerencias
+            const sel = document.getElementById('sug-categoria');
+            if (sel && !sel.options.length) {
+                sel.innerHTML = RECURSOS_CATEGORIAS.map(c => `<option value="${palEsc(c.id)}">${c.icono} ${palEsc(c.id)}</option>`).join('')
+                    + '<option value="Otros">🔗 Otros</option>';
+            }
+        }
+
+        async function enviarSugerenciaRecurso(ev) {
+            ev.preventDefault();
+            const msg = document.getElementById('sug-mensaje');
+            const btn = document.getElementById('sug-enviar');
+            const aviso = (texto, error) => {
+                msg.textContent = texto;
+                msg.className = `text-xs font-bold text-center ${error ? 'text-red-700' : 'text-emerald-700'}`;
+            };
+            const nombre = document.getElementById('sug-nombre').value.trim();
+            const url = urlSegura(document.getElementById('sug-url').value);
+            const autor = document.getElementById('sug-autor').value.trim();
+            const codigo = document.getElementById('sug-codigo').value.trim();
+            if (!nombre) return aviso('❌ Falta el nombre del sitio o canal.', true);
+            if (!url) return aviso('❌ El enlace no parece válido.', true);
+            if (!autor) return aviso('❌ Escribe tu nombre o nick.', true);
+            if (!codigo) return aviso('❌ Falta el código de la liga.', true);
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        codigo,
+                        torneo: 'sugerencia',
+                        categoria: document.getElementById('sug-categoria').value,
+                        nombre,
+                        url,
+                        descripcion: document.getElementById('sug-descripcion').value.trim(),
+                        sugeridoPor: autor
+                    })
+                });
+                let r = null;
+                try { r = await res.json(); } catch (e) { r = null; }
+                if (r && r.ok === false) {
+                    aviso(`❌ ${r.error || 'No se ha podido enviar.'}`, true);
+                } else if (!r) {
+                    aviso('⚠️ No se ha podido confirmar el envío. Si no aparece en unos días, avisa a la organización.', true);
+                } else {
+                    aviso('✅ ¡Gracias! La organización la revisará y, si encaja, saldrá publicada aquí.', false);
+                    ['sug-nombre', 'sug-url', 'sug-descripcion'].forEach(id => document.getElementById(id).value = '');
+                }
+            } catch (errSug) {
+                aviso('❌ Error de conexión. Inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enviar sugerencia';
+            }
         }
 
         function setEloRitmo(r) { ELO.ritmo = r; ELO.resaltar = ''; renderRankingElo(); }

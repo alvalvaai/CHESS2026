@@ -1233,10 +1233,13 @@ resRows.forEach((r, idx) => {
   if (/[.,]5/.test(score1) || /[.,]5/.test(score2)) {
     individualDraws = 1;
   }
-  // 🚫 Victoria por incomparecencia: en la hoja se anota el 4-0 en E/F (para que sume en la
-  // clasificación) y "Incomparecencia" en la columna H. Cuenta como partido terminado, pero
-  // no se jugó: ni Rosco, ni Samurái, ni botón de análisis.
-  const incomparecencia = matchStatus === 'Terminado' && notasExcel.includes('incomparecencia');
+  // 🚫 Victoria por incomparecencia: en la hoja se anota el 4-0 en E/F, "Terminado" en H
+  // (así las fórmulas de CLASIFICACION lo cuentan sin tocarlas) e "Incomparecencia" en la
+  // columna I. Cuenta como partido terminado, pero no se jugó: ni Rosco, ni Samurái, ni
+  // botón de análisis. (También se acepta en H, por si alguien lo escribe ahí.)
+  const notasColI = r.c[8]?.v?.toString().toLowerCase() || '';
+  const incomparecencia = matchStatus === 'Terminado' &&
+    (notasColI.includes('incomparecencia') || notasExcel.includes('incomparecencia'));
   allMatches.push({
     round: roundNum, div: division, p1: player1, p2: player2,
     s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol,

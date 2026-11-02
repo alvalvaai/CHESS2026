@@ -254,7 +254,28 @@
                 </div>
                 <ul class="list-disc pl-5 space-y-2 mt-4">
                     <li><b>📤 Reportar el resultado en la app:</b> Además de anunciarlo en el Chat Tournament, uno de los dos jugadores tiene que entrar en la pestaña <b>"Reportar Resultados"</b> de la app y registrarlo ahí directamente — tanto si es un resultado de <b>Liga</b> como de <b>Copa</b> — para que la clasificación y el cuadro se actualicen solos.</li>
-                    <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es el estipulado <b>de martes a lunes</b>. Si consultas con <span class="font-bold text-stone-950">Guindiana</span> o con los administradores la imposibilidad de jugar en esas fechas <b>POR CAUSA MAYOR JUSTIFICADA</b>, se puede otorgar un <b>Aplazamiento</b> del partido. Si los dos jugadores no se ponen de acuerdo para jugar y el partido no ha sido aplazado, quedará marcado como <b>"Fuera de Tiempo"</b> y ambos jugadores se quedan con <b>0 puntos</b> en esa jornada. Los Lunes a las 23:59, se actualizarán los cuadros y clasificaciones oficiales de la app, si un resultado no está actualizado será <b>Fuera de Tiempo</b>.</li>
+                    <li><b>📆 Calendario y Plazos:</b> Cada jornada se juega <b>de martes a lunes</b>. Al acabar el plazo, cada partido queda en una de estas situaciones:
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li><b>✅ Jugado:</b> el resultado se ha reportado en la app antes del <b>lunes a las 23:59</b>.</li>
+                            <li><b>⏳ Aplazado:</b> si por <b>CAUSA MAYOR JUSTIFICADA</b> no podéis jugar en esas fechas, avisad a <span class="font-bold text-stone-950">Guindiana</span> o a los administradores <b>antes del viernes a las 23:59</b> de esa jornada. La organización decide si se aplaza y hasta cuándo.</li>
+                            <li><b>🔴 Fuera de Tiempo:</b> si no se ha jugado, no está aplazado y nadie ha reclamado incomparecencia, son <b>0 puntos para los dos</b>. Lo mismo para cualquier resultado que no esté reportado el lunes a las 23:59, que es cuando se actualizan los cuadros y clasificaciones oficiales.</li>
+                        </ul>
+                    </li>
+                    <li><b>🚫 Incomparecencia (victoria sin jugar):</b> si tú intentas jugar y tu rival no responde, no tienes por qué comerte el 0. Para reclamar la victoria tienes que cumplir estas tres condiciones:
+                        <ol class="list-decimal pl-5 mt-1 space-y-1">
+                            <li>Haber escrito a tu rival por <b>mensaje privado proponiendo al menos 2 horarios distintos</b> antes del <b>sábado a las 23:59</b> de esa jornada.</li>
+                            <li>Que tu rival <b>no haya contestado</b>, o <b>no haya aceptado ni propuesto ninguna alternativa</b>, dentro de la jornada.</li>
+                            <li><b>Enviar las capturas</b> de esos mensajes a <span class="font-bold text-stone-950">Guindiana</span> o a los administradores antes del <b>lunes a las 23:59</b>.</li>
+                        </ol>
+                        <p class="mt-1">Si la organización lo da por bueno, el partido cuenta como <b>victoria 4-0</b> para quien lo intentó, con sus <b>2 puntos</b> de clasificación. En la app saldrá como <i>"Incomparecencia"</i> y <b>no cuenta para distinciones</b> como el 🍩 Rosco o el 🇯🇵 Samurái.</p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Si <b>los dos</b> lo intentasteis pero no encontrasteis hueco, o <b>ninguno</b> lo intentó, es <b>Fuera de Tiempo</b> (0 puntos para los dos).</li>
+                            <li>Si el rival demuestra una <b>causa mayor justificada</b>, la organización puede dar un aplazamiento en lugar de la victoria.</li>
+                            <li><b>🏆 En la Copa</b> vale la misma norma: quien lo intentó pasa de ronda. Como en una eliminatoria siempre tiene que pasar alguien, si ninguno de los dos lo intentó, la organización decide por sorteo quién pasa.</li>
+                            <li><b>♻️ Reincidencia:</b> quien acumule <b>3 incomparecencias</b> en la temporada (Liga y Copa cuentan juntas) puede ser <b>expulsado de la liga</b>.</li>
+                            <li><b>La decisión de la organización es definitiva.</b></li>
+                        </ul>
+                    </li>
                     <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
                 </ul>
             </div>
@@ -286,10 +307,58 @@
 <div id="content-mundo-chess" class="hidden space-y-4">
     <div class="bg-lichess-card rounded-2xl shadow-xl p-6 border border-stone-400 max-w-2xl mx-auto">
         <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
-            🌍 Noticias Mundiales de Ajedrez
+            🌍 Mundo Chess
         </h2>
-        <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
-            <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
+        <!-- Interruptor: Noticias / Recursos -->
+        <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
+            <button id="mundo-vista-noticias-btn" type="button" onclick="cambiarVistaMundo('noticias')" class="bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">📰 Noticias</button>
+            <button id="mundo-vista-recursos-btn" type="button" onclick="cambiarVistaMundo('recursos')" class="text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🔗 Recursos</button>
+        </div>
+        <!-- VISTA: NOTICIAS -->
+        <div id="mundo-vista-noticias">
+            <div id="texto-mundo-chess" class="text-sm text-stone-800 leading-relaxed space-y-3 whitespace-pre-line">
+                <p class="text-stone-500 italic text-center py-4">Cargando noticias de la semana...</p>
+            </div>
+        </div>
+        <!-- VISTA: RECURSOS (webs, apps y canales recomendados) -->
+        <div id="mundo-vista-recursos" class="hidden space-y-5">
+            <p class="text-xs text-stone-500">Webs, apps y canales que usamos o recomendamos en la liga. ¿Echas algo en falta? Sugiérelo al final.</p>
+            <div id="recursos-filtros" class="flex flex-wrap gap-2"></div>
+            <div id="recursos-lista" class="space-y-6">
+                <p class="text-stone-500 italic text-center py-4">Cargando recursos...</p>
+            </div>
+            <!-- Sugerir un recurso -->
+            <details id="recursos-sugerir" class="bg-white border border-stone-300 rounded-xl group">
+                <summary class="cursor-pointer list-none px-4 py-3 flex items-center justify-between gap-3">
+                    <span class="text-sm font-black text-stone-900">💡 ¿Conoces algo que merezca estar aquí?</span>
+                    <span class="text-xs font-bold bg-indigo-800 text-white px-3 py-1.5 rounded-lg whitespace-nowrap group-open:hidden">Sugerir</span>
+                </summary>
+                <form id="form-sugerir-recurso" class="px-4 pb-4 space-y-3 border-t border-stone-200 pt-3" onsubmit="enviarSugerenciaRecurso(event)">
+                    <p class="text-[11px] text-stone-500">Una web, una app, un canal de YouTube, una cuenta de Instagram o Twitch… Lo revisa la organización antes de que salga publicado.</p>
+                    <label class="block text-xs font-bold text-stone-700">Nombre del sitio o canal
+                        <input id="sug-nombre" type="text" required maxlength="80" placeholder="Ej.: Ajedrez con Fulanito" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">Enlace
+                        <input id="sug-url" type="text" required maxlength="300" placeholder="https://..." class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">Tipo
+                        <select id="sug-categoria" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </label>
+                    <label class="block text-xs font-bold text-stone-700">¿Por qué lo recomiendas? <span class="font-medium text-stone-400">(opcional)</span>
+                        <input id="sug-descripcion" type="text" maxlength="160" placeholder="Ej.: explica las aperturas muy fácil" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="block text-xs font-bold text-stone-700">Tu nombre o nick
+                            <input id="sug-autor" type="text" required maxlength="40" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </label>
+                        <label class="block text-xs font-bold text-stone-700">Código de la liga
+                            <input id="sug-codigo" type="password" required placeholder="El del grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </label>
+                    </div>
+                    <button id="sug-enviar" type="submit" class="w-full bg-indigo-800 hover:bg-indigo-900 text-white font-black text-sm py-2.5 rounded-xl transition">Enviar sugerencia</button>
+                    <p id="sug-mensaje" class="hidden text-xs font-bold text-center"></p>
+                </form>
+            </details>
         </div>
     </div>
 </div>
@@ -1164,9 +1233,14 @@ resRows.forEach((r, idx) => {
   if (/[.,]5/.test(score1) || /[.,]5/.test(score2)) {
     individualDraws = 1;
   }
+  // 🚫 Victoria por incomparecencia: en la hoja se anota el 4-0 en E/F (para que sume en la
+  // clasificación) y "Incomparecencia" en la columna H. Cuenta como partido terminado, pero
+  // no se jugó: ni Rosco, ni Samurái, ni botón de análisis.
+  const incomparecencia = matchStatus === 'Terminado' && notasExcel.includes('incomparecencia');
   allMatches.push({
     round: roundNum, div: division, p1: player1, p2: player2,
-    s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
+    s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol,
+    incomp: incomparecencia
   });
 });
 const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=CLASIFICACION`);
@@ -1244,7 +1318,7 @@ const buildTableHTML = (rows, tema, nombreDivision) => {
 
         if (typeof allMatches !== 'undefined') {
             allMatches.forEach(m => {
-                if (m.status === 'Terminado') {
+                if (m.status === 'Terminado' && !m.incomp) { // las incomparecencias no son Roscos ni Samuráis
                     const s1Int = parseInt(m.s1);
                     const s2Int = parseInt(m.s2);
                     const rNameLower = r.name.toLowerCase().trim();
@@ -1654,6 +1728,204 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         class="font-bold text-indigo-800 underline">Ver ranking ELO de ${palEsc(division)} →</button>
                 </div>`;
             caja.classList.remove('hidden');
+        }
+
+        // ==========================================================
+        // 🔗 RECURSOS (pestaña Mundo Chess → Recursos)
+        // ----------------------------------------------------------
+        // Se leen de la pestaña ENLACES de la hoja, columnas:
+        //   A Categoria | B Nombre | C URL | D Descripcion | E Recomendado_por | F Visible
+        // Visible vacío o "Sí" = se ve. "No" o "Pendiente" = oculto.
+        // Las sugerencias que manda la gente desde la app entran ahí como
+        // "Pendiente": para publicarlas basta con cambiarlo a "Sí".
+        // Si la pestaña ENLACES aún no existe, se usa la lista de abajo.
+        // ==========================================================
+        const RECURSOS_CATEGORIAS = [
+            { id: 'Jugar',              icono: '♟️' },
+            { id: 'Analizar partidas',  icono: '🔬' },
+            { id: 'Aperturas',          icono: '📖' },
+            { id: 'Entrenar',           icono: '🧩' },
+            { id: 'Vídeos y redes',     icono: '🎥' },
+            { id: 'Noticias y lectura', icono: '📰' }
+        ];
+        const RECURSOS_POR_DEFECTO = [
+            ['Jugar', 'Lichess', 'https://lichess.org', 'Gratis, sin anuncios y de código abierto. De aquí sale el ELO del ranking.'],
+            ['Jugar', 'Chess.com', 'https://www.chess.com/es', 'La plataforma más grande: partidas, lecciones y problemas.'],
+            ['Analizar partidas', 'Chessigma', 'https://chessigma.com', 'Análisis gratis de tus partidas, al estilo del "Game Review" de Chess.com.'],
+            ['Analizar partidas', 'Chesskit', 'https://chesskit.org', 'Análisis gratuito y de código abierto con Stockfish. Importa partidas de Lichess y Chess.com.'],
+            ['Analizar partidas', 'Tablero de análisis de Lichess', 'https://lichess.org/analysis', 'Pega un PGN y analízalo con Stockfish directamente en el navegador.'],
+            ['Aperturas', 'OpeningTree', 'https://www.openingtree.com', 'Árbol de aperturas a partir de las partidas de cualquier usuario. Ideal para preparar a tu rival de la jornada.'],
+            ['Entrenar', 'Problemas de Lichess', 'https://lichess.org/training', 'Táctica gratis e ilimitada, adaptada a tu nivel.'],
+            ['Vídeos y redes', 'Pepe Cuenca', 'https://www.youtube.com/results?search_query=Pepe+Cuenca+ajedrez', 'Gran Maestro y divulgador. Partidas comentadas en español.'],
+            ['Vídeos y redes', 'El Divis', 'https://www.youtube.com/results?search_query=El+Divis+ajedrez', 'Gran Maestro (David Martínez). Directos y vídeos en español.'],
+            ['Vídeos y redes', 'GothamChess', 'https://www.youtube.com/@GothamChess', 'Levy Rozman, en inglés: aperturas, errores típicos y actualidad.'],
+            ['Noticias y lectura', 'Europe Échecs', 'https://www.europe-echecs.com', 'Revista francesa de ajedrez: noticias, torneos y partidas.']
+        ].map(([categoria, nombre, url, descripcion]) => ({ categoria, nombre, url, descripcion, recomendadoPor: '' }));
+
+        const RECURSOS = { datos: null, filtro: '', cargando: false };
+
+        function iconoCategoriaRecurso(cat) {
+            const c = RECURSOS_CATEGORIAS.find(x => normalizaTexto(x.id) === normalizaTexto(cat));
+            return c ? c.icono : '🔗';
+        }
+        function urlSegura(u) {
+            let s = (u || '').toString().trim();
+            if (!s) return '';
+            if (!/^https?:\/\//i.test(s)) s = 'https://' + s;
+            try { const p = new URL(s); return (p.protocol === 'http:' || p.protocol === 'https:') ? p.href : ''; }
+            catch (e) { return ''; }
+        }
+        function dominioDe(u) {
+            try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; }
+        }
+
+        function cambiarVistaMundo(vista) {
+            const esRecursos = vista === 'recursos';
+            const activo = 'bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            const inactivo = 'text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
+            document.getElementById('mundo-vista-noticias-btn').className = esRecursos ? inactivo : activo;
+            document.getElementById('mundo-vista-recursos-btn').className = esRecursos ? activo : inactivo;
+            document.getElementById('mundo-vista-noticias').classList.toggle('hidden', esRecursos);
+            document.getElementById('mundo-vista-recursos').classList.toggle('hidden', !esRecursos);
+            if (esRecursos) cargarRecursos();
+        }
+
+        // Se carga la primera vez que alguien abre Recursos, para no retrasar el arranque de la app
+        async function cargarRecursos(forzar) {
+            if (RECURSOS.cargando || (RECURSOS.datos && !forzar)) { renderRecursos(); return; }
+            RECURSOS.cargando = true;
+            let lista = null;
+            try {
+                const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=ENLACES`);
+                const texto = await res.text();
+                const tabla = JSON.parse(texto.substring(47).slice(0, -2)).table;
+                // Si la pestaña no existe, Google devuelve otra hoja: lo comprobamos por la cabecera
+                const etiquetas = (tabla.cols || []).map(c => normalizaTexto(c.label));
+                if (etiquetas.includes('url') && etiquetas.includes('nombre')) {
+                    const col = (n) => etiquetas.indexOf(n);
+                    const val = (r, n) => { const i = col(n); return i >= 0 && r.c[i] && r.c[i].v !== null ? String(r.c[i].v).trim() : ''; };
+                    lista = (tabla.rows || []).map(r => ({
+                        categoria: val(r, 'categoria'),
+                        nombre: val(r, 'nombre'),
+                        url: val(r, 'url'),
+                        descripcion: val(r, 'descripcion'),
+                        recomendadoPor: val(r, 'recomendado_por'),
+                        visible: normalizaTexto(val(r, 'visible'))
+                    })).filter(x => x.nombre && x.url && (x.visible === '' || x.visible === 'si' || x.visible === 'sí'));
+                }
+            } catch (errRecursos) {
+                console.warn('No se ha podido leer la pestaña ENLACES, uso la lista por defecto:', errRecursos);
+            }
+            RECURSOS.datos = (lista && lista.length) ? lista : RECURSOS_POR_DEFECTO;
+            RECURSOS.cargando = false;
+            renderRecursos();
+        }
+
+        function setFiltroRecursos(el) { RECURSOS.filtro = el.getAttribute('data-cat') || ''; renderRecursos(); }
+
+        function renderRecursos() {
+            const cont = document.getElementById('recursos-lista');
+            const filtros = document.getElementById('recursos-filtros');
+            if (!cont || !RECURSOS.datos) return;
+
+            // Categorías en el orden fijo de arriba; las nuevas que se inventen en la hoja van al final
+            const presentes = [];
+            RECURSOS_CATEGORIAS.forEach(c => { if (RECURSOS.datos.some(r => normalizaTexto(r.categoria) === normalizaTexto(c.id))) presentes.push(c.id); });
+            RECURSOS.datos.forEach(r => {
+                const cat = r.categoria || 'Otros';
+                if (!presentes.some(p => normalizaTexto(p) === normalizaTexto(cat))) presentes.push(cat);
+            });
+            if (RECURSOS.filtro && !presentes.some(p => normalizaTexto(p) === normalizaTexto(RECURSOS.filtro))) RECURSOS.filtro = '';
+
+            const chip = (activo) => `px-3 py-1.5 rounded-lg font-black text-[11px] uppercase tracking-wider border transition ${activo ? 'bg-lichess-dark-header text-white border-transparent' : 'bg-white text-stone-500 border-stone-300 hover:border-indigo-400 hover:text-indigo-800'}`;
+            filtros.innerHTML = [`<button type="button" data-cat="" onclick="setFiltroRecursos(this)" class="${chip(!RECURSOS.filtro)}">Todo</button>`]
+                .concat(presentes.map(p => `<button type="button" data-cat="${palEsc(p)}" onclick="setFiltroRecursos(this)" class="${chip(normalizaTexto(RECURSOS.filtro) === normalizaTexto(p))}">${iconoCategoriaRecurso(p)} ${palEsc(p)}</button>`))
+                .join('');
+
+            const secciones = presentes.filter(p => !RECURSOS.filtro || normalizaTexto(p) === normalizaTexto(RECURSOS.filtro));
+            cont.innerHTML = secciones.map(cat => {
+                const items = RECURSOS.datos.filter(r => normalizaTexto(r.categoria || 'Otros') === normalizaTexto(cat));
+                const tarjetas = items.map(r => {
+                    const url = urlSegura(r.url);
+                    if (!url) return '';
+                    const dom = dominioDe(url);
+                    return `<a href="${palEsc(url)}" target="_blank" rel="noopener noreferrer"
+                        class="flex items-start gap-3 bg-white hover:bg-indigo-50 border border-stone-300 hover:border-indigo-400 rounded-xl p-3 transition shadow-sm">
+                        <img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(dom)}&sz=64" alt="" loading="lazy"
+                            class="w-8 h-8 rounded-md shrink-0 bg-stone-100" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'w-8 h-8 shrink-0 text-xl text-center',textContent:'🔗'}))">
+                        <span class="min-w-0 flex-1">
+                            <span class="flex items-center justify-between gap-2">
+                                <span class="font-black text-sm text-stone-900 truncate">${palEsc(r.nombre)}</span>
+                                <span class="text-stone-400 text-xs shrink-0">↗</span>
+                            </span>
+                            ${r.descripcion ? `<span class="block text-xs text-stone-600 leading-snug mt-0.5">${palEsc(r.descripcion)}</span>` : ''}
+                            <span class="block text-[10px] text-stone-400 font-semibold mt-1 truncate">${palEsc(dom)}${r.recomendadoPor ? ` · 💬 Recomendado por <b class="text-stone-600">${palEsc(r.recomendadoPor)}</b>` : ''}</span>
+                        </span>
+                    </a>`;
+                }).join('');
+                return `<section>
+                    <h3 class="text-xs font-black uppercase tracking-wider text-stone-600 mb-2">${iconoCategoriaRecurso(cat)} ${palEsc(cat)}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">${tarjetas}</div>
+                </section>`;
+            }).join('') || '<p class="text-stone-500 italic text-center py-4">Todavía no hay recursos.</p>';
+
+            // Desplegable del formulario de sugerencias
+            const sel = document.getElementById('sug-categoria');
+            if (sel && !sel.options.length) {
+                sel.innerHTML = RECURSOS_CATEGORIAS.map(c => `<option value="${palEsc(c.id)}">${c.icono} ${palEsc(c.id)}</option>`).join('')
+                    + '<option value="Otros">🔗 Otros</option>';
+            }
+        }
+
+        async function enviarSugerenciaRecurso(ev) {
+            ev.preventDefault();
+            const msg = document.getElementById('sug-mensaje');
+            const btn = document.getElementById('sug-enviar');
+            const aviso = (texto, error) => {
+                msg.textContent = texto;
+                msg.className = `text-xs font-bold text-center ${error ? 'text-red-700' : 'text-emerald-700'}`;
+            };
+            const nombre = document.getElementById('sug-nombre').value.trim();
+            const url = urlSegura(document.getElementById('sug-url').value);
+            const autor = document.getElementById('sug-autor').value.trim();
+            const codigo = document.getElementById('sug-codigo').value.trim();
+            if (!nombre) return aviso('❌ Falta el nombre del sitio o canal.', true);
+            if (!url) return aviso('❌ El enlace no parece válido.', true);
+            if (!autor) return aviso('❌ Escribe tu nombre o nick.', true);
+            if (!codigo) return aviso('❌ Falta el código de la liga.', true);
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        codigo,
+                        torneo: 'sugerencia',
+                        categoria: document.getElementById('sug-categoria').value,
+                        nombre,
+                        url,
+                        descripcion: document.getElementById('sug-descripcion').value.trim(),
+                        sugeridoPor: autor
+                    })
+                });
+                let r = null;
+                try { r = await res.json(); } catch (e) { r = null; }
+                if (r && r.ok === false) {
+                    aviso(`❌ ${r.error || 'No se ha podido enviar.'}`, true);
+                } else if (!r) {
+                    aviso('⚠️ No se ha podido confirmar el envío. Si no aparece en unos días, avisa a la organización.', true);
+                } else {
+                    aviso('✅ ¡Gracias! La organización la revisará y, si encaja, saldrá publicada aquí.', false);
+                    ['sug-nombre', 'sug-url', 'sug-descripcion'].forEach(id => document.getElementById(id).value = '');
+                }
+            } catch (errSug) {
+                aviso('❌ Error de conexión. Inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enviar sugerencia';
+            }
         }
 
         function setEloRitmo(r) { ELO.ritmo = r; ELO.resaltar = ''; renderRankingElo(); }
@@ -2553,7 +2825,14 @@ if (ELO.vista === 'ranking') renderRankingElo();
         function textoResultadoCruce(m) {
             const hayPuntos = m.puntosJ1 !== '' && m.puntosJ2 !== '';
             if (hayPuntos) return `${m.puntosJ1} - ${m.puntosJ2}`;
+            // Ganador anotado sin puntos y con los DOS jugadores: no se jugó (incomparecencia
+            // o sorteo de la organización). Con un solo jugador sí es un exento del sorteo.
+            if (m.ganador && m.p1 && m.p2) return 'Sin jugar';
             return m.ganador ? 'Exento' : '- / -';
+        }
+        // ¿Se jugó de verdad este cruce de Copa? (para no ofrecer analizar partidas que no existen)
+        function cruceCopaJugado(m) {
+            return !!(m.ganador && m.p1 && m.p2 && m.puntosJ1 !== '' && m.puntosJ2 !== '');
         }
         // Vista de reserva (lista agrupada por ronda, sin conectar visualmente los cruces).
         // Se usa solo si a la pestaña COPA le faltan las columnas internas RondaNum/Slot.
@@ -2580,7 +2859,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                             </div>
                             <div class="text-right font-mono font-bold shrink-0">
                                 <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${resultadoTexto}</p>
-                                ${(m.ganador && m.p1 && m.p2) ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
+                                ${cruceCopaJugado(m) ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
                                     sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
                                     'mt-1 text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                             </div>
@@ -2668,7 +2947,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         <div class="px-2 py-1 flex justify-between items-center gap-1 h-1/2">
                             <span class="truncate font-bold ${claseP2}" ${m.p2 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p2.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p2 ? 'cursor:pointer;' : ''}">${p2Nombre}</span>
                         </div>
-                        ${(m.ganador && m.p1 && m.p2)
+                        ${cruceCopaJugado(m)
                             ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
                                 sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
                                 'absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-teal-800 bg-teal-50 border border-teal-300 px-1 rounded hover:bg-teal-700 hover:text-white transition',
@@ -3298,7 +3577,13 @@ if (ELO.vista === 'ranking') renderRankingElo();
         const lichessUser2 = player2Info && player2Info.lichess ? player2Info.lichess.trim() : m.p2.trim();
         let matchBadgeIndicator = "";
 
-        if (isFin) {
+        if (isFin && m.incomp) {
+            const s1Num = parseFloat((m.s1 || '').replace(',', '.'));
+            const s2Num = parseFloat((m.s2 || '').replace(',', '.'));
+            const ganadorIncomp = s1Num > s2Num ? m.p1 : s2Num > s1Num ? m.p2 : '';
+            matchBadgeIndicator = `<span class="text-[10px] font-black bg-red-50 text-red-900 px-1.5 py-0.5 rounded border border-red-300 block text-center mt-1" title="${palEsc(ganadorIncomp ? 'Gana ' + ganadorIncomp + ' sin jugar: su rival no se presentó' : 'Victoria sin jugar')}">🚫 Incomparecencia</span>`;
+        }
+        else if (isFin) {
             const s1Int = parseInt(m.s1);
             const s2Int = parseInt(m.s2);
             if ((s1Int === 4 && s2Int === 0) || (s1Int === 0 && s2Int === 4)) {
@@ -3361,7 +3646,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         }
                     </span>
                     ${matchBadgeIndicator}
-                    ${isFin ? botonAnalisisHTML(m.p1, m.p2, roundInfo ? roundInfo.start : '', roundInfo ? roundInfo.end : '',
+                    ${isFin && !m.incomp ? botonAnalisisHTML(m.p1, m.p2, roundInfo ? roundInfo.start : '', roundInfo ? roundInfo.end : '',
                         sumaPuntos(m.s1, m.s2), `Jornada ${rNum} · ${m.div}`,
                         'mt-1 block w-full text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                 </div>
@@ -3726,7 +4011,15 @@ if (ELO.vista === 'ranking') renderRankingElo();
                     let outcome = '⚔️ E';
                     let badgeClass = 'bg-amber-100 text-amber-950 border-amber-300';
 
-                    if(myScore > oppScore) {
+                    if (m.incomp) {
+                        // Victoria / derrota sin jugar: cuenta para la racha, pero sin Rosco ni Samurái
+                        const gana = myScore > oppScore;
+                        outcome = gana ? '🚫 V (incomp.)' : '🚫 D (no se presentó)';
+                        badgeClass = gana ? 'bg-emerald-50 text-emerald-900 border-emerald-300' : 'bg-red-50 text-red-900 border-red-300';
+                        streak.push(gana ? 'V' : 'D');
+                        formHistory.push({ round: m.round, result: gana ? 'V' : 'D' });
+                    }
+                    else if(myScore > oppScore) {
                         if (myScore === 4 && oppScore === 0) {
                             outcome = '🍩 ¡Rosco!';
                             badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300 animate-pulse';
@@ -3830,6 +4123,37 @@ if (ELO.vista === 'ranking') renderRankingElo();
   <div class="aviso-caja">
     <div class="aviso-icono">♞</div>
     <h1 id="aviso-titulo">Antes de entrar…</h1>
+
+    <!-- 🆕 NOVEDADES: cuando ya no hagan falta, borra desde aquí hasta "FIN NOVEDADES" -->
+    <div class="aviso-novedades">
+      <p class="aviso-novedades-titulo">🆕 Novedades en la app</p>
+      <ul class="aviso-lista">
+        <li>
+          <span>📊</span>
+          <div><b>Analiza tus partidas.</b> En los resultados de cada jornada (y en
+          la Copa), los partidos terminados tienen un botón <i>📊 Análisis</i> para
+          abrirlas en Chesskit o en Lichess.</div>
+        </li>
+        <li>
+          <span>⚡</span>
+          <div><b>Ranking ELO de Lichess</b> en <i>Peones → Ranking ELO</i>: Blitz,
+          Rápidas o la media, global o por división.</div>
+        </li>
+        <li>
+          <span>🚀</span>
+          <div><b>Revelación 🚀 y Pinchazo 🧊</b> en la clasificación: quién va más
+          por encima o por debajo de lo que le toca por su ELO. Tócalos para ver el ranking.</div>
+        </li>
+        <li>
+          <span>🔗</span>
+          <div><b>Recursos</b> en <i>Mundo Chess</i>: webs para jugar, entrenar,
+          preparar aperturas y canales que seguir. ¿Echas algo en falta?
+          ¡Sugiérelo desde ahí!</div>
+        </li>
+      </ul>
+    </div>
+    <!-- FIN NOVEDADES -->
+
     <p class="aviso-sub">Tres cosas que todo jugador tiene que tener claras</p>
 
     <ul class="aviso-lista">
@@ -3891,6 +4215,11 @@ if (ELO.vista === 'ranking') renderRankingElo();
   }
   .aviso-lista li > span{ font-size:1.4rem; line-height:1.2; flex-shrink:0; }
   .aviso-lista b{ color:#fff; }
+  .aviso-novedades{
+    background:rgba(245,185,66,.12); border:1px solid rgba(245,185,66,.45);
+    border-radius:12px; padding:12px 14px 2px; margin:0 0 18px;
+  }
+  .aviso-novedades-titulo{ margin:0 0 8px; font-weight:800; color:#f5b942; font-size:.95rem; }
 
   #aviso-aceptar{
     width:100%; padding:14px; border:0; border-radius:12px;
@@ -3903,7 +4232,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
 <script>
 (function () {
   var MODO = 'semanal';        // 'semanal' o 'siempre'
-  var AVISO_VERSION = '1';     // súbelo si cambias el texto del aviso
+  var AVISO_VERSION = '2';     // súbelo si cambias el texto del aviso ('2' = novedades Análisis + ELO + Recursos)
   var CLAVE = 'chess_aviso_aceptado';
 
   var aviso = document.getElementById('aviso-inicio');

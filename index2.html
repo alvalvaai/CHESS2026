@@ -254,7 +254,28 @@
                 </div>
                 <ul class="list-disc pl-5 space-y-2 mt-4">
                     <li><b>📤 Reportar el resultado en la app:</b> Además de anunciarlo en el Chat Tournament, uno de los dos jugadores tiene que entrar en la pestaña <b>"Reportar Resultados"</b> de la app y registrarlo ahí directamente — tanto si es un resultado de <b>Liga</b> como de <b>Copa</b> — para que la clasificación y el cuadro se actualicen solos.</li>
-                    <li><b>📆 Calendario y Plazos:</b> El plazo de juego de cada jornada es el estipulado <b>de martes a lunes</b>. Si consultas con <span class="font-bold text-stone-950">Guindiana</span> o con los administradores la imposibilidad de jugar en esas fechas <b>POR CAUSA MAYOR JUSTIFICADA</b>, se puede otorgar un <b>Aplazamiento</b> del partido. Si los dos jugadores no se ponen de acuerdo para jugar y el partido no ha sido aplazado, quedará marcado como <b>"Fuera de Tiempo"</b> y ambos jugadores se quedan con <b>0 puntos</b> en esa jornada. Los Lunes a las 23:59, se actualizarán los cuadros y clasificaciones oficiales de la app, si un resultado no está actualizado será <b>Fuera de Tiempo</b>.</li>
+                    <li><b>📆 Calendario y Plazos:</b> Cada jornada se juega <b>de martes a lunes</b>. Al acabar el plazo, cada partido queda en una de estas situaciones:
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li><b>✅ Jugado:</b> el resultado se ha reportado en la app antes del <b>lunes a las 23:59</b>.</li>
+                            <li><b>⏳ Aplazado:</b> si por <b>CAUSA MAYOR JUSTIFICADA</b> no podéis jugar en esas fechas, avisad a <span class="font-bold text-stone-950">Guindiana</span> o a los administradores <b>antes del viernes a las 23:59</b> de esa jornada. La organización decide si se aplaza y hasta cuándo.</li>
+                            <li><b>🔴 Fuera de Tiempo:</b> si no se ha jugado, no está aplazado y nadie ha reclamado incomparecencia, son <b>0 puntos para los dos</b>. Lo mismo para cualquier resultado que no esté reportado el lunes a las 23:59, que es cuando se actualizan los cuadros y clasificaciones oficiales.</li>
+                        </ul>
+                    </li>
+                    <li><b>🚫 Incomparecencia (victoria sin jugar):</b> si tú intentas jugar y tu rival no responde, no tienes por qué comerte el 0. Para reclamar la victoria tienes que cumplir estas tres condiciones:
+                        <ol class="list-decimal pl-5 mt-1 space-y-1">
+                            <li>Haber escrito a tu rival por <b>mensaje privado proponiendo al menos 2 horarios distintos</b> antes del <b>sábado a las 23:59</b> de esa jornada.</li>
+                            <li>Que tu rival <b>no haya contestado</b>, o <b>no haya aceptado ni propuesto ninguna alternativa</b>, dentro de la jornada.</li>
+                            <li><b>Enviar las capturas</b> de esos mensajes a <span class="font-bold text-stone-950">Guindiana</span> o a los administradores antes del <b>lunes a las 23:59</b>.</li>
+                        </ol>
+                        <p class="mt-1">Si la organización lo da por bueno, el partido cuenta como <b>victoria 4-0</b> para quien lo intentó, con sus <b>2 puntos</b> de clasificación. En la app saldrá como <i>"Incomparecencia"</i> y <b>no cuenta para distinciones</b> como el 🍩 Rosco o el 🇯🇵 Samurái.</p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Si <b>los dos</b> lo intentasteis pero no encontrasteis hueco, o <b>ninguno</b> lo intentó, es <b>Fuera de Tiempo</b> (0 puntos para los dos).</li>
+                            <li>Si el rival demuestra una <b>causa mayor justificada</b>, la organización puede dar un aplazamiento en lugar de la victoria.</li>
+                            <li><b>🏆 En la Copa</b> vale la misma norma: quien lo intentó pasa de ronda. Como en una eliminatoria siempre tiene que pasar alguien, si ninguno de los dos lo intentó, la organización decide por sorteo quién pasa.</li>
+                            <li><b>♻️ Reincidencia:</b> quien acumule <b>3 incomparecencias</b> en la temporada (Liga y Copa cuentan juntas) puede ser <b>expulsado de la liga</b>.</li>
+                            <li><b>La decisión de la organización es definitiva.</b></li>
+                        </ul>
+                    </li>
                     <li><b>📱 Contacto:</b> Para agendar la partida con tu rival se debe hacer siempre por <b>mensaje privado</b>. Podrás contactar con tu rival desde la pestaña de Clasificación, así como iniciar un reto (enlace a Whatsapp y a Lichess). Una vez fijada la hora, se anuncia en el Chat Tertulia.</li>
                 </ul>
             </div>
@@ -500,9 +521,10 @@
             <h2 class="text-xl font-black text-stone-900 border-b border-stone-300 pb-3 mb-4 flex items-center gap-2">
                 📤 Resultados
             </h2>
-            <div class="grid grid-cols-2 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
+            <div class="grid grid-cols-3 gap-2 mb-5 bg-stone-100 p-1.5 rounded-xl border border-stone-300">
                 <button id="rep-modo-liga-btn" onclick="cambiarModoReportar('liga')" class="rep-modo-btn bg-indigo-800 text-white px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🥇 Liga</button>
                 <button id="rep-modo-copa-btn" onclick="cambiarModoReportar('copa')" class="rep-modo-btn text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">🏆 Copa</button>
+                <button id="rep-modo-po-btn" onclick="cambiarModoReportar('playoffs')" class="rep-modo-btn text-stone-600 hover:text-stone-900 px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition">⚔️ Fases finales</button>
             </div>
             <!-- FORMULARIO LIGA -->
             <div id="rep-liga-form">
@@ -580,6 +602,43 @@
                         Enviar Resultado de la Copa
                     </button>
                     <p id="rep-copa-mensaje" class="text-sm font-bold text-center hidden"></p>
+                </div>
+            </div>
+            <!-- FORMULARIO FASES FINALES (Final Four y promociones: pestaña PLAYOFFS) -->
+            <div id="rep-po-form" class="hidden">
+                <p class="text-xs text-stone-500 mb-5">Para la Final Four y las promociones. Si acabáis 2-2: en la <b>Final Four</b> pasa el mejor clasificado en la liga; en las <b>promociones</b>, indica quién ganó el desempate.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Enfrentamiento</label>
+                        <select id="rep-po-partido" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label id="rep-po-label-p1" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 1</label>
+                            <input id="rep-po-score1" type="number" step="0.5" min="0" max="4" placeholder="Ej: 2.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                        <div>
+                            <label id="rep-po-label-p2" class="text-xs font-bold text-stone-700 uppercase tracking-wider">Puntos Jugador 2</label>
+                            <input id="rep-po-score2" type="number" step="0.5" min="0" max="4" placeholder="Ej: 1.5" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                        </div>
+                    </div>
+                    <p id="rep-po-nota-ff" class="hidden text-xs font-bold text-amber-900 bg-amber-50 border border-amber-300 rounded-xl px-3 py-2"></p>
+                    <div id="rep-po-ganador-container" class="hidden">
+                        <label class="text-xs font-bold text-amber-800 uppercase tracking-wider">⚡ Empate a puntos: ¿quién ganó el desempate?</label>
+                        <select id="rep-po-ganador" class="w-full mt-1 px-3 py-2 rounded-xl border border-amber-300 bg-amber-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700"></select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Tu nombre o nick</label>
+                        <input id="rep-po-nombre" type="text" placeholder="Ej: Barbamel" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-stone-700 uppercase tracking-wider">Código de la liga</label>
+                        <input id="rep-po-codigo" type="password" placeholder="El código que se compartió en el grupo" class="w-full mt-1 px-3 py-2 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-700">
+                    </div>
+                    <button id="rep-po-submit-btn" onclick="enviarResultadoPlayoffs()" class="w-full bg-red-800 hover:bg-red-900 text-white font-black py-3 rounded-xl transition uppercase tracking-wider text-sm">
+                        Enviar Resultado de la Fase Final
+                    </button>
+                    <p id="rep-po-mensaje" class="text-sm font-bold text-center hidden"></p>
                 </div>
             </div>
         </div>
@@ -1212,9 +1271,17 @@ resRows.forEach((r, idx) => {
   if (/[.,]5/.test(score1) || /[.,]5/.test(score2)) {
     individualDraws = 1;
   }
+  // 🚫 Victoria por incomparecencia: en la hoja se anota el 4-0 en E/F, "Terminado" en H
+  // (así las fórmulas de CLASIFICACION lo cuentan sin tocarlas) e "Incomparecencia" en la
+  // columna I. Cuenta como partido terminado, pero no se jugó: ni Rosco, ni Samurái, ni
+  // botón de análisis. (También se acepta en H, por si alguien lo escribe ahí.)
+  const notasColI = r.c[8]?.v?.toString().toLowerCase() || '';
+  const incomparecencia = matchStatus === 'Terminado' &&
+    (notasColI.includes('incomparecencia') || notasExcel.includes('incomparecencia'));
   allMatches.push({
     round: roundNum, div: division, p1: player1, p2: player2,
-    s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol
+    s1: score1, s2: score2, status: matchStatus, draws: individualDraws, tablas: numTablasCol,
+    incomp: incomparecencia
   });
 });
 const clasRes = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1&sheet=CLASIFICACION`);
@@ -1292,7 +1359,7 @@ const buildTableHTML = (rows, tema, nombreDivision) => {
 
         if (typeof allMatches !== 'undefined') {
             allMatches.forEach(m => {
-                if (m.status === 'Terminado') {
+                if (m.status === 'Terminado' && !m.incomp) { // las incomparecencias no son Roscos ni Samuráis
                     const s1Int = parseInt(m.s1);
                     const s2Int = parseInt(m.s2);
                     const rNameLower = r.name.toLowerCase().trim();
@@ -2799,7 +2866,14 @@ if (ELO.vista === 'ranking') renderRankingElo();
         function textoResultadoCruce(m) {
             const hayPuntos = m.puntosJ1 !== '' && m.puntosJ2 !== '';
             if (hayPuntos) return `${m.puntosJ1} - ${m.puntosJ2}`;
+            // Ganador anotado sin puntos y con los DOS jugadores: no se jugó (incomparecencia
+            // o sorteo de la organización). Con un solo jugador sí es un exento del sorteo.
+            if (m.ganador && m.p1 && m.p2) return 'Sin jugar';
             return m.ganador ? 'Exento' : '- / -';
+        }
+        // ¿Se jugó de verdad este cruce de Copa? (para no ofrecer analizar partidas que no existen)
+        function cruceCopaJugado(m) {
+            return !!(m.ganador && m.p1 && m.p2 && m.puntosJ1 !== '' && m.puntosJ2 !== '');
         }
         // Vista de reserva (lista agrupada por ronda, sin conectar visualmente los cruces).
         // Se usa solo si a la pestaña COPA le faltan las columnas internas RondaNum/Slot.
@@ -2826,7 +2900,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                             </div>
                             <div class="text-right font-mono font-bold shrink-0">
                                 <p class="bg-stone-100 border border-stone-300 px-2 py-0.5 rounded text-stone-900">${resultadoTexto}</p>
-                                ${(m.ganador && m.p1 && m.p2) ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
+                                ${cruceCopaJugado(m) ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
                                     sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
                                     'mt-1 text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                             </div>
@@ -2914,7 +2988,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         <div class="px-2 py-1 flex justify-between items-center gap-1 h-1/2">
                             <span class="truncate font-bold ${claseP2}" ${m.p2 ? `onclick="event.stopPropagation(); openPlayerModal('${m.p2.replace(/'/g, "\\'")}', 'Copa')" ` : ''} style="${m.p2 ? 'cursor:pointer;' : ''}">${p2Nombre}</span>
                         </div>
-                        ${(m.ganador && m.p1 && m.p2)
+                        ${cruceCopaJugado(m)
                             ? botonAnalisisHTML(m.p1, m.p2, conFechaR ? conFechaR.fechaInicio : '', conFechaR ? conFechaR.fechaFin : '',
                                 sumaPuntos(m.puntosJ1, m.puntosJ2), `Copa · ${m.ronda}`,
                                 'absolute right-1 top-1/2 -translate-y-1/2 text-[9px] font-mono font-bold text-teal-800 bg-teal-50 border border-teal-300 px-1 rounded hover:bg-teal-700 hover:text-white transition',
@@ -3291,25 +3365,183 @@ if (ELO.vista === 'ranking') renderRankingElo();
         // tiempos reducidos antes de poder enviar.
         // --------------------------------------------------------------------------
         function cambiarModoReportar(modo) {
-            const btnLiga = document.getElementById('rep-modo-liga-btn');
-            const btnCopa = document.getElementById('rep-modo-copa-btn');
-            const formLiga = document.getElementById('rep-liga-form');
-            const formCopa = document.getElementById('rep-copa-form');
-            if (!btnLiga || !btnCopa || !formLiga || !formCopa) return;
+            const modos = {
+                liga:     { btn: 'rep-modo-liga-btn', form: 'rep-liga-form' },
+                copa:     { btn: 'rep-modo-copa-btn', form: 'rep-copa-form' },
+                playoffs: { btn: 'rep-modo-po-btn',   form: 'rep-po-form' }
+            };
+            if (!modos[modo]) modo = 'liga';
             const clasesBase = 'rep-modo-btn px-3 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition';
             const clasesActivo = `${clasesBase} bg-indigo-800 text-white`;
             const clasesInactivo = `${clasesBase} text-stone-600 hover:text-stone-900`;
-            if (modo === 'copa') {
-                formLiga.classList.add('hidden');
-                formCopa.classList.remove('hidden');
-                btnCopa.className = clasesActivo;
-                btnLiga.className = clasesInactivo;
-                initReportarCopaUI();
+            Object.keys(modos).forEach(k => {
+                const btn = document.getElementById(modos[k].btn);
+                const form = document.getElementById(modos[k].form);
+                if (btn) btn.className = (k === modo) ? clasesActivo : clasesInactivo;
+                if (form) form.classList.toggle('hidden', k !== modo);
+            });
+            if (modo === 'copa') initReportarCopaUI();
+            if (modo === 'playoffs') initReportarPlayoffsUI();
+        }
+
+        // ==========================================================================
+        // ⚔️ REPORTAR FASES FINALES (pestaña PLAYOFFS de la hoja)
+        // Columnas: A=Fase B=División C=Jugador1 D=Jugador2 E=Resultado F=Desempate G=Ganador
+        // Se puede reportar cualquier enfrentamiento con los dos jugadores conocidos
+        // y sin ganador. El Apps Script lo busca por Fase + jugadores.
+        // ==========================================================================
+        let playoffsPendientesReportar = [];
+        let playoffsListenersAttached = false;
+        async function fetchPlayoffsRows() {
+            const res = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=0&sheet=PLAYOFFS`);
+            const txt = await res.text();
+            return JSON.parse(txt.substring(47).slice(0, -2)).table.rows.slice(1);
+        }
+        function playoffsDesdeFilas(rows) {
+            const txt = (r, i) => (r.c && r.c[i] && r.c[i].v !== null && r.c[i].v !== undefined) ? String(r.c[i].v).trim() : '';
+            return (rows || []).filter(r => r.c && r.c[0] && txt(r, 0)).map(r => ({
+                fase: txt(r, 0), p1: txt(r, 2), p2: txt(r, 3), resultado: txt(r, 4), ganador: txt(r, 6)
+            }));
+        }
+        // Semifinales, final y 3º/4º: en empate NO hay desempate, pasa el mejor clasificado de la liga
+        function esFaseFinalFour(fase) {
+            const f = normalizaTexto(fase);
+            return f.includes('semifinal') || f.includes('final') || f.includes('puesto');
+        }
+        function puestoEnLiga(nombre) {
+            const clave = normalizaTexto(nombre);
+            for (const d of (ordenDivisiones || [])) {
+                const r = (divisionesData[d] || []).find(x => normalizaTexto(x.name) === clave);
+                if (r) return Number(r.pos) || null;
+            }
+            return null;
+        }
+        function mejorClasificado(m) {
+            const a = puestoEnLiga(m.p1), b = puestoEnLiga(m.p2);
+            if (!a || !b || a === b) return '';
+            return a < b ? m.p1 : m.p2;
+        }
+        function esJugadorReal(n) {
+            return !!n && normalizaTexto(n) !== 'por clasificar';
+        }
+        function initReportarPlayoffsUI() {
+            const select = document.getElementById('rep-po-partido');
+            if (!select) return;
+            if (!playoffsListenersAttached) {
+                ['rep-po-score1', 'rep-po-score2'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener('input', comprobarEmpatePlayoffs);
+                });
+                select.addEventListener('change', actualizarEtiquetasPlayoffs);
+                playoffsListenersAttached = true;
+            }
+            select.innerHTML = `<option value="">Cargando enfrentamientos...</option>`;
+            fetchPlayoffsRows().then(rows => poblarPartidosReportarPlayoffs(playoffsDesdeFilas(rows)))
+                .catch(err => {
+                    console.error('❌ Error al cargar PLAYOFFS para reportar:', err);
+                    select.innerHTML = `<option value="">No se han podido cargar las fases finales</option>`;
+                });
+        }
+        function poblarPartidosReportarPlayoffs(partidos) {
+            const select = document.getElementById('rep-po-partido');
+            if (!select) return;
+            playoffsPendientesReportar = (partidos || []).filter(m => esJugadorReal(m.p1) && esJugadorReal(m.p2) && !m.ganador);
+            if (!playoffsPendientesReportar.length) {
+                select.innerHTML = `<option value="">No hay enfrentamientos pendientes de resultado</option>`;
             } else {
-                formCopa.classList.add('hidden');
-                formLiga.classList.remove('hidden');
-                btnLiga.className = clasesActivo;
-                btnCopa.className = clasesInactivo;
+                select.innerHTML = playoffsPendientesReportar.map((m, i) =>
+                    `<option value="${i}">${palEsc(m.fase)}: ${palEsc(m.p1)} vs ${palEsc(m.p2)}</option>`).join('');
+            }
+            actualizarEtiquetasPlayoffs();
+        }
+        function actualizarEtiquetasPlayoffs() {
+            const m = playoffsPendientesReportar[parseInt(document.getElementById('rep-po-partido').value)];
+            document.getElementById('rep-po-label-p1').textContent = m ? `Puntos de ${m.p1}` : 'Puntos Jugador 1';
+            document.getElementById('rep-po-label-p2').textContent = m ? `Puntos de ${m.p2}` : 'Puntos Jugador 2';
+            document.getElementById('rep-po-score1').value = '';
+            document.getElementById('rep-po-score2').value = '';
+            document.getElementById('rep-po-ganador-container').classList.add('hidden');
+            document.getElementById('rep-po-nota-ff').classList.add('hidden');
+        }
+        function comprobarEmpatePlayoffs() {
+            const m = playoffsPendientesReportar[parseInt(document.getElementById('rep-po-partido').value)];
+            const s1 = document.getElementById('rep-po-score1').value;
+            const s2 = document.getElementById('rep-po-score2').value;
+            const cont = document.getElementById('rep-po-ganador-container');
+            const nota = document.getElementById('rep-po-nota-ff');
+            cont.classList.add('hidden');
+            nota.classList.add('hidden');
+            if (!m || s1 === '' || s2 === '' || parseFloat(s1) !== parseFloat(s2)) return;
+            if (esFaseFinalFour(m.fase)) {
+                const pasa = mejorClasificado(m);
+                nota.textContent = pasa
+                    ? `🤝 Empate: en la Final Four no hay desempate. Pasa ${pasa} por haber acabado mejor clasificado en la liga.`
+                    : '🤝 Empate: en la Final Four pasa el mejor clasificado en la liga. Se calculará al enviar.';
+                nota.classList.remove('hidden');
+                return;
+            }
+            document.getElementById('rep-po-ganador').innerHTML =
+                `<option value="${palEsc(m.p1)}">${palEsc(m.p1)}</option><option value="${palEsc(m.p2)}">${palEsc(m.p2)}</option>`;
+            cont.classList.remove('hidden');
+        }
+        async function enviarResultadoPlayoffs() {
+            const mensajeEl = document.getElementById('rep-po-mensaje');
+            const btn = document.getElementById('rep-po-submit-btn');
+            const aviso = (texto, esError) => {
+                mensajeEl.textContent = texto;
+                mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
+                mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
+            };
+            const m = playoffsPendientesReportar[parseInt(document.getElementById('rep-po-partido').value)];
+            if (!m) return aviso('❌ Selecciona un enfrentamiento válido.', true);
+            const s1 = document.getElementById('rep-po-score1').value;
+            const s2 = document.getElementById('rep-po-score2').value;
+            const reportadoPor = document.getElementById('rep-po-nombre').value.trim();
+            const codigo = document.getElementById('rep-po-codigo').value.trim();
+            if (s1 === '' || s2 === '') return aviso('❌ Rellena los puntos de ambos jugadores.', true);
+            const n1 = parseFloat(s1), n2 = parseFloat(s2);
+            if (isNaN(n1) || isNaN(n2) || n1 < 0 || n2 < 0 || n1 + n2 > 4) return aviso('❌ Los puntos no cuadran: entre los dos suman como mucho 4.', true);
+            let ganador = '';
+            if (n1 === n2 && esFaseFinalFour(m.fase)) {
+                ganador = mejorClasificado(m); // el script lo vuelve a comprobar con la hoja CLASIFICACION
+            } else if (n1 === n2) {
+                ganador = document.getElementById('rep-po-ganador').value;
+                if (!ganador) return aviso('❌ Empate a puntos: indica quién ganó el desempate.', true);
+            }
+            if (!reportadoPor) return aviso('❌ Escribe tu nombre o nick.', true);
+            if (!codigo) return aviso('❌ Falta el código de la liga.', true);
+
+            btn.disabled = true;
+            btn.textContent = 'Enviando...';
+            try {
+                const res = await fetch(RESULTADOS_WEBAPP_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({
+                        torneo: 'playoffs', fase: m.fase, jugador1: m.p1, jugador2: m.p2,
+                        puntosJ1: n1, puntosJ2: n2, ganador: ganador, reportadoPor: reportadoPor, codigo: codigo
+                    })
+                });
+                let r = null;
+                try { r = await res.json(); } catch (e) { r = null; }
+                if (r && r.ok === false) return aviso(`❌ ${r.error || 'No se ha podido registrar el resultado.'}`, true);
+
+                const rows = await fetchPlayoffsRows();
+                renderPlayoffsUI(rows);
+                const partidos = playoffsDesdeFilas(rows);
+                if (r === null) {
+                    const act = partidos.find(x => x.fase === m.fase && x.p1 === m.p1 && x.p2 === m.p2);
+                    if (act && !act.ganador) return aviso('⚠️ No se ha podido confirmar el envío. Revisa las Fases Finales o avisa a la organización.', true);
+                }
+                aviso('✅ ¡Resultado enviado! Las Fases Finales ya están actualizadas.', false);
+                document.getElementById('rep-po-codigo').value = '';
+                poblarPartidosReportarPlayoffs(partidos);
+            } catch (err) {
+                console.error('Error al enviar el resultado de fases finales:', err);
+                aviso('❌ No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.', true);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enviar Resultado de la Fase Final';
             }
         }
         function initReportarCopaUI() {
@@ -3359,14 +3591,14 @@ if (ELO.vista === 'ranking') renderRankingElo();
             if (inputScore2) inputScore2.value = '';
             if (contenedorGanador) contenedorGanador.classList.add('hidden');
             if (!selectPartido || !copaPartidosPendientesReportar.length) {
-                if (labelP1) labelP1.innerText = 'Puntos Jugador 1';
-                if (labelP2) labelP2.innerText = 'Puntos Jugador 2';
+                if (labelP1) labelP1.textContent = 'Puntos Jugador 1';
+                if (labelP2) labelP2.textContent = 'Puntos Jugador 2';
                 return;
             }
             const m = copaPartidosPendientesReportar[parseInt(selectPartido.value)];
             if (!m) return;
-            if (labelP1) labelP1.innerText = `Puntos de ${m.p1}`;
-            if (labelP2) labelP2.innerText = `Puntos de ${m.p2}`;
+            if (labelP1) labelP1.textContent = `Puntos de ${m.p1}`;
+            if (labelP2) labelP2.textContent = `Puntos de ${m.p2}`;
         }
         // Cuando los puntos quedan empatados (p.ej. 2-2), hace falta el desempate a
         // tiempos reducidos: mostramos un selector para indicar quién lo ganó, porque
@@ -3392,7 +3624,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
             const mensajeEl = document.getElementById('rep-copa-mensaje');
             const btn = document.getElementById('rep-copa-submit-btn');
             const mostrarMensaje = (texto, esError) => {
-                mensajeEl.innerText = texto;
+                mensajeEl.textContent = texto;
                 mensajeEl.classList.remove('hidden', 'text-emerald-700', 'text-red-700');
                 mensajeEl.classList.add(esError ? 'text-red-700' : 'text-emerald-700');
             };
@@ -3444,7 +3676,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                 codigo: codigo
             };
             btn.disabled = true;
-            btn.innerText = 'Enviando...';
+            btn.textContent = 'Enviando...';
             try {
                 const res = await fetch(RESULTADOS_WEBAPP_URL, {
                     method: 'POST',
@@ -3487,7 +3719,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                 mostrarMensaje('❌ No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.', true);
             } finally {
                 btn.disabled = false;
-                btn.innerText = 'Enviar Resultado de la Copa';
+                btn.textContent = 'Enviar Resultado de la Copa';
             }
         }
         let calendarListenersAttached = false;
@@ -3544,7 +3776,13 @@ if (ELO.vista === 'ranking') renderRankingElo();
         const lichessUser2 = player2Info && player2Info.lichess ? player2Info.lichess.trim() : m.p2.trim();
         let matchBadgeIndicator = "";
 
-        if (isFin) {
+        if (isFin && m.incomp) {
+            const s1Num = parseFloat((m.s1 || '').replace(',', '.'));
+            const s2Num = parseFloat((m.s2 || '').replace(',', '.'));
+            const ganadorIncomp = s1Num > s2Num ? m.p1 : s2Num > s1Num ? m.p2 : '';
+            matchBadgeIndicator = `<span class="text-[10px] font-black bg-red-50 text-red-900 px-1.5 py-0.5 rounded border border-red-300 block text-center mt-1" title="${palEsc(ganadorIncomp ? 'Gana ' + ganadorIncomp + ' sin jugar: su rival no se presentó' : 'Victoria sin jugar')}">🚫 Incomparecencia</span>`;
+        }
+        else if (isFin) {
             const s1Int = parseInt(m.s1);
             const s2Int = parseInt(m.s2);
             if ((s1Int === 4 && s2Int === 0) || (s1Int === 0 && s2Int === 4)) {
@@ -3607,7 +3845,7 @@ if (ELO.vista === 'ranking') renderRankingElo();
                         }
                     </span>
                     ${matchBadgeIndicator}
-                    ${isFin ? botonAnalisisHTML(m.p1, m.p2, roundInfo ? roundInfo.start : '', roundInfo ? roundInfo.end : '',
+                    ${isFin && !m.incomp ? botonAnalisisHTML(m.p1, m.p2, roundInfo ? roundInfo.start : '', roundInfo ? roundInfo.end : '',
                         sumaPuntos(m.s1, m.s2), `Jornada ${rNum} · ${m.div}`,
                         'mt-1 block w-full text-[10px] font-bold bg-teal-50 text-teal-800 border border-teal-300 rounded px-1.5 py-0.5 hover:bg-teal-700 hover:text-white transition') : ''}
                 </div>
@@ -3972,7 +4210,15 @@ if (ELO.vista === 'ranking') renderRankingElo();
                     let outcome = '⚔️ E';
                     let badgeClass = 'bg-amber-100 text-amber-950 border-amber-300';
 
-                    if(myScore > oppScore) {
+                    if (m.incomp) {
+                        // Victoria / derrota sin jugar: cuenta para la racha, pero sin Rosco ni Samurái
+                        const gana = myScore > oppScore;
+                        outcome = gana ? '🚫 V (incomp.)' : '🚫 D (no se presentó)';
+                        badgeClass = gana ? 'bg-emerald-50 text-emerald-900 border-emerald-300' : 'bg-red-50 text-red-900 border-red-300';
+                        streak.push(gana ? 'V' : 'D');
+                        formHistory.push({ round: m.round, result: gana ? 'V' : 'D' });
+                    }
+                    else if(myScore > oppScore) {
                         if (myScore === 4 && oppScore === 0) {
                             outcome = '🍩 ¡Rosco!';
                             badgeClass = 'bg-emerald-100 text-emerald-950 border-emerald-300 animate-pulse';
